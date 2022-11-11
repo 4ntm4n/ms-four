@@ -17,8 +17,8 @@ import os
 
 
 # importing environment variables
-developing = os.path.isfile('./env.py')
-if developing:
+DEVELOPING = os.path.isfile('./env.py')
+if DEVELOPING:
     import env
 
 
@@ -33,7 +33,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG")
+if os.environ.get("DEBUG") == "True":
+    DEBUG =  True
+else:
+    DEBUG = False
+
+if os.environ.get("TEST_SERVER") == "True":
+    TEST_SERVER = True
+else:
+    TEST_SERVER = False
 
 ALLOWED_HOSTS = ["pytagora.herokuapp.com", "localhost"]
 
@@ -41,9 +49,7 @@ ALLOWED_HOSTS = ["pytagora.herokuapp.com", "localhost"]
 # Application definition
 
 INSTALLED_APPS = [
-    #3rd party apps
-    "cloudinary"
-    "cloudinary_storage"
+    
 
     #django default apps
     "django.contrib.admin",
@@ -51,10 +57,16 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    
+    #static file setup
+    "cloudinary_storage",
     "django.contrib.staticfiles",
 
+    #3rd party apps
+    "cloudinary",
+
     #my apps
-    
+    "core", # contains override of standard user model
     
 ]
 
@@ -92,17 +104,15 @@ WSGI_APPLICATION = "pytagora.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if developing:
+if DEBUG and TEST_SERVER:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
-            },
-        }
-else:
-    DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+        },
+    }
+else: 
+    DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 
 
 # Password validation
@@ -136,12 +146,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.environ.get("CLOUD_NAME"),
-    "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
-    "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
-}
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -157,5 +161,8 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
+# standard user model override
+AUTH_USER_MODEL = "core.User"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
