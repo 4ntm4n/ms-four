@@ -67,6 +67,7 @@ INSTALLED_APPS = [
 
     #my apps
     "core", # contains override of standard user model
+    "userprofile",
     
 ]
 
