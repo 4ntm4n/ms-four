@@ -71,7 +71,7 @@ class RefResponse(models.Model):
     answers saved from the reference.
     """
     # response relations to user profile
-    ref_request = models.OneToOneField(RefRequest, verbose_name=_("ref request"), on_delete=models.CASCADE)
+    ref_request = models.OneToOneField(RefRequest, verbose_name=_("request to"), on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, verbose_name=_("profile"), on_delete=models.CASCADE, null=True, blank=True)
 
     # info about reference
@@ -110,11 +110,11 @@ class RefResponse(models.Model):
     time_added = models.DateTimeField(_("time added"), auto_now=True)
 
 
-    def __str__(self):
+    def get_profile(self):
         """
-        returns email of reference. 
+        returns profile related to response
         """
-        return f"Reference: {self.email}"
+        return self.ref_request.profile
 
     
     def get_full_name(self):
@@ -124,9 +124,17 @@ class RefResponse(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+    def __str__(self):
+        """
+        returns email of reference. 
+        """
+        return f"From: {self.company_name} To: {self.get_profile()}"
+
+
     class Meta:
         verbose_name = "Reference response"
         verbose_name_plural = "Reference responses"
+        ordering = ["ref_request"]
 
 
     @receiver(post_save, sender=RefRequest)
