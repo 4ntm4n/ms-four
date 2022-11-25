@@ -1,7 +1,9 @@
 from django import forms
-from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
+
 from core.models import User
+
 from .models import Profile, RefRequest, RefResponse
 
 

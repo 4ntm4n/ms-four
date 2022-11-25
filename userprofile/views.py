@@ -1,6 +1,6 @@
 from django.http import request, response
 from django.shortcuts import render
-from django.views.generic import CreateView, TemplateView, ListView
+from django.views.generic import CreateView, ListView, TemplateView
 from django.views.generic.detail import DetailView
 
 from userprofile.forms import RequestForm, SignUpForm
