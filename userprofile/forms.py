@@ -1,6 +1,9 @@
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from core.models import User
+from .models import Profile, RefRequest, RefResponse
+
 
 class SignUpForm(UserCreationForm):
     """
@@ -8,5 +11,9 @@ class SignUpForm(UserCreationForm):
     """
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ["first_name", "last_name", "email"]
 
+class RequestForm(ModelForm):
+    class Meta:
+        model = RefRequest
+        fields = ["company_name", "date_to", "date_from", "to_email"]

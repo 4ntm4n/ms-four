@@ -1,26 +1,29 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
-    <title>Pytagora Beta</title>
-</head>
-<body>
-
-    <h1>pytagora logo</h1>
-    <nav>
-        <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'signup' %}">Signup</a></li>
-    </nav>
-    {% block content %}
-    
-    {% endblock content %}
-    <footer>
-
-    </footer>
-</body>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Free Web tutorials"/>
+        <meta name="keywords" content="HTML, CSS, JavaScript"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="{% static 'base/css/style.css' %}"/>
+        <title>Pytagora Beta</title>
+    </head>
+    <body>
+        <h1>pytagora logo</h1>
+        <nav>
+            <li>
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li>
+                <a href="{% url 'signup' %}">Signup</a>
+            </li>
+        </nav>
+        {% block content %}
+        {% endblock content %}
+        <footer>
+            © Anton Askling 2022
+        </footer>
+    </body>
 </html>
-

@@ -10,11 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
-import dj_database_url
 import os
+from pathlib import Path
 
-
+import dj_database_url
 
 # importing environment variables
 DEVELOPING = os.path.isfile('./env.py')

@@ -1,10 +1,11 @@
 from django.db import models
-from core.models import User #imported user override
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext as _
 # 3rd party dependencies
 from partial_date import PartialDateField
+
+from core.models import User  # imported user override
 
 
 class Profile(models.Model):
@@ -20,7 +21,7 @@ class Profile(models.Model):
         return object in readable form.
         """
         return f"{self.first_name} {self.last_name}"
-    
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
