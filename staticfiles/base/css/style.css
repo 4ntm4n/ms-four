@@ -1,3 +1,5 @@
+
+
 body {
     display: flex;
     min-height: 100vh;
@@ -6,4 +8,33 @@ body {
 
 main {
     flex: 1 0 auto;
+}
+
+
+
+.slider .indicators .indicator-item.active {
+    background-color: #fa7f6f; /* change this color */
+  }
+
+
+.slider-img-container{
+  height:500px;
+}
+.slider-img{
+    min-height:400px;
+    filter: brightness(.88);
+}
+
+.inline{
+    display: inline;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.slider-dark-overlay{
+    position: relative;
+    background-color:rgba(20, 12, 12, 0.486);
+
 }

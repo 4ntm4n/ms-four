@@ -25,10 +25,10 @@
     <body>
         <header>
             <nav>
-                <div class="nav-wrapper">
+                <div class="nav-wrapper z-depth-4">
                     <a href="{% url 'home' %}" class="brand-logo">Pytagora</a>
                     <a href="#" data-target="pytagora-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                    <ul class="hide-on-med-and-down">
+                    <ul class="right hide-on-med-and-down">
                         <li>
                             <a href="{% url 'home' %}">Home</a>
                         </li>
@@ -53,7 +53,7 @@
         {% endblock content %}
        </main>
 
-        <footer class="page-footer">
+        <footer class="page-footer pytagora-orange" >
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-copyright">
+            <div class="footer-copyright orange lighten-2">
                 <div class="container">
                     © 2014 Copyright Text
                     <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
