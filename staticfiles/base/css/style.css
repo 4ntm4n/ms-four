@@ -1,5 +1,3 @@
-
-
 body {
     display: flex;
     min-height: 100vh;
@@ -10,6 +8,9 @@ main {
     flex: 1 0 auto;
 }
 
+header{
+    z-index: 2;
+}
 
 
 .slider .indicators .indicator-item.active {
@@ -22,7 +23,11 @@ main {
 }
 .slider-img{
     min-height:400px;
-    filter: brightness(.88);
+    filter: brightness(.7);
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    z-index:2;
 }
 
 .inline{
@@ -33,8 +38,22 @@ main {
     font-weight: bold;
 }
 
-.slider-dark-overlay{
-    position: relative;
-    background-color:rgba(20, 12, 12, 0.486);
 
+@media only screen and (max-width: 601px) {
+    .slider-img-container .s12 {
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+      }
+   
+}
+
+
+@media only screen and (max-width: 1095px) {
+    
+    #calming-view{
+        height: 600px;
+    }
+   
 }
