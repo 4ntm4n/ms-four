@@ -1,11 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     
-    options = {
+    //sidenav
+    const sidenav = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(sidenav, {
         edge: "left",
         draggable: false,
-    }
+    });
 
-    const elem = document.querySelectorAll('.sidenav');
-    const instance = M.Sidenav.init(elem, options);
+    //collapsible element for requests on profile
+    const collapsible = document.querySelectorAll('.collapsible');
+    M.Collapsible.init(collapsible)
+
+
   });
   

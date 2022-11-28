@@ -66,7 +66,6 @@ class RefRequest(models.Model):
         verbose_name_plural = "Reference requests"
 
 
-
 class RefResponse(models.Model):
     """
     answers saved from the reference.

@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
     <h2>hello {{ profile }}</h2>
+        
+        <div class="container">
+            {% include "./components/profile_pending_requests.html" %}
+        </div>
+    
 
-    {% for request in requests %}
-
-        <p>{{ request.company_name }}</p>
-
-    {% endfor %}
+        {% comment %} <td>{{ request.time_sent|date:"d M, Y" }}</td> {% endcomment %}
 
 {% endblock content %}

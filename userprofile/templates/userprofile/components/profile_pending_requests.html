@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col s12 l10 offset-l1">
+        <div class="card-panel indigo">
+            <span class="white-text ">My pending references <i class="material-icons right" >watch_later</i> </span>
+            <hr/>
+            <ul class="collapsible popout">
+            {% for request in requests %}
+        
+                  <li>
+                    <div class="collapsible-header"> <span class="truncate">{{ request.company_name }}</span></div>
+                    <div class="collapsible-body grey lighten-4">
+                        <span>
+                               <ul>
+                                <li class="truncate"> <span class="blue-text"> sent to: </span> {{ request.to_email }}</li>
+                                <li> <span class="blue-text"> on </span>  {{ request.time_sent|date:"M d, Y" }}</li>
+                               </ul>
+                               <a class=" request-remove-btn btn-floating waves-effect waves-red btn-small red lighten-2 right" href=""> <i class="material-icons white-text">delete</i></a>
+                        </span>   
+                    </div>
+                  </li>
+            {% endfor %}
+             </ul>
+        </div>
+    </div>
+</div>

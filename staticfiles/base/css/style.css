@@ -9,9 +9,12 @@ main {
 }
 
 header{
-    z-index: 2;
+    z-index: 3;
 }
 
+.sidenav-overlay {
+    z-index: 2;
+}
 
 .slider .indicators .indicator-item.active {
     background-color: #fa7f6f; /* change this color */
@@ -24,10 +27,6 @@ header{
 .slider-img{
     min-height:400px;
     filter: brightness(.7);
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    z-index:2;
 }
 
 .inline{
@@ -38,6 +37,19 @@ header{
     font-weight: bold;
 }
 
+.collection{
+    overflow: visible;
+}
+
+.rounded{
+    border-radius: .7rem;
+}
+
+.request-remove-btn{
+    position:relative;
+    right:-2.5rem;
+    top: 0rem;
+}
 
 @media only screen and (max-width: 601px) {
     .slider-img-container .s12 {
