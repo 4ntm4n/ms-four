@@ -39,7 +39,7 @@ class ProfileView(ListView):
     def get(self, request, *args, **kwargs):
         profile = Profile.objects.get(id=kwargs["pk"])
         form = self.form_class
-        requests = profile.refrequest_set.filter(status="PEND")
+        requests = profile.refrequest_set.all()
         return render(
             self.request, 
             "userprofile/profile.html", 

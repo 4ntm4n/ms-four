@@ -2,11 +2,83 @@
 {% block content %}
     <h2>hello {{ profile }}</h2>
         
-        <div class="container">
+    <div class="container">
             {% include "./components/profile_pending_requests.html" %}
-        </div>
+
+        
+        <div class="row">
+            <div class="col s12">
+                <div class="card indigo">
+                    <div class="card-content">
+                        <span class="white-text">My references <i class="material-icons right">redeem</i></span>
+                        <hr/>
+                    </div>
+                    <div class=" collection">
+                        {% for request in requests %}  
+                        {% if request.status == "COMP" %}
+
+                        <a data-target="{{ request.refresponse.id }}" class="modal-trigger  collection-item" href="">{{ request.status }} | {{ request.refresponse.email }} | {{ request.refresponse.get_full_name }} | ID:  {{ request.refresponse.id }} </a>
+
+                        <div id="{{ request.refresponse.id }}" class="modal">
+                            <div class="modal-content">
+                                <span class="indigo-text">Reference from {{ request.refresponse.company_name }}</span>
+                                <p class="bold">{{ request.profile }}'s duties at {{ request.refresponse.company_name }}</p>
+                                <p>{{ request.refresponse.main_tasks }}</p>
+                                <br/>
+                                <p  class="bold">Performance description</p>
+                                <p>{{ request.refresponse.elaborate }}</p>
+                                <p>{{ request.refresponse.extra }}</p>
+                                <br/>
+                                <p class="indigo-text">reference response by:</p>
+                                <p>{{ request.refresponse.get_full_name }}</p>
+                                <p>{{ request.refresponse.title }}</p>
+                                <p>{{ request.refresponse.company_name }}</p>
+                                <p>contact: {{ request.refresponse.email }} | telephone here </p>
+                                
+
     
+                            </div>
+                            <div class="modal-footer indigo">
+                                <span class="left">status: {{ request.get_status_display }}</span>
+                                
+                              <a href="#!" class=" modal-close waves-effect waves-green btn-flat">close</a>
+                            </div>
+                        </div>
 
-        {% comment %} <td>{{ request.time_sent|date:"d M, Y" }}</td> {% endcomment %}
-
+                        {% endif %}
+                        {% endfor %}
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
+
+{% comment %} <a data-target="reference-full" class="collection-item center truncate indigo-text modal-trigger modal-trigger"  href="#modal1"> {{ request.refresponse.get_full_name }} | {{ request.refresponse.company_name }} </a>
+                        <div id="reference-full" class="modal">
+                            <div class="modal-content">
+                                <span class="indigo-text">Reference from {{ request.refresponse.company_name }}</span>
+                                <p class="bold">{{ request.profile }}'s duties at {{ request.refresponse.company_name }}</p>
+                                <p>{{ request.refresponse.main_tasks }}</p>
+                                <br/>
+                                <p  class="bold">Performance description</p>
+                                <p>{{ request.refresponse.elaborate }}</p>
+                                <p>{{ request.refresponse.extra }}</p>
+                                <br/>
+                                <p class="indigo-text">reference response by:</p>
+                                <p>{{ request.refresponse.get_full_name }}</p>
+                                <p>{{ request.refresponse.title }}</p>
+                                <p>{{ request.refresponse.company_name }}</p>
+                                <p>contact: {{ request.refresponse.email }} | telephone here </p>
+                                
+
+    
+                            </div>
+                            <div class="modal-footer indigo">
+                                <span class="left">status: {{ request.get_status_display }}</span>
+                                
+                              <a href="#!" class=" modal-close waves-effect waves-green btn-flat">close</a>
+                            </div>
+                        </div> {% endcomment %}

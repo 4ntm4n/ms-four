@@ -126,7 +126,7 @@ class RefResponse(models.Model):
 
     def __str__(self):
         """
-        returns email of reference. 
+        returns context string for which the response is made from and to.
         """
         return f"From: {self.company_name} To: {self.get_profile()}"
 

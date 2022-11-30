@@ -20,7 +20,6 @@ header{
     background-color: #fa7f6f; /* change this color */
   }
 
-
 .slider-img-container{
   height:500px;
 }
@@ -50,6 +49,21 @@ header{
     right:-2.5rem;
     top: 0rem;
 }
+
+
+
+/* PROFILE REFERENCE RESPONSE */
+
+.responder-list-name {
+    max-width: 80%;
+}
+
+.collection a.collection-item:hover{
+    color: darkblue;
+    background-color: #dde1ff !important;
+}
+
+
 
 @media only screen and (max-width: 601px) {
     .slider-img-container .s12 {
