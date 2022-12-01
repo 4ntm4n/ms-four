@@ -71,6 +71,13 @@ class TestProfileView(LoginRequiredMixin, ListView):
     template_name="userprofile/test_profile.html"
 
     def get_context_data(self, **kwargs):
+        """ 
+        Gets context data for profile view
+        1. filter out context to logged in user using profile model
+        2. get reference requests related to that profile
+        3. get reference response from related profile and
+        filter out completed responses.
+        """
         context = super().get_context_data(**kwargs)
         context["profile"] = context["profile"].filter(user=self.request.user)
         context["requests"] = context["profile"][0].refrequest_set.all()
