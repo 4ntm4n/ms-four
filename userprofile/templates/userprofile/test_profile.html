@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>this is test profile</h2>
+    
+    <table>
+        <tr>
+            <th>request from</th>
+            <td>to company</td>
+            <td>request sent to</td>
+            <td>status</td>
+        </tr>
+            {% for request in requests %}
+            
+            <tr>
+                <td>{{ request.profile }}</td>
+                <td>{{ request.to_email }}</td>
+                <td>{{ request.company_name }}</td>
+                <td>{{ request.status }}</td>
+            </tr>
+
+            {% empty %}
+            <p>no requests has been made yet</p>
+            {% endfor %}
+    </table>
+
+    <table>
+        <tr>
+            <th>response from</th>
+            <th>company</th>
+            <th>email</th>
+            <th>response to</th>
+        </tr>
+            {% for response in comp_responses %}
+            <tr>
+                <td>{{ response.get_full_name }}</td>
+                <td>{{ response.company_name }}</td>
+                <td>{{ response.email }}</td>
+                <td><a href="{% url 'reference_detail' response.id %}">details</a></td>
+
+            </tr>
+
+            {% empty %}
+            <p>you have not received any responses yet.</p>
+            {% endfor %}
+    </table>
+
+{% endblock content %}

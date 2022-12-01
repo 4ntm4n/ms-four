@@ -6,7 +6,7 @@
             <ul class="collapsible popout">
             {% for request in requests %}
         
-                {% if request.status == PEND %}
+                {% if request.status == "PEND" %}
                 <li>
                     <div class="collapsible-header"> <span class="truncate">{{ request.company_name }}</span></div>
                     <div class="collapsible-body grey lighten-4">

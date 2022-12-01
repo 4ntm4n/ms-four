@@ -23,6 +23,14 @@
         <title>Pytagora Beta</title>
     </head>
     <body>
+        {% if user.is_authenticated %}
+        <p>hey {{ user.first_name }}!</p>
+        <a href="{% url 'logout' %}">logout</a>
+        {% else %}
+        <a href="{% url 'login' %}"> login</a>
+        {% endif %}
+        
+        <hr />
         <header>
             <nav>
                 <div class="nav-wrapper z-depth-1">

@@ -20,3 +20,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("userprofile.urls")),
 ]
+
+
+""" namespace="userprofile """
