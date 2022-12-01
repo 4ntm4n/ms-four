@@ -14,7 +14,7 @@ from .models import *
 
 class HomeView(TemplateView):
     template_name = "userprofile/home.html"
-    
+
 
 class ProfileView(ListView):
     model = RefRequest
@@ -36,6 +36,14 @@ class ProfileView(ListView):
 class SignUpView(FormView):
     template_name = "userprofile/signup.html"
     form_class = SignUpForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy("test_profile")
+
+    def form_valid(self, form):
+        user = form.save()
+        if user is not None:
+            login(self.request, user)
+        return super(SignUpView, self).form_valid(form)
 
 class UserLoginView(LoginView):
     template_name ="userprofile/login.html"
