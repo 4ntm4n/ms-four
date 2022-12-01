@@ -1,3 +1,4 @@
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import request, response
@@ -13,34 +14,7 @@ from .models import *
 
 class HomeView(TemplateView):
     template_name = "userprofile/home.html"
-
-""" class ProfileView(View):
     
-    form_class = RequestForm
-
-    def get(self, request, *args, **kwargs):
-        profile = Profile.objects.get(id=kwargs["pk"])
-        form = self.form_class
-        return render(
-            self.request, 
-            "userprofile/profile.html", 
-            {
-                "profile": profile,
-                "form": form,
-            })
-    
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            form.save() """
-
-class UserLoginView(LoginView):
-    template_name ="userprofile/login.html"
-    fields = "__all__"
-    redirect_authenticated_user = True
-
-    def get_success_url(self):
-        return reverse_lazy("test_profile")
 
 class ProfileView(ListView):
     model = RefRequest
@@ -57,12 +31,19 @@ class ProfileView(ListView):
             })
 
 
-class SignUpView(CreateView):
+""" testing different, probably better approach """
+
+class SignUpView(FormView):
     template_name = "userprofile/signup.html"
     form_class = SignUpForm
 
+class UserLoginView(LoginView):
+    template_name ="userprofile/login.html"
+    fields = "__all__"
+    redirect_authenticated_user = True
 
-""" testing different, probably better approach """
+    def get_success_url(self):
+        return reverse_lazy("test_profile")
 
 
 class TestProfileView(LoginRequiredMixin, ListView):
@@ -72,28 +53,19 @@ class TestProfileView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         """ 
-        Gets context data for profile view
-        1. filter out context to logged in user using profile model
-        2. get reference requests related to that profile
+        Gets context data for profile view:
+        1. filter out context to logged in user using profile model.
+        2. get reference requests related to that profile.
         3. get reference response from related profile and
-        filter out completed responses.
+        filter them out based on completed requests.
         """
         context = super().get_context_data(**kwargs)
         context["profile"] = context["profile"].filter(user=self.request.user)
         context["requests"] = context["profile"][0].refrequest_set.all()
-        context["comp_responses"] = context["profile"][0].refresponse_set.all().filter(ref_request__status="COMP")
+        context["comp_responses"] = context["profile"][0].refresponse_set.all(
+        ).filter(ref_request__status="COMP")
         return context
      
-
-    """ def get_context_data(self, **kwargs):
-        reference_requests = RefRequest
-        reference_response = RefResponse
-        context = super(TestProfileView, self).get_context_data(**kwargs)
-        context.update({
-            "requests": reference_requests.objects.filter(user=self.request.profile.user),
-            "responses": reference_response.objects.order_by("time_added"),
-        })
-        return context """
 
 class TestReferenceDetailView(LoginRequiredMixin, DetailView):
     model = RefResponse
@@ -104,5 +76,11 @@ class TestReferenceDetailView(LoginRequiredMixin, DetailView):
 class TestCreateRequestView(LoginRequiredMixin, CreateView):
     model = RefRequest
     template_name = "userprofile/test_ref_request.html"
-    fields = "__all__"
+    fields = ["company_name", "date_from", "date_to", "to_email"]
     success_url = reverse_lazy("test_profile")
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        form.instance.status = "PEND"
+        print("this form was sent to profile: ", self.request.user.profile)
+        return super(TestCreateRequestView, self).form_valid(form)
