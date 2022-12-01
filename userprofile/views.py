@@ -57,6 +57,7 @@ class SignUpView(FormView):
 
         return super(SignUpView, self).get(*args, **kwargs)
 
+
 class UserLoginView(LoginView):
     template_name ="userprofile/login.html"
     fields = "__all__"
