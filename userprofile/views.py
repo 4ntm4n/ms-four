@@ -104,15 +104,14 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         form.instance.status = "PEND"
-
+        recipient = form.instance.to_email
+        uid = self.request.user.id
         email = EmailMessage(
             'Hello',
-            'Body goes here',
-            'from@example.com',
-            ['to1@example.com', 'to2@example.com'],
-            ['bcc@example.com'],
+            f'Body goes here: user with user id {uid} needs your help',
+            'hello@pytagora.com',
+            [recipient],
             reply_to=['another@example.com'],
-            headers={'Message-ID': 'foo'},
 )       
         email.fail_silently=False
         email.send()
