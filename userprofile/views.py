@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.mail import EmailMessage
 from django.http import request, response
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -103,5 +104,18 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         form.instance.status = "PEND"
+
+        email = EmailMessage(
+            'Hello',
+            'Body goes here',
+            'from@example.com',
+            ['to1@example.com', 'to2@example.com'],
+            ['bcc@example.com'],
+            reply_to=['another@example.com'],
+            headers={'Message-ID': 'foo'},
+)       
+        email.fail_silently=False
+        email.send()
+
         print("this form was sent to profile: ", self.request.user.profile)
         return super(TestCreateRequestView, self).form_valid(form)
