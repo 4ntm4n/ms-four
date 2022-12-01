@@ -2,7 +2,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import request, response
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DetailView, FormView, ListView,
                                   TemplateView)
@@ -36,14 +36,26 @@ class ProfileView(ListView):
 class SignUpView(FormView):
     template_name = "userprofile/signup.html"
     form_class = SignUpForm
-    redirect_authenticated_user = True
     success_url = reverse_lazy("test_profile")
 
     def form_valid(self, form):
+        """
+        Method that adds feature of logging in user, once user created.
+        """
         user = form.save()
         if user is not None:
             login(self.request, user)
         return super(SignUpView, self).form_valid(form)
+
+
+    def get(self, *args, **kwargs):
+        """
+        Redirects user to its profile if user is already logged in.
+        """
+        if self.request.user.is_authenticated:
+            return redirect("test_profile")
+
+        return super(SignUpView, self).get(*args, **kwargs)
 
 class UserLoginView(LoginView):
     template_name ="userprofile/login.html"
