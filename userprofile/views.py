@@ -1,13 +1,18 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import request, response
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.views.generic import (CreateView, DetailView, FormView, ListView,
                                   TemplateView)
 
+from core.tokens import account_activation_token
 from userprofile.forms import RequestForm, SignUpForm
 
 from .models import *
@@ -104,11 +109,24 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         form.instance.status = "PEND"
+        user = self.request.user
+        # get the ref_request id before it is sent. 
+        ref_request_id = form.instance.id
+        current_site = get_current_site(self.request)
+
         recipient = form.instance.to_email
-        uid = self.request.user.id
+        uid = user.id
+        
+        email_body = render_to_string("userprofile/emails/request_reference_email.html", {
+            "name":user.profile,
+            "domain":current_site.domain,
+            "reqid": urlsafe_base64_encode(force_bytes(ref_request_id)),
+            "token": account_activation_token.make_token(user),
+            })
+
         email = EmailMessage(
-            'Hello',
-            f'Body goes here: user with user id {uid} needs your help',
+            'email subject',
+            email_body,
             'hello@pytagora.com',
             [recipient],
             reply_to=['another@example.com'],
@@ -118,3 +136,5 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
 
         print("this form was sent to profile: ", self.request.user.profile)
         return super(TestCreateRequestView, self).form_valid(form)
+
+

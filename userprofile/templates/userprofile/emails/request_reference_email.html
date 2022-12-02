@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hi {{ name }} needs your help,
+
+Please click on the link below to answer some questions:
+
+http://{{ domain }}{% url 'respond' uidb64=reqid token=token %}
+{% endautoescape %}
