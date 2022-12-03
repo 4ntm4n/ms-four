@@ -113,7 +113,7 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         # get the ref_request id before it is sent. 
         ref_request = form.save(commit=False)
         form.save()
-        response_id = form.instance.refresponse.id
+        response_id = ref_request
 
         current_site = get_current_site(self.request)
 
@@ -122,7 +122,7 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         email_body = render_to_string("userprofile/emails/request_reference_email.html", {
             "name":user.profile,
             "domain":current_site.domain,
-            "refid": response_id, #urlsafe_base64_encode(force_bytes(ref_request_id))
+            "refid": "a01" + urlsafe_base64_encode(force_bytes(response_id)),
             "token": account_activation_token.make_token(form.instance.refresponse),
             })
 
@@ -151,3 +151,35 @@ class TestResponseView(UpdateView):
     template_name = "userprofile/test_respond.html"
     fields = "__all__"
     success_url = reverse_lazy("home")
+
+    def get_object(self): 
+        """
+        1. decrypt reference ID
+        2. Finds the specific reference object the user will respond to.
+        3. render UpdateView for user response based on it's related request.
+        """
+        encoded_refid = self.kwargs["uidb64"].replace("a01", "")
+        refid = force_str(urlsafe_base64_decode(encoded_refid))
+        related_request = RefRequest.objects.get(pk=refid).refresponse.id
+        reference_object = RefResponse.objects.get(pk=related_request)
+
+        return reference_object
+
+    def get(self, *args, **kwargs):
+        """
+        redirects reference responder, if response is completed.
+        """
+
+        encoded_refid = kwargs["uidb64"].replace("a01", "")
+        print(encoded_refid)
+        refid = force_str(urlsafe_base64_decode(encoded_refid))
+        print("!!!!!!",kwargs["uidb64"])
+        print(refid)
+        reference_response = RefRequest.objects.get(pk=37)
+
+        #reference_response = RefResponse.objects.get(id=kwargs["pk"])
+        return super(TestResponseView, self).get(*args, **kwargs)
+"""         context["comp_responses"] = context["profile"][0].refresponse_set.all(
+        ).filter(ref_request__status="COMP")
+ """
+
