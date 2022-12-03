@@ -123,7 +123,7 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
             "name":user.profile,
             "domain":current_site.domain,
             "refid": response_id, #urlsafe_base64_encode(force_bytes(ref_request_id))
-            "token": account_activation_token.make_token(user),
+            "token": account_activation_token.make_token(form.instance.refresponse),
             })
 
         email = EmailMessage(
@@ -151,4 +151,3 @@ class TestResponseView(UpdateView):
     template_name = "userprofile/test_respond.html"
     fields = "__all__"
     success_url = reverse_lazy("home")
-    

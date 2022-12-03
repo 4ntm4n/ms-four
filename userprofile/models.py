@@ -107,8 +107,10 @@ class RefResponse(models.Model):
     referee_last_name = models.CharField(_("referee last name"), max_length=50)
 
 
+    completed = models.BooleanField(_("is completed"), default=False)
     time_added = models.DateTimeField(_("time added"), auto_now=True)
 
+    
 
     def get_profile(self):
         """
