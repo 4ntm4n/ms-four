@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views.generic import (CreateView, DetailView, FormView, ListView,
-                                  TemplateView)
+                                  TemplateView, UpdateView, View)
 
 from core.tokens import account_activation_token
 from userprofile.forms import RequestForm, SignUpForm
@@ -111,16 +111,18 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         form.instance.status = "PEND"
         user = self.request.user
         # get the ref_request id before it is sent. 
-        ref_request_id = form.instance.id
+        ref_request = form.save(commit=False)
+        form.save()
+        response_id = form.instance.refresponse.id
+
         current_site = get_current_site(self.request)
 
         recipient = form.instance.to_email
-        uid = user.id
         
         email_body = render_to_string("userprofile/emails/request_reference_email.html", {
             "name":user.profile,
             "domain":current_site.domain,
-            "reqid": urlsafe_base64_encode(force_bytes(ref_request_id)),
+            "refid": response_id, #urlsafe_base64_encode(force_bytes(ref_request_id))
             "token": account_activation_token.make_token(user),
             })
 
@@ -138,3 +140,15 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         return super(TestCreateRequestView, self).form_valid(form)
 
 
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+
+
+
+
+class TestResponseView(UpdateView):
+    model = RefResponse
+    template_name = "userprofile/test_respond.html"
+    fields = "__all__"
+    success_url = reverse_lazy("home")
+    

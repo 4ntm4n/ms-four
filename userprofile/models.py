@@ -59,7 +59,7 @@ class RefRequest(models.Model):
 
 
     def __str__(self):
-        return self.to_email
+        return f"{self.pk}"
 
     class Meta:
         verbose_name = "Reference request"
