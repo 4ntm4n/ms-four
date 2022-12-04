@@ -13,7 +13,7 @@ from django.views.generic import (CreateView, DetailView, FormView, ListView,
                                   TemplateView, UpdateView, View)
 
 from core.tokens import account_activation_token
-from userprofile.forms import RequestForm, SignUpForm
+from userprofile.forms import RequestForm, SignUpForm, ReferenceResponseForm
 
 from .models import *
 
@@ -147,10 +147,9 @@ from django.utils.http import urlsafe_base64_decode
 
 
 class TestResponseView(UpdateView):
-    model = RefResponse
     template_name = "userprofile/test_respond.html"
-    fields = "__all__"
     success_url = reverse_lazy("home")
+    form_class = ReferenceResponseForm
 
     def get_object(self): 
         """
@@ -165,21 +164,22 @@ class TestResponseView(UpdateView):
 
         return reference_object
 
-    def get(self, *args, **kwargs):
-        """
-        redirects reference responder, if response is completed.
-        """
+    def get(self, request, *args, **kwargs):
 
+        print(kwargs["uidb64"].replace("a01", ""))
         encoded_refid = kwargs["uidb64"].replace("a01", "")
-        print(encoded_refid)
         refid = force_str(urlsafe_base64_decode(encoded_refid))
-        print("!!!!!!",kwargs["uidb64"])
-        print(refid)
-        reference_response = RefRequest.objects.get(pk=37)
+        # Below I find the RefResponse ID through the request, issues when multiple users send requests
+        related_request = RefRequest.objects.get(pk=refid)
+        response_id = related_request.refresponse.id 
+        reference = RefResponse.objects.get(pk=response_id)
 
-        #reference_response = RefResponse.objects.get(id=kwargs["pk"])
-        return super(TestResponseView, self).get(*args, **kwargs)
-"""         context["comp_responses"] = context["profile"][0].refresponse_set.all(
-        ).filter(ref_request__status="COMP")
- """
+        
+        return super(TestResponseView, self).get(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        request_status = form.instance.ref_request.status
+        form.instance.ref_request.status = "COMP"
+        form.instance.ref_request.save()        
 
+        return super(TestResponseView, self).form_valid(form)

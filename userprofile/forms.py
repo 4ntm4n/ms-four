@@ -19,3 +19,12 @@ class RequestForm(ModelForm):
     class Meta:
         model = RefRequest
         fields = ["company_name", "date_to", "date_from", "to_email"]
+
+
+class ReferenceResponseForm(ModelForm):
+    """
+    form to respond to users reference requests.
+    """
+    class Meta:
+        model = RefResponse
+        fields = "__all__"
