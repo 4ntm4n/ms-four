@@ -12,7 +12,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.views.generic import (CreateView, DetailView, FormView, ListView,
                                   TemplateView, UpdateView, View)
 
-from core.tokens import account_activation_token
+from core.tokens import account_activation_token, link
 from userprofile.forms import RequestForm, SignUpForm, ReferenceResponseForm
 
 from .models import *
@@ -123,7 +123,7 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         email_body = render_to_string("userprofile/emails/request_reference_email.html", {
             "name":user.profile,
             "domain":current_site.domain,
-            "refid": "a01" + urlsafe_base64_encode(force_bytes(response_id)),
+            "refid": link.encrypt_link(user.profile, response_id),
             "token": account_activation_token.make_token(form.instance.refresponse),
             })
 
@@ -157,9 +157,10 @@ class TestResponseView(UpdateView):
         1. decrypt reference ID
         2. Finds the specific reference object the user will respond to.
         3. render UpdateView for user response based on it's related request.
+        
         """
-        encoded_refid = self.kwargs["uidb64"].replace("a01", "")
-        refid = force_str(urlsafe_base64_decode(encoded_refid))
+        refid = link.decrypt_link(self.kwargs["uidb64"])
+       
         related_request = RefRequest.objects.get(pk=refid).refresponse.id
         reference_object = RefResponse.objects.get(pk=related_request)
 
@@ -167,9 +168,7 @@ class TestResponseView(UpdateView):
 
     def get(self, request, *args, **kwargs):
 
-        print(kwargs["uidb64"].replace("a01", ""))
-        encoded_refid = kwargs["uidb64"].replace("a01", "")
-        refid = force_str(urlsafe_base64_decode(encoded_refid))
+        refid = link.decrypt_link(kwargs["uidb64"])
         # Below I find the RefResponse ID through the request, issues when multiple users send requests
         related_request = RefRequest.objects.get(pk=refid)
         response_id = related_request.refresponse.id 
