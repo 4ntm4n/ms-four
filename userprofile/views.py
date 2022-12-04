@@ -119,11 +119,11 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         current_site = get_current_site(self.request)
 
         recipient = form.instance.to_email
-        
+        company = form.instance.company_name
         email_body = render_to_string("userprofile/emails/request_reference_email.html", {
             "name":user.profile,
             "domain":current_site.domain,
-            "refid": link.encrypt_link(user.profile, response_id),
+            "refid": link.encrypt_link(company, response_id),
             "token": account_activation_token.make_token(form.instance.refresponse),
             })
 
@@ -137,7 +137,7 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         email.fail_silently=False
         email.send()
 
-        print("this form was sent to profile: ", self.request.user.profile)
+        print("this form was sent to profile: ", user.profile)
         return super(TestCreateRequestView, self).form_valid(form)
 
 
