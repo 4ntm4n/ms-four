@@ -187,5 +187,5 @@ class TestResponseView(UpdateView):
         form.instance.completed = True
         print(form.instance.completed)
         form.instance.ref_request.save()     
-
+        messages.success(self.request, "You did it! Thanks for being awesome.")
         return super(TestResponseView, self).form_valid(form)
