@@ -100,6 +100,7 @@ class TestReferenceDetailView(LoginRequiredMixin, DetailView):
     template_name ="userprofile/test_response_detail.html"
 
 
+
 class TestCreateRequestView(LoginRequiredMixin, CreateView):
     model = RefRequest
     template_name = "userprofile/test_ref_request.html"
@@ -144,7 +145,7 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
 
-
+from django.contrib import messages
 
 class TestResponseView(UpdateView):
     template_name = "userprofile/test_respond.html"
@@ -174,12 +175,17 @@ class TestResponseView(UpdateView):
         response_id = related_request.refresponse.id 
         reference = RefResponse.objects.get(pk=response_id)
 
+        if reference.completed:
+            messages.warning(request, "This reference request is already completed, thank you!")
+            return redirect ("home")
         
         return super(TestResponseView, self).get(request, *args, **kwargs)
     
     def form_valid(self, form):
         request_status = form.instance.ref_request.status
         form.instance.ref_request.status = "COMP"
-        form.instance.ref_request.save()        
+        form.instance.completed = True
+        print(form.instance.completed)
+        form.instance.ref_request.save()     
 
         return super(TestResponseView, self).form_valid(form)

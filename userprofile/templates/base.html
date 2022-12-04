@@ -54,6 +54,14 @@
                     <a href="{% url 'signup' %}">Signup</a>
                 </li>
             </ul>
+
+            <div class="messages">
+                {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tag %} alert- {{ message.tags }}{% endif %}">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+            </div>
         </header>
 
        <main>
