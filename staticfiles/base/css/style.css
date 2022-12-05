@@ -94,7 +94,20 @@ header{
     top: 0rem;
 }
 
+.crumbs-row{
+    margin-bottom: 5px;
+}
 
+.profilesque-image{
+    height:15vh;
+    padding: 0 !important;
+}
+
+#req-reference{
+    position: relative !important;
+    top: 13vh;
+    z-index: 2;
+}
 
 /* PROFILE -reference response */
 
