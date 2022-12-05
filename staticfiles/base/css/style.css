@@ -44,16 +44,47 @@ header{
     border-radius: .7rem;
 }
 
+.breadcrumb {
+    font-size: 1rem !important;
+}
+
+.breadcrumb:before {
+    content: '\E5CC';
+    color: rgba(255,255,255,0.7);
+    vertical-align: bottom;
+    display: inline-block;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 3vw;
+    margin: 0 14px 0 8px;
+    -webkit-font-smoothing: antialiased;
+}
+
 /* quick-access classes for heading sizes */
-.hl{
-    font-size: 3rem !important;
-}
-.hm{
-    font-size: 2rem !important;
-}
-.hs{
-    font-size: 1.5rem !important;
-}
+.hl{font-size: 3rem !important;}
+.hm{font-size: 2rem !important;}
+.hs{font-size: 1.5rem !important;}
+
+
+.xs {font-size: 0.75rem!important;}
+.sm {font-size: 0.875rem!important;}
+.base {font-size: 1rem!important;}
+.lg {font-size: 1.125rem!important;}
+.xl {font-size: 1.25rem!important;}
+.xl2 {font-size: 1.5rem!important;}
+.xl3 {font-size: 1.875rem!important;}
+.xl4 {font-size: 2.25rem!important;}
+.xl5 {font-size: 3rem!important;}
+.xl6 {font-size: 4rem!important;}
+.fs1 {font-size: 1vw!important;}
+.fs2 {font-size: 1.4vw!important;}
+.fs3 {font-size: 1.6vw!important;}
+.fs4 {font-size: 1.8vw!important;}
+.fs5 {font-size: 2vw!important;}
+.fs6 {font-size: 2.2vw!important;}
+.fs7 {font-size: 2.4vw!important;}
+.fs8 {font-size: 2.6vw!important;}
 
 /* PROFILE */
 
