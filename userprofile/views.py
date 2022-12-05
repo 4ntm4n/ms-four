@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DetailView, FormView, ListView,
                                   TemplateView, UpdateView, View)
 
-from core.tokens import account_activation_token, link
+from core.tokens import link
 from userprofile.forms import ReferenceResponseForm, RequestForm, SignUpForm
 
 from .models import *
@@ -122,7 +122,6 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
             "name":user.profile,
             "domain":current_site.domain,
             "refid": link.encrypt_link(company_slug, response_id),
-            "token": account_activation_token.make_token(form.instance.refresponse),
             })
 
         email = EmailMessage(
