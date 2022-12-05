@@ -44,6 +44,19 @@ header{
     border-radius: .7rem;
 }
 
+/* quick-access classes for heading sizes */
+.hl{
+    font-size: 3rem !important;
+}
+.hm{
+    font-size: 2rem !important;
+}
+.hs{
+    font-size: 1.5rem !important;
+}
+
+/* PROFILE */
+
 .request-remove-btn{
     position:relative;
     right:-2.5rem;
@@ -52,7 +65,7 @@ header{
 
 
 
-/* PROFILE REFERENCE RESPONSE */
+/* PROFILE -reference response */
 
 .responder-list-name {
     max-width: 80%;
