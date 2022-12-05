@@ -7,13 +7,11 @@ from django.http import request, response
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
 from django.views.generic import (CreateView, DetailView, FormView, ListView,
                                   TemplateView, UpdateView, View)
 
 from core.tokens import account_activation_token, link
-from userprofile.forms import RequestForm, SignUpForm, ReferenceResponseForm
+from userprofile.forms import ReferenceResponseForm, RequestForm, SignUpForm
 
 from .models import *
 
@@ -119,11 +117,11 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         current_site = get_current_site(self.request)
 
         recipient = form.instance.to_email
-        company = form.instance.company_name
+        company_slug = form.instance.company_slug
         email_body = render_to_string("userprofile/emails/request_reference_email.html", {
             "name":user.profile,
             "domain":current_site.domain,
-            "refid": link.encrypt_link(company, response_id),
+            "refid": link.encrypt_link(company_slug, response_id),
             "token": account_activation_token.make_token(form.instance.refresponse),
             })
 
@@ -141,11 +139,10 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         return super(TestCreateRequestView, self).form_valid(form)
 
 
+from django.contrib import messages
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
-
-from django.contrib import messages
 
 class TestResponseView(UpdateView):
     template_name = "userprofile/test_respond.html"

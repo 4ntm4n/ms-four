@@ -1,5 +1,4 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-
 from django.utils import six
 
 
@@ -15,12 +14,8 @@ class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
 account_activation_token = AccountActivationTokenGenerator()
 
 
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
-
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 # "a01".join(urlsafe_base64_encode(force_bytes(num)))
 # same as "a01".join(id) -> same as secret.join(id)
@@ -40,7 +35,6 @@ class EncryptDecrypt():
         secret = "a01"
         ext_encryption = urlsafe_base64_encode(force_bytes(secret.join(id)))
         split_slug = slug_name.split("-")
-        print("!!!!!!!!!", f"{slug_name.encrypt('utf-8')}")
         return f"{slug_name}-{ext_encryption}"
     
 

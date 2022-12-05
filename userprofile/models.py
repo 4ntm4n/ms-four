@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.text import slugify
 from django.utils.translation import gettext as _
 # 3rd party dependencies
 from partial_date import PartialDateField
@@ -44,9 +45,11 @@ class RefRequest(models.Model):
     """
     profile = models.ForeignKey(Profile, verbose_name=_("profile"), on_delete=models.CASCADE)
     company_name = models.CharField(_("company name"), max_length=100, null=True, blank=True)
+    company_slug = models.SlugField(_("company_slug"), null=True, blank=True, unique=False, max_length=150)
     date_from = PartialDateField( verbose_name=_("date from"))
     date_to = PartialDateField(verbose_name=_("date to"))
     to_email = models.EmailField(_("to email"), max_length=254, null=True, blank=True)
+    
 
     UNINITIATED = "UNIN"
     PENDING = "PEND"
@@ -61,12 +64,20 @@ class RefRequest(models.Model):
     time_sent = models.DateTimeField(_("time_sent"), auto_now_add=True, null=True)
 
 
+    def save(self, *args, **kwargs):
+        slug = self.company_name[0:100]
+        self.company_slug = slugify(slug, allow_unicode=False)
+        super().save(*args, **kwargs)
+
+    
     def __str__(self):
         return f"{self.pk}"
 
     class Meta:
         verbose_name = "Reference request"
         verbose_name_plural = "Reference requests"
+
+
 
 
 class RefResponse(models.Model):
