@@ -3,23 +3,23 @@
 {% block content %}
     <div class="container center grey lighten-3">
         <section class="profile-section">
-            <div class="heading-row row">
+            <div class="heading-row row row-margin-delete">
                 <div class="heading-box col s12">
-                    <h2 class="hm right">{ name }'s Profile</h2>
+                    <h2 class="hm right">Hey {{ user.first_name }}!</h2>
                 </div>
             </div>
             <div class="crumbs-row row">
-                <nav class="crumbs-box col s10 m6 right grey">
+                <nav class="crumbs-box col s10 m6 right transparent z-depth-0">
                     <div class="nav-wrapper right ">
-                          <a  href="#!" class="breadcrumb ">Profile</a>
-                          <a  href="#!" class="breadcrumb ">Send</a>
-                          <a  href="#!" class="breadcrumb ">References</a>
+                          <a  href="#!" class="breadcrumb black-text">Profile</a>
+                          <a  href="#!" class="breadcrumb grey-text">Send</a>
+                          <a  href="#!" class="breadcrumb grey-text">References</a>
                     </div>
                 </nav>
             </div>
             <div class="req-reference-row row">
                 <div class="col s12 profilesque-image grey darken-4">
-                    <button class="btn" id="req-reference">Ask For Reference</button>
+                    <a class="btn" id="req-reference" href="{% url 'send_request' %}">Ask For Reference</a>
                 </div>
             </div>
             <div class="counter-row row row-margin-delete">
@@ -27,7 +27,7 @@
                     <div class="card right-align rounded">
                         <div class="card-content">
                             <span class="hs card-title"> Requests </span>
-                            <span class="xl3">{count}</span>
+                            <span class="xl3">{{ count_requests }}</span>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="card right-align rounded">
                         <div class="card-content">
                             <span class="hs card-title"> References </span>
-                            <span class="xl3">{count}</span>
+                            <span class="xl3">{{ count_responses }}</span>
                         </div>
                     </div>
                 </div>
@@ -45,58 +45,62 @@
         <section class="grey rounded">
             <div class="row">
                 <div class="col s12 card-panel rounded left-align">
-                    <h3 class="hs">Pending Requests <i class="material-icons small right">access_time</i></h3>
+                    <h3 class="hs">Requests awaiting response <i class="material-icons small right">access_time</i></h3>
                     <hr/>
 
                     <div class="collection ">
-                        <a class=" collection-item " href="">
-                            <div class="row valign-wrapper">
-                                <div class="col s9 content truncate">
-                                    <p class="truncate blue-text">
-                                        Request to: Company AB<br />
-                                        Email recipient: person@company.com<br />
-                                        date sent: Mon, 4 3032 <br />  
-                                    </p>
+                        {% for request in requests %}
+                            {% if request.status == "PEND" %}
+                            <a class=" collection-item " href="">
+                                <div class="row valign-wrapper">
+                                    <div class="col s9 content truncate">
+                                        <p class="truncate blue-text">
+                                             Request to: {{ request.company_name }}<br />
+                                             Email recipient: {{ request.to_email }}<br />
+                                            date sent: {{ request.time_sent }} <br />
+                                            status: {{ request.status }}  
+                                        </p>
+                                    </div>
+                                    <div class="col s3">
+                                        <i class="right material-icons blue-text">delete</i>
+                                    </div>  
                                 </div>
-                                <div class="col s3">
-                                    <i class="right material-icons blue-text">delete</i>
-                                </div>  
-                            </div>
-                        </a>
-                        <a class=" collection-item " href="">
-                            <div class="row valign-wrapper">
-                                <div class="col s9 content truncate">
-                                    <p class="truncate blue-text">
-                                        Request to: Company AB<br />
-                                        Email recipient: person@company.com<br />
-                                        date sent: Mon, 4 3032 <br />  
-                                    </p>
-                                </div>
-                                <div class="col s3">
-                                    <i class="right material-icons blue-text">delete</i>
-                                </div>  
-                            </div>
-                        </a>
+                            </a>
+                            {% endif %}
+                        {% endfor %}
                     </div>
             </div>
             </div>
             
             <div class="row">
                 <div class="col s12 card-panel rounded left-align">
-                    <h3 class="hs">My References <i class="material-icons small right">access_time</i></h3>
+                    <h3 class="hs">My References <i class="material-icons small right">list</i></h3>
                     <hr/>
+                    
+                    
                     <div class="collection">
-                        <a class="row collection-item reference-collection" href="">
-                                <div class="col s4">hejsan </div>
-                                <div class="col s4">svejsan</div>
-                                <div class="col s4">dejsan</div>
-                            </div>
+                        <div class="row collection-item reference-collection grey lighten-3">
+                            <div class="col s3 truncate left-align bold">Name</div>
+                                    <div class="col s6 truncate center-align bold">Response</div>
+                                    <div class="col s3 truncate right-align bold">Response Date</div>
+                        </div>
+                        {% for response in comp_responses %}
+                        <a class="row collection-item reference-collection blue-text" href="">
+                                <div class="col s3 truncate left-align"> {{ response.get_full_name }}</div>
+                                <div class="col s6 truncate center-align">{{ response.elaborate }}</div>
+                                <div class="col s3 truncate right-align">{{ response.time_added }}</div>
                         </a>
+                        {% empty %}
+                        <div class="col s12 truncate center-align collection-item grey-text"> 
+                            <p>You don't have any references yet. They will show up here.</p>
+                        </div>
+                       {% endfor %}
                     </div>
-
+                        
+                    </div>
+                    
                 </div>
             </div>
         </section>
-    </div>
 
 {% endblock content %}
