@@ -63,8 +63,10 @@ header{
 
 /* quick-access classes for heading sizes */
 .hl{font-size: 3rem !important;}
-.hm{font-size: 2rem !important;}
-.hs{font-size: 1.5rem !important;}
+.hm{font-size: 1.7rem !important;}
+.hs{font-size: 1.3rem !important;}
+.hsx{font-size: 1rem !important;}
+
 
 
 .xs {font-size: 0.75rem!important;}
@@ -105,7 +107,7 @@ header{
 
 #req-reference{
     position: relative !important;
-    top: 13vh;
+    top: 12vh;
     z-index: 2;
 }
 
