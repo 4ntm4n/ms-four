@@ -48,7 +48,7 @@
                     <h3 class="hs">Requests awaiting response <i class="material-icons small right">access_time</i></h3>
                     <hr/>
 
-                    <div class="collection ">
+                    <div class="collection">
                         {% for request in requests %}
                             {% if request.status == "PEND" %}
                             <a class=" collection-item " href="">
@@ -67,6 +67,10 @@
                                 </div>
                             </a>
                             {% endif %}
+                            {% empty %}
+                            <div class="col s12 truncate center-align collection-item grey-text"> 
+                                <p>No requests in progess. <a class="grey-text" href="{% url 'send_request' %}"><u>Ask for a reference</u></a></p>
+                            </div>
                         {% endfor %}
                     </div>
             </div>
