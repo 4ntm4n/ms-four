@@ -61,6 +61,18 @@ header{
     -webkit-font-smoothing: antialiased;
 }
 
+.row-margin-delete{
+    margin-bottom: 1em !important;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.half-width{
+    width: 50%;
+}
+
 /* quick-access classes for heading sizes */
 .hl{font-size: 3rem !important;}
 .hm{font-size: 1.7rem !important;}
