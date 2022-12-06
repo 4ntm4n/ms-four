@@ -55,9 +55,9 @@
                                 <div class="row valign-wrapper">
                                     <div class="col s9 content truncate">
                                         <p class="truncate blue-text">
-                                             Request to: {{ request.company_name }}<br />
-                                             Email recipient: {{ request.to_email }}<br />
-                                            date sent: {{ request.time_sent }} <br />
+                                            Request to: {{ request.company_name }}<br />
+                                            Email recipient: {{ request.to_email }}<br />
+                                            Date sent: {{ request.time_sent }} <br />
                                             status: {{ request.status }}  
                                         </p>
                                     </div>
@@ -68,6 +68,24 @@
                             </a>
                             {% endif %}
                             {% empty %}
+                            {% if user.last_login == user.date_joined %}
+                            <a class=" collection-item " href="">
+                                <div class="row valign-wrapper">
+                                    <div class="col s9 content truncate">
+                                        <p class="truncate blue-text">
+                                            Request to: Some Company Inc. <br />
+                                            Email recipient: my.reference@somecompany.com <br />
+                                            Date sent: Dec.6, 1991 <br />
+                                            When you ask for a reference, your pending request will show up like this. <br />
+                                            you can delete a pending request by clicking on it.
+                                        </p>
+                                    </div>
+                                    <div class="col s3">
+                                        <i class="right material-icons blue-text">delete</i>
+                                    </div>  
+                                </div>
+                            </a>
+                            {% endif %}
                             <div class="col s12 truncate center-align collection-item grey-text"> 
                                 <p>No requests in progess. <a class="grey-text" href="{% url 'send_request' %}"><u>Ask for a reference</u></a></p>
                             </div>
@@ -95,9 +113,22 @@
                                 <div class="col s3 truncate right-align">{{ response.time_added }}</div>
                         </a>
                         {% empty %}
+                        {% comment %} {{ user.last_login|date:"Y-m-d H:i" }}  {{ current_datetime }} {% endcomment %}
+                        {% if user.date_joined|date:"Y-m-d H:i"  == current_datetime %}
+                        <a class="example-reference row collection-item reference-collection blue-text" href="">
+                            <div class="col s3 truncate left-align"> Elon Musk</div>
+                            <div class="col s6 truncate center-align">He kind of knew what he was doing, and he liked twitter wich was nice.</div>
+                            <div class="col s3 truncate right-align">Dec. 12, 1991</div>
+                         </a>
                         <div class="col s12 truncate center-align collection-item grey-text"> 
+                             <p>your references show up here, just like an email, click to read more</p>
+                         </div>
+
+                         {% else %}
+                         <div class="col s12 truncate center-align collection-item grey-text"> 
                             <p>You don't have any references yet. They will show up here.</p>
                         </div>
+                        {% endif %}
                        {% endfor %}
                     </div>
                         

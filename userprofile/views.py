@@ -70,6 +70,7 @@ class UserLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy("test_profile")
 
+from datetime import datetime
 
 class TestProfileView(LoginRequiredMixin, ListView):
     model = Profile
@@ -92,6 +93,7 @@ class TestProfileView(LoginRequiredMixin, ListView):
         context["comp_responses"] = context["profile"][0].refresponse_set.all(
         ).filter(ref_request__status="COMP")
         context["count_responses"] = context["comp_responses"].count()
+        context["current_datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M")
         return context
      
 
