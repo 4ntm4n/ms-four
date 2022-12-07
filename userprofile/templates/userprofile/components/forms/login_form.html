@@ -1,0 +1,29 @@
+{% extends "./base_form.html" %}
+{% load static %}
+
+{% block form_image %}
+<img height="200" width="auto" src="{% static 'img/computer-guy.svg' %}" alt="" />
+{% endblock form_image %}
+
+{% block form_title %}
+    Log in and get a reference or two...
+{% endblock form_title %}
+
+{% block form %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="row valign-wrapper row-margin-add">
+        <div class="col s6">
+            <button type="submit" class="btn">Sign in</button>
+        </div>
+        <div class="col s6 right-align">
+            <p>Don't have an account yet? <a class="blue-text" href="{% url 'signup' %}">Sign up here</a></p>
+        </div>
+        
+</form>
+
+    
+</div>
+{% endblock form %}

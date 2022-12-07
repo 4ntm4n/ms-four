@@ -1,9 +1,4 @@
-<h1>login</h1>
-
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn">login</button>
-</form>
-
- <p>don't have an account? <a href="">Register</a></p>
+{% extends "base.html" %}
+{% block content %}
+{% include "./components/forms/login_form.html" %}
+{% endblock content %}

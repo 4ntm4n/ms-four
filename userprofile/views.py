@@ -107,7 +107,7 @@ class TestReferenceDetailView(LoginRequiredMixin, DetailView):
 
 class TestCreateRequestView(LoginRequiredMixin, CreateView):
     model = RefRequest
-    template_name = "userprofile/test_ref_request.html"
+    template_name = "userprofile/send_request.html"
     fields = ["company_name", "date_from", "date_to", "to_email"]
     success_url = reverse_lazy("test_profile")
 
