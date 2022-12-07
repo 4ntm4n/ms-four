@@ -1,11 +1,4 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>this is signup page</h2>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="signup"/>
-    </form>
-
-<p>already have a profile? <a class="btn" href="">Sign in!</a></p>
+{% include "./components/forms/signup_form.html" %}
 {% endblock content %}

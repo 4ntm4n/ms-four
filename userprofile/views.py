@@ -72,6 +72,7 @@ class UserLoginView(LoginView):
 
 from datetime import datetime
 
+
 class TestProfileView(LoginRequiredMixin, ListView):
     model = Profile
     context_object_name = "profile"

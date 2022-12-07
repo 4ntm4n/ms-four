@@ -65,6 +65,10 @@ header{
     margin-bottom: 1em !important;
 }
 
+.row-margin-add{
+    margin-top: 2em !important;
+}
+
 .full-width{
     width: 100%;
 }
@@ -139,6 +143,21 @@ header{
    margin-left: 0rem !important;
     margin-right: 0rem !important;
 }
+
+
+/* FORMS */
+
+.form-header{
+    height: 300px;
+    text-align: center !important;
+}
+
+.form-image-container{
+    height: 200px;
+    overflow: hidden;
+    
+}
+
 
 
 @media only screen and (max-width: 601px) {
