@@ -145,12 +145,9 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
 
 
 from django.contrib import messages
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
-
 
 class TestResponseView(UpdateView):
-    template_name = "userprofile/test_respond.html"
+    template_name = "userprofile/respond.html"
     success_url = reverse_lazy("home")
     form_class = ReferenceResponseForm
 

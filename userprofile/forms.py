@@ -26,8 +26,10 @@ class ReferenceResponseForm(ModelForm):
     """
     form to respond to users reference requests.
     """
+
     class Meta:
         model = RefResponse
         fields = "__all__"
+        exclude = ("ref_request", "profile", "email", "referee_first_name", "referee_last_name", "completed")
 
  

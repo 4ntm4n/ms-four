@@ -89,7 +89,6 @@ class RefResponse(models.Model):
     profile = models.ForeignKey(Profile, verbose_name=_("profile"), on_delete=models.CASCADE, null=True, blank=True)
 
     # info about reference
-    email = models.EmailField(_("email"), max_length=254)
     first_name = models.CharField(_("first name"), max_length=50, null=True, blank=True)
     last_name = models.CharField(_("last name"), max_length=50, null=True, blank=True)
     company_name = models.CharField(_("company name"), max_length=50, null=True, blank=True)
@@ -115,11 +114,12 @@ class RefResponse(models.Model):
     elaborate = models.TextField(_("elaborate"))
     extra = models.TextField(_("extra"))
 
+    email = models.EmailField(_("your email"), max_length=254)
 
     # info about user who sent request.
     referee_first_name = models.CharField(_("referee first name"), max_length=50)
     referee_last_name = models.CharField(_("referee last name"), max_length=50)
-
+    
 
     completed = models.BooleanField(_("is completed"), default=False)
     time_added = models.DateTimeField(_("time added"), auto_now=True)

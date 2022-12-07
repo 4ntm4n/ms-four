@@ -6,7 +6,7 @@
 {% endblock form_image %}
 
 {% block form_title %}
-    Send a request to  your reference
+    Reference to: {{ form.instance.profile }}
 {% endblock form_title %}
 
 {% block form %}
@@ -16,10 +16,7 @@
 
     <div class="row valign-wrapper row-margin-add">
         <div class="col s6">
-            <button type="submit" class="btn">Submit</button>
-        </div>
-        <div class="col s6 right-align">
-            <p>return to your <a class="blue-text" href="{% url 'test_profile' %}">profile</a></p>
+            <button type="submit" class="btn">Commit response</button>
         </div>
         
 </form>
