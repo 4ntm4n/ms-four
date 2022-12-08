@@ -1,73 +1,29 @@
 {% extends "./base_form.html" %}
 {% load static %}
 {% load materializecss %}
-
 {% block form_image %}
-<img height="200" width="auto" src="{% static 'img/computer-guy.svg' %}" alt="" />
+    <img height="200"
+         width="auto"
+         src="{% static 'img/computer-guy.svg' %}"
+         alt=""/>
 {% endblock form_image %}
-
 {% block form_title %}
     Send a request to your reference
 {% endblock form_title %}
-
 {% block form %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.company_name|materializecss }}
-    
-    
-    <p>between what dates did you work here?</p>
-    {{ form.date_from|materializecss:"s6, helper=hello " }}
-    {{ form.date_to|materializecss:"s6" }}
-    
-    {{ form.to_email|materializecss }}
-    
-    <input type="text" class="datepicker-start" />
-    <input type="text" class="datepicker-start" />
-    <div class="row valign-wrapper row-margin-add">
-        <div class=" col s12 right-align">
-            <button type="submit" class="btn">Submit</button>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.company_name|materializecss }}
+        <p>between what dates did you work here?</p>
+        {{ form.date_from|materializecss:"s6, helper=hello " }}
+        {{ form.date_to|materializecss:"s6" }}
+        {{ form.to_email|materializecss }}
+        <div class="row valign-wrapper row-margin-add">
+            <div class=" col s12 right-align">
+                <button type="submit" class="btn">Submit</button>
+            </div>
         </div>
-        <div class="result"></div>
-    </div>
-</form>
+    </form>
+    <script defer type="text/javascript" src="{% static 'base/js/components/requestForm.js' %}"></script>
 
-    
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const datepickerStart = document.querySelectorAll('.datepicker-start');
-        M.Datepicker.init(datepickerStart, {
-            format: "yyyy-mm-dd",
-            firstDay: 1,
-            yearRange: 70,
-            minDate: new Date("1960-01-01"),
-            maxDate: new Date(),
-            maxYear: new Date().getFullYear(), 
-
-        });
-       
-        
-        
-
-        const selectElement = document.querySelector('.datepicker-start');
-        selectElement.addEventListener('change', (event) => {
-          minDate = event.target.value;
-          const datepickerEnd = document.querySelectorAll('.datepicker-end');
-          M.Datepicker.init(datepickerStart, {
-              format: "yyyy-mm-dd",
-              firstDay: 1,
-              yearRange: 70,
-              minDate: new Date(minDate),
-              maxDate: new Date(),
-              maxYear: new Date().getFullYear(), 
-          });
-        });
-      });
-
-      
-
-</script>
 {% endblock form %}
-
