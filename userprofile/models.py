@@ -89,7 +89,7 @@ class RefResponse(models.Model):
     profile = models.ForeignKey(Profile, verbose_name=_("profile"), on_delete=models.CASCADE, null=True, blank=True)
 
     # info about reference
-    first_name = models.CharField(_("first name"), max_length=50, null=True, blank=True)
+    first_name = models.CharField(_("first_name"), max_length=50, null=True, blank=True)
     last_name = models.CharField(_("last name"), max_length=50, null=True, blank=True)
     company_name = models.CharField(_("company name"), max_length=50, null=True, blank=True)
     title = models.CharField(_("title"), max_length=50)
@@ -100,14 +100,14 @@ class RefResponse(models.Model):
     OTHER = "OTH"
 
     RELATION_CHOICES = [
-        (BOSS, "Boss to referee"),
-        (COLLEAGUE, "Colleague to referee"),
-        (CONSULTANT, "referee was consultant"),
+        (BOSS, "I was a manager"),
+        (COLLEAGUE, " I was a colleague"),
+        (CONSULTANT, "he/she was temporary consultant"),
         (OTHER, "Other")
     ]
 
     relation = models.CharField(_("relation to referee"), choices=RELATION_CHOICES, default=BOSS, max_length=4)
-    other_relation = models.CharField(_("if Other, please specify"), max_length=80, null=True, blank=True)
+    other_relation = models.CharField(_('if "Other", please specify'), max_length=80, null=True, blank=True)
 
     #reference output about referee
     main_tasks = models.TextField(_("describe main tasks"))
