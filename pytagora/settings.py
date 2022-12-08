@@ -65,6 +65,7 @@ INSTALLED_APPS = [
 
     #3rd party apps
     "cloudinary",
+    'materializecssform',
 
     #my apps
     "core", # contains override of standard user model

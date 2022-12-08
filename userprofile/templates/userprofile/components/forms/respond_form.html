@@ -1,5 +1,6 @@
 {% extends "./base_form.html" %}
 {% load static %}
+{% load materializecss %}
 
 {% block form_image %}
 <img height="200" width="auto" src="{% static 'img/computer-guy.svg' %}" alt="" />
@@ -12,7 +13,7 @@
 {% block form %}
 <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|materializecss }}
 
     <div class="row valign-wrapper row-margin-add">
         <div class="col s6">

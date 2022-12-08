@@ -22,10 +22,28 @@ class RequestForm(ModelForm):
 
 
 
+BOSS = "BOSS"
+COLLEAGUE = "COLL"
+CONSULTANT = "CONS"
+OTHER = "OTH"
+
 class ReferenceResponseForm(ModelForm):
     """
     form to respond to users reference requests.
     """
+
+    RELATION_CHOICES = [
+        (BOSS, "Boss to referee"),
+        (COLLEAGUE, "Colleague to referee"),
+        (CONSULTANT, "referee was consultant"),
+        (OTHER, "Other")
+    ]
+
+    relation = forms.MultipleChoiceField(
+        required=True,
+        widget=forms.RadioSelect,
+        choices=RELATION_CHOICES
+    )
 
     class Meta:
         model = RefResponse
