@@ -8,46 +8,43 @@ document.addEventListener('DOMContentLoaded', function() {
         fromToHelper.innerHTML = `between what dates did you work at ${company}?`
     });
 
-    
-    // find date from and date to input fields
-    const dateFromInput = document.getElementById('id_date_from');
-    const dateToInput = document.getElementById('id_date_to');
+    //find to date imput field
+    const toDate = document.getElementById("id_date_to");
 
-
-    
+    // from_date datepicker with initial settings.
     const datepickerStart = document.getElementById('id_date_from');
-    M.Datepicker.init(datepickerStart, {
+    let startDate = M.Datepicker.init(datepickerStart, {
         format: 'yyyy-mm-dd',
         firstDay: 1,
         yearRange: 70,
         minDate: new Date("1960-01-01"),
         maxDate: new Date(),
         maxYear: new Date().getFullYear(), 
-
-
+        onSelect: function(date){
+            //set min date to
+            endDate.options.minDate = new Date(date);
+            endDate.gotoDate(date);
+            if (date > endDate.date){
+                endDate.setDate(date);
+                //set value of toDate input field to the same date if date > toDate
+                toDate.value = `${
+                    date.getFullYear()}-${
+                        date.getMonth() +1}-${
+                            String(date.getDate()).padStart(2, '0')
+                        }`;
+                
+            }
+        }
     });
 
-    let fromDate = "1960-01-01"
-
+    // to date date picker with initial settings.
     const datepickerEnd = document.getElementById('id_date_to');
     let endDate = M.Datepicker.init(datepickerEnd, {
         format: 'yyyy-mm-dd',
         firstDay: 1,
         yearRange: 20,
-        minDate: new Date(fromDate),
         maxDate: new Date(),
-        maxYear: new Date().getFullYear(), 
+        maxYear: new Date().getFullYear(),
     });
-
-
-
-    var fromDateHandler = event => {
-        console.log(endDate.minDate)
-        endDate.setDate(new Date("2021-01-01"));
-    }
-
-    dateFromInput.addEventListener('change', fromDateHandler);
-
-   
    
 });
