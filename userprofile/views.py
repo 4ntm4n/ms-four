@@ -108,10 +108,11 @@ class TestReferenceDetailView(LoginRequiredMixin, DetailView):
 class TestCreateRequestView(LoginRequiredMixin, CreateView):
     model = RefRequest
     template_name = "userprofile/send_request.html"
-    fields = ["company_name", "date_from", "date_to", "to_email"]
+    form_class = RequestForm
     success_url = reverse_lazy("test_profile")
 
     def form_valid(self, form):
+
         form.instance.profile = self.request.user.profile
         form.instance.status = "PEND"
         user = self.request.user
@@ -181,7 +182,6 @@ class TestResponseView(UpdateView):
         return super(TestResponseView, self).get(request, *args, **kwargs)
     
     def form_valid(self, form):
-        request_status = form.instance.ref_request.status
         form.instance.ref_request.status = "COMP"
         form.instance.completed = True
         print(form.instance.completed)

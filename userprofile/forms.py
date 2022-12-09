@@ -24,17 +24,25 @@ class RequestForm(ModelForm):
         fields = ["company_name", "date_to", "date_from", "to_email"]
        
        
-        """ def clean(self):
-            cleaned_data = super().clean()
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            date_from = cleaned_data.get("date_from").date()
-            date_to = cleaned_data.get("date_to").date()
+    def clean(self):
+        cleaned_data = self.cleaned_data
 
-            if date_from > date_to:
-                raise ValidationError(
-                "did you put a later from-date than end-date?"
-                ) """
-   
+        date_from = cleaned_data.get("date_from")
+        date_to = cleaned_data.get("date_to")
+
+        if date_from > date_to:
+            msg1 = "you need an earlier date here"
+            msg2 = "than here, if you want to send a request"
+
+            self._errors["date_from"] = self.error_class([msg1])
+            self._errors["date_to"] = self.error_class([msg2])
+
+            del cleaned_data["date_from"]
+            del cleaned_data["date_to"]
+        
+        return cleaned_data
+
+
 
 
 class ReferenceResponseForm(ModelForm):
