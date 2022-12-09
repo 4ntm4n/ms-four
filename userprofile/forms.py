@@ -19,18 +19,26 @@ class SignUpForm(UserCreationForm):
 
 
 class RequestForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+        
+
     class Meta:
         model = RefRequest
-        fields = ["company_name", "date_to", "date_from", "to_email"]
-       
-       
+        fields = [ "company_name", "date_to", "date_from", "to_email"]
+
+
     def clean(self):
         cleaned_data = self.cleaned_data
+        user = self.request.user
+        to_email = cleaned_data.get("to_email")
+        print(user.email)
 
         date_from = cleaned_data.get("date_from")
         date_to = cleaned_data.get("date_to")
-
-        if date_from > date_to:
+      
+        if date_to is not None and date_from > date_to:
             msg1 = "you need an earlier date here"
             msg2 = "than here, if you want to send a request"
 
@@ -40,10 +48,13 @@ class RequestForm(ModelForm):
             del cleaned_data["date_from"]
             del cleaned_data["date_to"]
         
+        if to_email == user.email:
+            msg = "you cant request a reference from yourself."
+            self._errors["to_email"] = self.error_class([msg])
+
         return cleaned_data
-
-
-
+        
+    
 
 class ReferenceResponseForm(ModelForm):
     """
@@ -54,7 +65,6 @@ class ReferenceResponseForm(ModelForm):
 
         referee = self.instance.profile.first_name
         company = self.instance.company_name
-
         
         self.fields["title"].label = (
             _(f"what is your title at {company}")

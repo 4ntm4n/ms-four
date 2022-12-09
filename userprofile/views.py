@@ -111,6 +111,12 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
     form_class = RequestForm
     success_url = reverse_lazy("test_profile")
 
+
+    def get_form_kwargs(self, *args, **kwargs):
+        form_kwargs = super().get_form_kwargs(*args, **kwargs)
+        form_kwargs['request'] = self.request
+        return form_kwargs
+
     def form_valid(self, form):
 
         form.instance.profile = self.request.user.profile
