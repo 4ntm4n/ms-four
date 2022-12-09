@@ -46,8 +46,8 @@ class RefRequest(models.Model):
     profile = models.ForeignKey(Profile, verbose_name=_("profile"), on_delete=models.CASCADE)
     company_name = models.CharField(_("company name"), max_length=100, null=True, blank=True)
     company_slug = models.SlugField(_("company_slug"), null=True, blank=True, unique=False, max_length=150)
-    date_from = PartialDateField( verbose_name=_("date from"))
-    date_to = PartialDateField(verbose_name=_("date to"))
+    date_from = models.DateField( verbose_name=_("date from"))
+    date_to = models.DateField(verbose_name=_("date to"))
     to_email = models.EmailField(_("to email"), max_length=254, null=True, blank=True)
     
 

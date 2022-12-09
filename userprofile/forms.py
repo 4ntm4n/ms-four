@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 
@@ -16,10 +17,24 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ["first_name", "last_name", "email"]
 
+
 class RequestForm(ModelForm):
     class Meta:
         model = RefRequest
         fields = ["company_name", "date_to", "date_from", "to_email"]
+       
+       
+        """ def clean(self):
+            cleaned_data = super().clean()
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            date_from = cleaned_data.get("date_from").date()
+            date_to = cleaned_data.get("date_to").date()
+
+            if date_from > date_to:
+                raise ValidationError(
+                "did you put a later from-date than end-date?"
+                ) """
+   
 
 
 class ReferenceResponseForm(ModelForm):
@@ -67,7 +82,7 @@ class ReferenceResponseForm(ModelForm):
             "title":_("What is your title/ role at {{company_name}}"),
         }
 
-    help_texts = {
+        help_texts = {
             'first_name': _('Some useful help text.'),
         }
 

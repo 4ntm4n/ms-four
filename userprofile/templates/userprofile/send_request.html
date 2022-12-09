@@ -1,5 +1,20 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 {% include "./components/forms/send_request_form.html" %}
+
+<script defer type="text/javascript" src="{% static 'base/js/components/requestForm.js' %}">
+document.addEventListener('DOMContentLoaded', function() {
+    const fromToHelper = document.getElementById('from-to-helper');
+
+    
+    const companyField = document.getElementById('id_company_name');
+    companyField.document.addEventListener('change', updateValue);
+    
+    const updateValue = (event) => {
+        const company = event.target.value;
+        fromToHelper.innerHTML = `between what dates did you work at ${company}`
+    };
+});
+</script>
 {% endblock content %}
