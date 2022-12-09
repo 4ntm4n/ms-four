@@ -12,9 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // find date from and date to input fields
     const dateFromInput = document.getElementById('id_date_from');
     const dateToInput = document.getElementById('id_date_to');
-    
-    //if jS loaded, set "date_to" to disabled as default state.
-    dateToInput.setAttribute("disabled", true);
+
 
     
     const datepickerStart = document.getElementById('id_date_from');
@@ -29,26 +27,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
+    let fromDate = "1960-01-01"
 
-    dateFromInput.addEventListener('change', (event) => {
-        const selectedDate = event.target.value;
-        date1 = new Date(selectedDate);
-        
-        const datepickerEnd = document.getElementById('id_date_to');
-        M.Datepicker.init(datepickerEnd, {
-            format: 'yyyy-mm-dd',
-            firstDay: 1,
-            yearRange: 20,
-            minDate: new Date(selectedDate),
-            maxDate: new Date(),
-            maxYear: new Date().getFullYear(), 
-        });
-        
-
-        dateToInput.disabled=false;
+    const datepickerEnd = document.getElementById('id_date_to');
+    let endDate = M.Datepicker.init(datepickerEnd, {
+        format: 'yyyy-mm-dd',
+        firstDay: 1,
+        yearRange: 20,
+        minDate: new Date(fromDate),
+        maxDate: new Date(),
+        maxYear: new Date().getFullYear(), 
     });
 
-   // if form date is NaN, tell user to fill in that date first.
+
+
+    var fromDateHandler = event => {
+        console.log(endDate.minDate)
+        endDate.setDate(new Date("2021-01-01"));
+    }
+
+    dateFromInput.addEventListener('change', fromDateHandler);
+
    
    
 });
