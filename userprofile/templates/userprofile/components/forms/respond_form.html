@@ -13,26 +13,24 @@
 {% block form %}
 <form action="" method="post">
     {% csrf_token %}
-<fieldset class="rounded deep-purple-text">
-    <legend class=" ">Information about you</legend>
-    <div class="col s12"></div>
-    {{ form.first_name|materializecss:"s6" }}
-    {{ form.last_name|materializecss:"s6" }}
-    {{ form.title|materializecss:"s12" }}
-    {{ form.company_name|materializecss:"s12" }}
-    
-    {{ form.relation|materializecss:"s12" }}
-    {{ form.other_relation|materializecss:"s12" }}
-</fieldset>
-<fieldset class="rounded blue-text">
-    <legend>Questions about {{ form.instance.profile }}</legend>
-    
-    
-    
-    {{ form.main_tasks|materializecss }}
-    {{ form.elaborate|materializecss }}
-    {{ form.extra|materializecss }}
-</fieldset>
+    <fieldset class="rounded deep-purple-text">
+        <legend class="left-align">Questions about {{ form.instance.profile }}</legend>
+        {{ form.main_tasks|materializecss }}
+        {{ form.elaborate|materializecss }}
+        {{ form.extra|materializecss }}
+    </fieldset>
+
+    <fieldset class="rounded grey-text">
+        <legend class="left-align">Information about you</legend>
+        <div class="col s12"></div>
+        {{ form.first_name|materializecss:"s6" }}
+        {{ form.last_name|materializecss:"s6" }}
+        {{ form.title|materializecss:"s12" }}
+        {{ form.company_name|materializecss:"s12" }}
+        {{ form.relation|materializecss:"s12" }}
+        {{ form.other_relation|materializecss:"s12" }}
+    </fieldset>
+
     <div class="row valign-wrapper row-margin-add">
         <div class=" col s12 right-align">
             <button type="submit" class="btn">Submit</button>

@@ -1,5 +1,45 @@
 {% extends "base.html" %}
-
 {% block content %}
-{% include "./components/forms/respond_form.html" %}
+    <div class="container ">
+        <div class="row">
+            <div class="col l9  align-left">{% include "./components/forms/respond_form.html" %}</div>
+            <div class="col l3 ">
+                <h2 class="deep-purple-text">hello.</h2>
+                <p>
+                    thank you for taking the time to answer some 
+                    qustions about your former
+                    collegue, employee, or friend.
+                </p> 
+
+                <hr />
+                <h3 class="hs deep-purple-text">What is pytagora?</h3>
+                <p>
+                    Pytagora is a service that helps
+                    job seekers to get a reference
+                    from a previous employer.
+                </p>
+                <p>
+                    Pytagora also helps recruiters and employers to get a more
+                    objective response pattern from references 
+                    in a recruiting process and saves them time. 
+                </p>
+
+                <h4 class="hs deep-purple-text">What's in it for me?</h4>
+                <p>
+                    Pytagora lets its users store their references
+                    forever.
+                </p>
+                <p>
+                    This means you as a reference to {{ form.instance.profile }} in this case, 
+                    only have to answer these questions once and one time only, no matter how many recruiting 
+                    processes {{ form.instance.profile.first_name }} takes on in the future.
+
+                </p>
+                <hr/>
+                <h5 class="hsx" >Would you like to store your own references with pytagora? <br/> <a target="_blank" href="{% url 'signup' %}">sign up here.</a></h5>
+                
+            </div>
+            
+        </div>
+    </div>
 {% endblock content %}

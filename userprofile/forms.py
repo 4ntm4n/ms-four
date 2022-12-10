@@ -66,8 +66,13 @@ class ReferenceResponseForm(ModelForm):
         company = self.instance.company_name
         
         self.fields["title"].label = (
-            _(f"what is your title at {company}")
+            _(f"Title / Role at {company}")
         )
+
+        self.fields["company_name"].help_text = (
+            _(f"Provided by {referee}")
+        )
+
         self.fields["relation"].label = (
             _(f"work relation to {referee}")
         )
@@ -98,9 +103,7 @@ class ReferenceResponseForm(ModelForm):
             "last_name":_("Last name"),
         }
 
-        help_texts = {
-            'company_name': _("leave as is if the company name is correct"),
-        }
+       
 
     
 
