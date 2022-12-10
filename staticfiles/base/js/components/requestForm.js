@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //find to date imput field
     const toDate = document.getElementById("id_date_to");
 
-    // from_date datepicker with initial settings.
+    // "from_date" datepicker with initial settings.
     const datepickerStart = document.getElementById('id_date_from');
     let startDate = M.Datepicker.init(datepickerStart, {
         format: 'yyyy-mm-dd',
@@ -32,12 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         date.getMonth() +1}-${
                             String(date.getDate()).padStart(2, '0')
                         }`;
-                
             }
         }
     });
 
-    // to date date picker with initial settings.
+    // "to_date" date picker with initial settings.
     const datepickerEnd = document.getElementById('id_date_to');
     let endDate = M.Datepicker.init(datepickerEnd, {
         format: 'yyyy-mm-dd',

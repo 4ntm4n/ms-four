@@ -69,7 +69,7 @@ class ReferenceResponseForm(ModelForm):
             _(f"what is your title at {company}")
         )
         self.fields["relation"].label = (
-            _(f"What was your relation to {referee} at {company}")
+            _(f"work relation to {referee}")
         )
         
         self.fields["main_tasks"].label = (
@@ -94,13 +94,12 @@ class ReferenceResponseForm(ModelForm):
         exclude = ("ref_request", "profile", "email", "referee_first_name", "referee_last_name", "completed")
 
         labels = {
-            "first_name":_("Please enter your First name"),
+            "first_name":_("First Name"),
             "last_name":_("Last name"),
-            "title":_("What is your title/ role at {{company_name}}"),
         }
 
         help_texts = {
-            'first_name': _('Some useful help text.'),
+            'company_name': _("leave as is if the company name is correct"),
         }
 
     
