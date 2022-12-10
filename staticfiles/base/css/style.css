@@ -159,6 +159,18 @@ header{
 }
 
 
+/* RESPONSE PAGE */
+
+#id_main_tasks {
+    margin-top: 30px;
+}
+
+#id_elaborate{
+    margin-top: 60px;
+}
+ #id_extra {
+    margin-top: 50px;
+}
 
 @media only screen and (max-width: 601px) {
     .slider-img-container .s12 {

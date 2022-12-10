@@ -1,8 +1,25 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-{% include "./components/forms/send_request_form.html" %}
+<div class="container">
+    <div class="heading-row row row-margin-delete">
+        <div class="heading-box col s12">
+            <h2 class="hm right">Hey {{ user.first_name }}!</h2>
+        </div>
+    </div>
+    <div class="crumbs-row row">
+        <nav class="crumbs-box col s10 m6 right transparent z-depth-0">
+            <div class="nav-wrapper right ">
+                  <a  href="{% url 'test_profile' %}" class="breadcrumb grey-text">Profile</a>
+                  <a  href="{% url 'send_request' %}" class="breadcrumb black-text">Send request</a>
+            </div>
+        </nav>
+    </div>
+    <div class="row">
+        {% include "./components/forms/send_request_form.html" %}
 
+    </div>
+</div>
 <script defer type="text/javascript" src="{% static 'base/js/components/requestForm.js' %}">
 document.addEventListener('DOMContentLoaded', function() {
     const fromToHelper = document.getElementById('from-to-helper');
