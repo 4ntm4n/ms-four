@@ -37,7 +37,9 @@ class RequestForm(ModelForm):
         date_from = cleaned_data.get("date_from")
         date_to = cleaned_data.get("date_to")
       
-        if date_to is not None and date_from > date_to:
+        if (date_from is not None and
+            date_to is not None and 
+            date_from > date_to):
             msg1 = "you need an earlier date here"
             msg2 = "than here, if you want to send a request"
 
