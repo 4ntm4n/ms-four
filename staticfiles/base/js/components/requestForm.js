@@ -49,18 +49,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     const emailField = document.getElementById("id_to_email");
-    const extensionNotice = document.getElementById("extension-notice");
-    extensionNotice.style.visibility = "hidden"
+
 
     emailField.addEventListener("change", (e) => {
-        
+        const extensionNotice = document.getElementById("extension-notice");
         const badExtensions = ["gmail.com", "outlook.com", "live.com", "hotmail.com", "yahoo.com"]
 
-        const email = e.target.value.split("@").pop();
-        for (let extension of badExtensions){
-            if (email === extension) {
-                extensionNotice.style.visibility = "visible"
-            }
+        const toEmailExt = e.target.value.split("@").pop();
+        
+        let match = false;
+        for (let extension of badExtensions){                             
+            if (toEmailExt === extension) {
+                match = true; 
+            } 
         }
+        match ? extensionNotice.style.visibility = "visible" : extensionNotice.style.visibility = "hidden"
     });
 });

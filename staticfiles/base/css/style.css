@@ -9,6 +9,7 @@ blockquote {
     padding-left: 1.5rem;
     border-left: 5px solid #f8ca66;
     font-style: italic;
+    visibility: hidden;
 }
 
 main {
