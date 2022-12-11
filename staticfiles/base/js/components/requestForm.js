@@ -46,4 +46,21 @@ document.addEventListener('DOMContentLoaded', function() {
         maxYear: new Date().getFullYear(),
     });
    
+
+
+    const emailField = document.getElementById("id_to_email");
+    const extensionNotice = document.getElementById("extension-notice");
+    extensionNotice.style.visibility = "hidden"
+
+    emailField.addEventListener("change", (e) => {
+        
+        const badExtensions = ["gmail.com", "outlook.com", "live.com", "hotmail.com", "yahoo.com"]
+
+        const email = e.target.value.split("@").pop();
+        for (let extension of badExtensions){
+            if (email === extension) {
+                extensionNotice.style.visibility = "visible"
+            }
+        }
+    });
 });
