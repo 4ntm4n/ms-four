@@ -17,7 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const select = document.querySelectorAll('select');
     M.FormSelect.init(select);
-      
+    
+    //tooltip for help when hovering element. example at blockquote in send_request_form.html
+    const tooltip = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(tooltip, {
+        position: "bottom"
+    });
   });
   
 

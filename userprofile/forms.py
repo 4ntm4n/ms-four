@@ -23,6 +23,10 @@ class RequestForm(ModelForm):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
 
+        self.fields["company_name"].help_text = (
+            _("What company did you work for?")
+        )
+
     class Meta:
         model = RefRequest
         fields = [ "company_name", "date_to", "date_from", "to_email"]

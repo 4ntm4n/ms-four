@@ -8,7 +8,7 @@
          alt=""/>
 {% endblock form_image %}
 {% block form_title %}
-    Send a request to your reference
+    Fill in your details below and we'll do the rest
 {% endblock form_title %}
 {% block form %}
     <form action="" method="post">
@@ -22,7 +22,12 @@
             </div>
         </div>
         {{ form.to_email|materializecss }}
-        
+        <div class="row imput-field">
+
+        </div>
+        <blockquote >
+            We do not recoment sending a reference request to a private email adress <a href=""> learn why</a>
+        </blockquote>
         <div class="row imput-field">
             <div class=" col s12 right-align">
                 <button type="submit" class="btn">Submit</button>
