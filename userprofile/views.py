@@ -7,8 +7,8 @@ from django.http import request, response
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.views.generic import (CreateView, DetailView, FormView, ListView,
-                                  TemplateView, UpdateView, View)
+from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
+                                  ListView, TemplateView, UpdateView)
 
 from core.tokens import link
 from userprofile.forms import ReferenceResponseForm, RequestForm, SignUpForm
@@ -180,6 +180,7 @@ class TestResponseView(UpdateView):
         related_request = RefRequest.objects.get(pk=refid)
         response_id = related_request.refresponse.id 
         reference = RefResponse.objects.get(pk=response_id)
+        
 
         if reference.completed:
             messages.warning(request, "This reference request is already completed, thank you!")
@@ -194,3 +195,15 @@ class TestResponseView(UpdateView):
         form.instance.ref_request.save()     
         messages.success(self.request, "You did it! Thanks for being awesome.")
         return super(TestResponseView, self).form_valid(form)
+    
+
+class DeleteRequestView(DeleteView):
+    model = RefRequest
+    success_url = reverse_lazy("test_profile")
+    
+    def form_valid(self, form, **kwargs):
+        
+        ref_request = RefRequest.objects.get(pk=self.kwargs["pk"])
+        print()
+        messages.success(self.request, f"Reference request to {ref_request.to_email} at {ref_request.company_name} was successfully deleted.")
+        return super(DeleteRequestView, self).form_valid(form)

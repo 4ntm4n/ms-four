@@ -51,7 +51,7 @@
                     <div class="collection">
                         {% for request in requests %}
                             {% if request.status == "PEND" %}
-                            <a class=" collection-item " href="">
+                            <a data-target="{{ request.id }}" class="modal-trigger  collection-item " href="">
                                 <div class="row valign-wrapper">
                                     <div class="col s9 content truncate">
                                         <p class="truncate blue-text">
@@ -66,6 +66,23 @@
                                     </div>  
                                 </div>
                             </a>
+
+                            
+                            <div id="{{ request.id }}" class="modal">
+                                <div class="modal-content">
+                                    <span class="indigo-text">Reference from {{ request.company_name }}</span>
+                                </div>
+                                <div class="modal-footer indigo">
+                                    <span class="left">status: {{ request.get_status_display }}</span>
+                                    <form action="{% url 'delete_request' request.id %}" method="post">
+                                        {% csrf_token %} 
+                                        <input class="btn right white-text red lighten 2" value="delete" type="submit" />
+                                    </form>
+                                  <a href="" class=" modal-close waves-effect waves-green btn-flat">return</a>
+                                 
+                                </div>
+                            </div>
+
                             {% endif %}
                             {% empty %}
                             {% if user.last_login == user.date_joined %}
@@ -137,5 +154,7 @@
                 </div>
             </div>
         </section>
+
+        
 
 {% endblock content %}

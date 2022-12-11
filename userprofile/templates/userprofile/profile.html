@@ -19,22 +19,7 @@
 
                         <div id="{{ request.refresponse.id }}" class="modal">
                             <div class="modal-content">
-                                <span class="indigo-text">Reference from {{ request.refresponse.company_name }}</span>
-                                <p class="bold">{{ request.profile }}'s duties at {{ request.refresponse.company_name }}</p>
-                                <p>{{ request.refresponse.main_tasks }}</p>
-                                <br/>
-                                <p  class="bold">Performance description</p>
-                                <p>{{ request.refresponse.elaborate }}</p>
-                                <p>{{ request.refresponse.extra }}</p>
-                                <br/>
-                                <p class="indigo-text">reference response by:</p>
-                                <p>{{ request.refresponse.get_full_name }}</p>
-                                <p>{{ request.refresponse.title }}</p>
-                                <p>{{ request.refresponse.company_name }}</p>
-                                <p>contact: {{ request.refresponse.email }} | telephone here </p>
-                                
-
-    
+                                <span class="indigo-text">Reference from {{ request.company_name }}</span>
                             </div>
                             <div class="modal-footer indigo">
                                 <span class="left">status: {{ request.get_status_display }}</span>

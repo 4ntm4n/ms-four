@@ -12,6 +12,8 @@ urlpatterns = [
     path("profile/reference/<int:pk>", TestReferenceDetailView.as_view(), name="reference_detail"),
     path("profile/<int:pk>/", ProfileView.as_view(), name ="profile"),
     path("respond/<uidb64>/", TestResponseView.as_view(), name="respond"),
+    path("<int:pk>/delete-request/", DeleteRequestView.as_view(), name="delete_request"),
+
     # path("profile/<int:pk>/send-request", SendRequestView.as_view(), name ="send_request"),
 ]   #<token>
 
