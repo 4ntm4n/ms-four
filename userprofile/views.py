@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.http import request, response
+from django.http import Http404, request, response
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -159,6 +159,18 @@ class TestResponseView(UpdateView):
     success_url = reverse_lazy("home")
     form_class = ReferenceResponseForm
 
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            refid = link.decrypt_link(self.kwargs["uidb64"])
+            related_request = RefRequest.objects.get(pk=refid).refresponse.id
+            self.object = RefResponse.objects.get(pk=related_request)
+        except: 
+            messages.warning(request, "The user has removed this request, perhaps a reference wasn't needed after all?")
+            return redirect("home")
+
+        self.get_object()
+        return super(TestResponseView, self).get(request, *args, **kwargs)
+
     def get_object(self): 
         """
         1. decrypt reference ID
@@ -167,20 +179,19 @@ class TestResponseView(UpdateView):
         
         """
         refid = link.decrypt_link(self.kwargs["uidb64"])
-       
         related_request = RefRequest.objects.get(pk=refid).refresponse.id
-        reference_object = RefResponse.objects.get(pk=related_request)
+        self.object  = RefResponse.objects.get(pk=related_request)
 
-        return reference_object
+        return self.object
 
     def get(self, request, *args, **kwargs):
-
+        
         refid = link.decrypt_link(kwargs["uidb64"])
         # Below I find the RefResponse ID through the request, issues when multiple users send requests
         related_request = RefRequest.objects.get(pk=refid)
         response_id = related_request.refresponse.id 
         reference = RefResponse.objects.get(pk=response_id)
-        
+       
 
         if reference.completed:
             messages.warning(request, "This reference request is already completed, thank you!")
