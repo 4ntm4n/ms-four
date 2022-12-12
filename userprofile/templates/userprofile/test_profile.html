@@ -111,15 +111,19 @@
                                     <div class="col s3 truncate right-align bold">Response Date</div>
                         </div>
                         {% for response in comp_responses %}
-                        <a class="row collection-item reference-collection blue-text" href="">
+                        <a data-target="{{ response.id }}"  class="modal-trigger row collection-item reference-collection blue-text" href="">
                                 <div class="col s3 truncate left-align"> {{ response.get_full_name }}</div>
                                 <div class="col s6 truncate center-align">{{ response.elaborate }}</div>
                                 <div class="col s3 truncate right-align">{{ response.time_added }}</div>
                         </a>
+
+                        {% include "./components/modals/reference_preview_modal.html" %}
+                       
+
                         {% empty %}
                         {% comment %} {{ user.last_login|date:"Y-m-d H:i" }}  {{ current_datetime }} {% endcomment %}
                         {% if user.date_joined|date:"Y-m-d H:i"  == current_datetime %}
-                        <a class="example-reference row collection-item reference-collection blue-text" href="">
+                        <a data-target="{{ request.id }}"  class="modal-trigger example-reference row collection-item reference-collection blue-text" href="">
                             <div class="col s3 truncate left-align"> Elon Musk</div>
                             <div class="col s6 truncate center-align">He kind of knew what he was doing, and he liked twitter wich was nice.</div>
                             <div class="col s3 truncate right-align">Dec. 12, 1991</div>

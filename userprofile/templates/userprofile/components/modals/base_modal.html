@@ -5,7 +5,9 @@
         {% endblock modal_img %}" alt="" />
         </div>
         <div class="modal-title">
-            <h3 class="hm">Delete Request</h3>
+            {% block modal_title %}
+                <h3 class="hm">Delete Request</h3>
+            {% endblock modal_title %}
         </div>
     </div>
     <div class="modal-info container center-align">

@@ -152,9 +152,8 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
 
 
 from django.contrib import messages
-
-
 from django.core.exceptions import ObjectDoesNotExist
+
 
 class TestResponseView(UpdateView):
     template_name = "userprofile/respond.html"
@@ -187,7 +186,7 @@ class TestResponseView(UpdateView):
             response_id = related_request.refresponse.id 
             reference = RefResponse.objects.get(pk=response_id)
         except:
-            messages.warning(request, "the sender has removed the reference request, thanks anyway!")
+            messages.warning(request, "The person you were about to respond to has removed the reference request, thanks anyway!")
             return redirect ("home")
 
 

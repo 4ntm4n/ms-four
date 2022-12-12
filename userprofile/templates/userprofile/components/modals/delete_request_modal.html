@@ -9,6 +9,10 @@
     {% static 'img/computer-guy.svg' %}
 {% endblock modal_img %}
 
+{% block modal_title %}
+    <h3 class="hm">Delete Request</h3>
+{% endblock modal_title %}
+
 {% block modal_info %}
     <p> You will no longer be able to get a reference response from {{ request.to_email }} if you proceed</p>                            
 {% endblock modal_info %}

@@ -112,7 +112,7 @@ class RefResponse(models.Model):
     #reference output about referee
     main_tasks = models.TextField(_("describe main tasks"))
     elaborate = models.TextField(_("elaborate"))
-    extra = models.TextField(_("extra"))
+    extra = models.TextField(_("extra"), null=True, blank=True)
 
     email = models.EmailField(_("your email"), max_length=254)
 
