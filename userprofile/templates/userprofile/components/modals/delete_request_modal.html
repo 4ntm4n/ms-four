@@ -1,0 +1,38 @@
+{% extends "./base_modal.html" %}
+{% load static %}
+
+{% block modal_id %}
+    id="{{ request.id }}"
+{% endblock modal_id %}
+
+{% block modal_img %} 
+    {% static 'img/computer-guy.svg' %}
+{% endblock modal_img %}
+
+{% block modal_info %}
+    <p> You will no longer be able to get a reference response from {{ request.to_email }} if you proceed</p>                            
+{% endblock modal_info %}
+
+{% block modal_qustion %}
+    <p class="red-text"> Are you sure you want to permanently delete this request?</p>
+{% endblock modal_qustion %}
+
+{% block modal_extra %}
+    <div class="row light-grey">
+        <p class="bold">Request Info</p>
+        <ul>
+            <li>You worked at: <br/> <span class="blue-text">{{ request.company_name }}</span></li>
+            <li>Your Reference's email: <br/>  <span class="blue-text">{{ request.to_email }}</span></li>
+            <li>You worked here between: <br/> <span class="blue-text">{{ request.date_from }}</span> and <span class="blue-text">{{ request.date_to }}</span></li>
+            <li>Current Status: <br/> <span class="blue-text">{{ request.get_status_display }} since {{ request.time_sent }}</span></li>
+        </ul>
+    </div>
+{% endblock modal_extra %}
+
+{% block modal_form %}
+    <form action="{% url 'delete_request' request.id %}" method="post">
+        {% csrf_token %} 
+        <input class="btn-flat right red lighten-1 white-text" value="delete" type="submit" />
+    </form>
+{% endblock modal_form %}
+

@@ -154,44 +154,42 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
 from django.contrib import messages
 
 
+from django.core.exceptions import ObjectDoesNotExist
+
 class TestResponseView(UpdateView):
     template_name = "userprofile/respond.html"
     success_url = reverse_lazy("home")
     form_class = ReferenceResponseForm
 
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            refid = link.decrypt_link(self.kwargs["uidb64"])
-            related_request = RefRequest.objects.get(pk=refid).refresponse.id
-            self.object = RefResponse.objects.get(pk=related_request)
-        except: 
-            messages.warning(request, "The user has removed this request, perhaps a reference wasn't needed after all?")
-            return redirect("home")
-
-        self.get_object()
-        return super(TestResponseView, self).get(request, *args, **kwargs)
-
-    def get_object(self): 
+    def get_object(self, queryset=None): 
         """
         1. decrypt reference ID
         2. Finds the specific reference object the user will respond to.
         3. render UpdateView for user response based on it's related request.
         
         """
-        refid = link.decrypt_link(self.kwargs["uidb64"])
-        related_request = RefRequest.objects.get(pk=refid).refresponse.id
-        self.object  = RefResponse.objects.get(pk=related_request)
+        try:
+            refid = link.decrypt_link(self.kwargs["uidb64"])
+            related_request = RefRequest.objects.get(pk=refid).refresponse.id
+            reference_object = RefResponse.objects.get(pk=related_request)
+        except ObjectDoesNotExist:
+            raise Http404
 
-        return self.object
+        return reference_object
 
     def get(self, request, *args, **kwargs):
-        
-        refid = link.decrypt_link(kwargs["uidb64"])
-        # Below I find the RefResponse ID through the request, issues when multiple users send requests
-        related_request = RefRequest.objects.get(pk=refid)
-        response_id = related_request.refresponse.id 
-        reference = RefResponse.objects.get(pk=response_id)
-       
+
+        #maybe add self.get_object() here?
+        try:
+            refid = link.decrypt_link(kwargs["uidb64"])
+            # Below I find the RefResponse ID through the request, issues when multiple users send requests
+            related_request = RefRequest.objects.get(pk=refid)
+            response_id = related_request.refresponse.id 
+            reference = RefResponse.objects.get(pk=response_id)
+        except:
+            messages.warning(request, "the sender has removed the reference request, thanks anyway!")
+            return redirect ("home")
+
 
         if reference.completed:
             messages.warning(request, "This reference request is already completed, thank you!")
@@ -200,12 +198,16 @@ class TestResponseView(UpdateView):
         return super(TestResponseView, self).get(request, *args, **kwargs)
     
     def form_valid(self, form):
-        form.instance.ref_request.status = "COMP"
-        form.instance.completed = True
-        print(form.instance.completed)
-        form.instance.ref_request.save()     
-        messages.success(self.request, "You did it! Thanks for being awesome.")
-        return super(TestResponseView, self).form_valid(form)
+        if form.instance.ref_request.status == "COMP":
+            messages.warning(self.request, "This reference request is already completed, thank you!")
+            return redirect ("home")
+        else:
+            form.instance.ref_request.status = "COMP"
+            form.instance.completed = True
+            print(form.instance.completed)
+            form.instance.ref_request.save()     
+            messages.success(self.request, "You did it! Thanks for being awesome.")
+            return super(TestResponseView, self).form_valid(form)
     
 
 class DeleteRequestView(DeleteView):

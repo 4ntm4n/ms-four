@@ -68,51 +68,7 @@
                             </a>
 
                             
-                            <div id="{{ request.id }}" class="modal">
-                                <div class="modal-header">
-                                    <div class="modal-image-container">
-                                        <img height="300px" width="auto" src="{% static 'img/computer-guy.svg' %}" alt="" />
-                                    </div>
-                                    <div class="modal-title">
-                                        <h3 class="hm">Delete Request</h3>
-                                    </div>
-                                </div>
-                                <div class="modal-info container center-align">
-                                    <p> You will no longer be able to get a reference response from {{ request.to_email }} if you proceed</p>                            
-                                </div>
-                                
-                                <div class="modal-content">
-                                    
-                                    <div class="modal-question container">
-                                        <div class="row">
-                                            <p class="red-text"> Are you sure you want to permanently delete this request?</p>
-                                        </div>
-                                            <div class="row light-grey">
-                                                <p class="bold">Request Info</p>
-                                                <ul>
-                                                    <li>You worked at: <br/> <span class="blue-text">{{ request.company_name }}</span></li>
-                                                    <li>Your Reference's email: <br/>  <span class="blue-text">{{ request.to_email }}</span></li>
-                                                    <li>You worked here between: <br/> <span class="blue-text">{{ request.date_from }}</span> and <span class="blue-text">{{ request.date_to }}</span></li>
-                                                    <li>Current Status: <br/> <span class="blue-text">{{ request.get_status_display }} since {{ request.time_sent }}</span></li>
-                                                </ul>
-                                            </div>
-                                           
-                                    </div>                                    
-                                </div>
-                                
-
-                                <div class="modal-footer">
-                                   <div class="container">
-                                    
-                                    <form action="{% url 'delete_request' request.id %}" method="post">
-                                        {% csrf_token %} 
-                                        <input class="btn-flat right red lighten-1 white-text" value="delete" type="submit" />
-                                    </form>
-                                  <p  class="modal-close waves-effect  waves-green btn-flat">return</p>
-                                 
-                                   </div>
-                                </div>
-                            </div>
+                            {% include "./components/modals/delete_request_modal.html" %}
 
                             {% endif %}
                             {% empty %}

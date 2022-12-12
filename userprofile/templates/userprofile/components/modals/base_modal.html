@@ -1,0 +1,43 @@
+ <div{% block modal_id %}id="{{ request.id }}" {% endblock modal_id %} class="modal"> 
+    <div class="modal-header">
+        <div class="modal-image-container">
+            <img height="300px" width="auto" src="{% block modal_img %} 
+        {% endblock modal_img %}" alt="" />
+        </div>
+        <div class="modal-title">
+            <h3 class="hm">Delete Request</h3>
+        </div>
+    </div>
+    <div class="modal-info container center-align">
+        {% block modal_info %}
+        {% endblock modal_info %}                           
+    </div>
+    
+    <div class="modal-content">
+        
+        <div class="modal-question container">
+            <div class="row">
+                {% block modal_qustion %}
+                {% endblock modal_qustion %}
+            </div>
+                {% block modal_extra %}
+           
+                {% endblock modal_extra %}
+               
+        </div>                                    
+    </div>
+
+    <div class="modal-footer">
+       <div class="container">
+        
+        {% block modal_form %}
+        <form action="{% url 'delete_request' request.id %}" method="post">
+        {% csrf_token %} 
+        <input class="btn-flat right red lighten-1 white-text" value="delete" type="submit" />
+        </form>
+        {% endblock modal_form %}
+      <p  class="modal-close waves-effect  waves-green btn-flat">return</p>
+     
+       </div>
+    </div>
+</div>
