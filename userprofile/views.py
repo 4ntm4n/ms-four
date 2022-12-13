@@ -216,6 +216,16 @@ class DeleteRequestView(DeleteView):
     def form_valid(self, form, **kwargs):
         
         ref_request = RefRequest.objects.get(pk=self.kwargs["pk"])
-        print()
+        messages.success(self.request, f"Reference request to {ref_request.to_email} at {ref_request.company_name} was successfully deleted.")
+        return super(DeleteRequestView, self).form_valid(form)
+
+
+class DeleteReferenceView(DeleteView):
+    model = RefResponse
+    success_url = reverse_lazy("test_profile")
+    
+    def form_valid(self, form, **kwargs):
+        
+        ref_request = RefRequest.objects.get(pk=self.kwargs["pk"])
         messages.success(self.request, f"Reference request to {ref_request.to_email} at {ref_request.company_name} was successfully deleted.")
         return super(DeleteRequestView, self).form_valid(form)
