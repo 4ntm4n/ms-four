@@ -76,9 +76,12 @@
                     <li><a class=" btn-floating btn-flat grey lighten-1 tooltipped" data-position="bottom" data-tooltip="coming soon"><i class="material-icons">insert_chart</i></a></li>
                     <li><a class=" btn-floating btn-flat grey lighten-1 tooltipped" data-position="bottom" data-tooltip="coming soon"><i class="material-icons">format_quote</i></a></li>
                     <li><a class=" btn-floating btn-flat grey lighten-1 tooltipped" data-position="bottom" data-tooltip="coming soon"><i class="material-icons">publish</i></a></li>
-                    <li><a class=" btn-floating deep-purple" data-position="bottom" data-tooltip="coming soon"><i class="material-icons">delete</i></a></li>
+                    <li><a data-target="{{ response.id }}"  class=" modal-trigger btn-floating deep-purple" data-position="bottom" data-tooltip="coming soon"><i class="material-icons">delete</i></a></li>
               </ul>
+
+             
         </div>
+        {% include "./components/modals/delete_reference_modal.html" %}
         <p class="btn" id="reference-toolbar-trigger" href=""> More options</p>
 
     </div>    

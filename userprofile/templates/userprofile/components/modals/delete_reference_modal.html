@@ -1,0 +1,34 @@
+{% extends "./base_modal.html" %}
+{% load static %}
+
+{% block modal_id %}
+    id="{{ response.id }}"
+{% endblock modal_id %}
+
+{% block modal_img %} 
+    {% static 'img/computer-guy.svg' %}
+{% endblock modal_img %}
+
+{% block modal_title %}
+    <h3 class="hm">Delete Reference</h3>
+{% endblock modal_title %}
+
+{% block modal_info %}
+    <p> This reference will be deleted permanently and can not be restored.</p>                            
+{% endblock modal_info %}
+
+{% block modal_qustion %}
+    <p class="red-text"> Are you sure you want to delete this Reference?</p>
+{% endblock modal_qustion %}
+
+{% block modal_extra %}
+{% endblock modal_extra %}
+
+{% block modal_form %}
+    <form action="" method="post">
+        {% csrf_token %} 
+        <input class="btn-flat right red lighten-1 white-text" value="delete" type="submit" />
+    </form>
+{% endblock modal_form %}
+
+{% comment %} {% url 'delete_request' request.id %} {% endcomment %}
