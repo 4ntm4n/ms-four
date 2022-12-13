@@ -9,8 +9,8 @@ urlpatterns = [
     path("signup/", SignUpView.as_view(), name="signup"),
     path("profile/", TestProfileView.as_view(), name="test_profile"),
     path("send-request/", TestCreateRequestView.as_view(), name="send_request"),
-    path("profile/reference/<int:pk>", TestReferenceDetailView.as_view(), name="reference_detail"),
-    path("profile/<int:pk>/", ProfileView.as_view(), name ="profile"),
+    path("profile/reference/<int:pk>", ReferenceDetailView.as_view(), name="reference_detail"),
+    # path("profile/<int:pk>/", ProfileView.as_view(), name ="profile"),
     path("respond/<uidb64>/", TestResponseView.as_view(), name="respond"),
     path("<int:pk>/delete-request/", DeleteRequestView.as_view(), name="delete_request"),
 

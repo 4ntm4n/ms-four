@@ -200,6 +200,27 @@ header{
     margin-top: 50px;
 }
 
+
+/* REFERENCE DETAIL PAGE */
+.reference-tooblar {
+    display: flex;
+    justify-content: center;
+    height: 80px;
+    margin-top: -12px;
+}
+
+.reference-tooblar > ul {
+    height: 80px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    
+
+}
+
+
 @media only screen and (max-width: 601px) {
     .slider-img-container .s12 {
         width: 100% !important;

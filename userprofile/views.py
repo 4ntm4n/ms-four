@@ -98,10 +98,10 @@ class TestProfileView(LoginRequiredMixin, ListView):
         return context
      
 
-class TestReferenceDetailView(LoginRequiredMixin, DetailView):
+class ReferenceDetailView(LoginRequiredMixin, DetailView):
     model = RefResponse
-    context_object_name = "ref_response"
-    template_name ="userprofile/test_response_detail.html"
+    context_object_name = "response"
+    template_name ="userprofile/response_detail.html"
 
 
 

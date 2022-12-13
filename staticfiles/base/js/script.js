@@ -23,8 +23,29 @@ document.addEventListener('DOMContentLoaded', () => {
     M.Tooltip.init(tooltip, {
         position: "bottom"
     });
+
+    // floating toolbar
+    var referenceFab = document.querySelectorAll('.fixed-action-btn');
+    M.FloatingActionButton.init(referenceFab, {
+      toolbarEnabled: true
+    });
   });
   
 
 
+const refTbTrigger = document.getElementById("reference-toolbar-trigger");
+const refToolbar = document.getElementById("reference-toolbar");
+refToolbar.classList.add("scale-out");
+
+
+refTbTrigger.addEventListener("click", (e) => {
+    if (refToolbar.classList.contains("scale-out")){
+        refToolbar.classList.remove("scale-out")
+        refToolbar.classList.add("scale-in")
+    }else {
+        refToolbar.classList.remove("scale-in")
+        refToolbar.classList.add("scale-out")
+    }
+        
+});
 

@@ -9,70 +9,30 @@
     {% static 'img/computer-guy.svg' %}
 {% endblock modal_img %}
 
-{% block modal_info %}
-    <p>  {{ response.company_name }} </p>                            
-{% endblock modal_info %}
-
 {% block modal_title %}
     <h3 class="hm">Reference response preview</h3>
 {% endblock modal_title %}
+
+{% block modal_info %}
+    <p> Response from {{ response.get_full_name }} at {{ response.company_name }} </p>                            
+{% endblock modal_info %}
 
 {% block modal_qustion %}
 {% endblock modal_qustion %}
 
 {% block modal_extra %}
-    <div class="row">
-        <div class="col s12 m8 l6 grey-text">
-            <span> In response to </span> <br />
-            <span>{{ response.profile }}</span> <br/>
-            <span>While at {{ response.company_name }}</span> <br/>
-            <span>from {{ response.ref_request.date_from|date:"Y-m-d" }} to {{ response.ref_request.date_from|date:"Y-m-d" }}</span>
-
-        </div>
-    </div>
 
     <div class="row">
-        <div class="col s12">
+        <div class="col s12 center-align">
             <h4 class="hsx bold">Primary Tasks</h4>
             <p>
                 {{ response.main_tasks }}
             </p>
-            <h4 class="hsx bold">Performance</h4>
-            <p>
-                {{ response.elaborate }}
-            </p>
-            {% if response.extra %}
-                <h4 class="hsx bold">Some tips for the future</h4>
-                <p>
-                    {{ response.extra }}
-                </p>
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m8 l6">
-            <p>
-                {{ response.get_full_name }} <br />
-                {{ response.title }} <br />
-                {{ response.company_name }} <br />
 
-            </p>
-            <hr />
         </div>
-        <div class="col s12"> <p>
-            {% if response.relation == "BOSS" %}
-                I was a manager over {{ response.profile }}
-            {% elif response.relation == "COLL" %}
-                I was a collegue to {{ response.profile }}
-            {% endif %}
-
-        </p></div>
     </div>
 {% endblock modal_extra %}
 
 {% block modal_form %}
-    <form action="" method="post">
-        {% csrf_token %} 
-        <input class="btn-flat right deep-purple lighten-2 white-text" value="options" type="submit" />
-    </form>
+    <a href="{% url 'reference_detail' response.pk %}" class="btn-flat right deep-purple lighten-2 white-text" >View full reference</a>
 {% endblock modal_form %}
