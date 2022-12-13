@@ -226,6 +226,7 @@ class DeleteReferenceView(DeleteView):
     
     def form_valid(self, form, **kwargs):
         
-        ref_request = RefRequest.objects.get(pk=self.kwargs["pk"])
-        messages.success(self.request, f"Reference request to {ref_request.to_email} at {ref_request.company_name} was successfully deleted.")
-        return super(DeleteRequestView, self).form_valid(form)
+        reference = RefResponse.objects.get(pk=self.kwargs["pk"])
+        print(reference)
+        messages.success(self.request, f"Reference from {reference.get_full_name()} at {reference.company_name} was deleted forever")
+        return super(DeleteReferenceView, self).form_valid(form)

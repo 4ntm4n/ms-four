@@ -25,7 +25,7 @@
 {% endblock modal_extra %}
 
 {% block modal_form %}
-    <form action="{% url 'delete_reference' reference.pk %}" method="post">
+    <form action="{% url 'delete_reference' response.pk %}" method="post">
         {% csrf_token %} 
         <input class="btn-flat right red lighten-1 white-text" value="delete" type="submit" />
     </form>
