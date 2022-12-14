@@ -240,3 +240,7 @@ header{
     }
    
 }
+
+#pending-box {
+    transition:2s all !important;
+}

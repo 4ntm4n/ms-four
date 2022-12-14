@@ -32,29 +32,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const pendingBox = document.getElementById('pending-box')
     const pendingTrigger = document.getElementById('pending-trigger')
     const mql = window.matchMedia('(min-width: 600px)');
-    const pbGone = pendingBox.classList.contains('scale-out')
+    const pbGone = pendingBox.style.display === "none"
 
     let toggle = false
 
     alert(mql.matches)
     if (mql.matches && !pbGone){
-        pendingBox.classList.add("scale-out")
+        pendingBox.style.display = "none"
     }
 
     pendingTrigger.onclick = (e) => {
-        const pbGone = pendingBox.classList.contains('scale-out')
+        
+        const pbGone = pendingBox.style.display === "none"
         if (pbGone && !toggle){
             toggle = true;
-            pendingBox.classList.add('scale-in')
+            pendingBox.style.display = "block"
         }else{
             toggle = false;
-            pendingBox.classList.remove('scale-in')
+            pendingBox.style.display = "none"
         }
     }
 
     mql.onchange = (e) =>{
-        e.matches ? pendingBox.classList.add('scale-out')
-                  : pendingBox.classList.remove('scale-out');
+        e.matches ? pendingBox.style.display="none"
+                  : pendingBox.style.display="block";
     }
 
 

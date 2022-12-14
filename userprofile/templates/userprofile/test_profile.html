@@ -12,8 +12,8 @@
             <div class="crumbs-row row">
                 <nav class="crumbs-box col s10 m6 right transparent z-depth-0">
                     <div class="nav-wrapper right ">
-                          <a  href="#!" class="breadcrumb black-text">Profile</a>
-                          <a  href="{% url 'send_request' %}" class="breadcrumb grey-text">Send Request</a>
+                        <a href="#!" class="breadcrumb black-text">Profile</a>
+                        <a href="{% url 'send_request' %}" class="breadcrumb grey-text">Send Request</a>
                     </div>
                 </nav>
             </div>
@@ -25,7 +25,7 @@
             <div class="counter-row row row-margin-delete valign-wrapper">
                 <div class="col s6 m4 counter-box  hide-on-small-only">
                     <div class="card-content">
-                        <span class="hsx card-title grey-text"> Show pending requests </span>
+                        <span class="hsx card-title grey-text">Show pending requests</span>
                         <div class="switch">
                             <label>
                                 Off
@@ -39,16 +39,15 @@
                 <div class="col s6 m4 counter-box">
                     <div class="card right-align rounded">
                         <div class="card-content">
-                            <span class="hs card-title"> Requests </span>
+                            <span class="hs card-title">Requests</span>
                             <span class="xl3">{{ count_requests }}</span>
                         </div>
                     </div>
                 </div>
-
                 <div class=" col s6 m4 counter-box">
                     <div class="card right-align rounded">
                         <div class="card-content">
-                            <span class="hs card-title"> References </span>
+                            <span class="hs card-title">References</span>
                             <span class="xl3">{{ count_responses }}</span>
                         </div>
                     </div>
@@ -56,94 +55,81 @@
             </div>
         </section>
         <section class="grey rounded">
-            <div class="row">
-                
-            </div>
-            
+            <div class="row"></div>
             <div class="row">
                 <div id="reference-box" class="col s12 card-panel rounded left-align">
-                    <h3 class="hs">My References <i class="material-icons small right">list</i></h3>
+                    <h3 class="hs">
+                        My References <i class="material-icons small right">list</i>
+                    </h3>
                     <hr/>
-                    
-                    
                     <div class="collection">
                         <div class="row collection-item reference-collection grey lighten-3">
                             <div class="col s3 truncate left-align bold">Name</div>
-                                    <div class="col s6 truncate center-align bold">Response</div>
-                                    <div class="col s3 truncate right-align bold">Response Date</div>
+                            <div class="col s6 truncate center-align bold">Response</div>
+                            <div class="col s3 truncate right-align bold">Response Date</div>
                         </div>
                         {% for response in comp_responses %}
-                        <a data-target="{{ response.id }}"  class="modal-trigger row collection-item reference-collection blue-text" href="">
-                                <div class="col s3 truncate left-align"> {{ response.get_full_name }}</div>
+                            <a data-target="{{ response.id }}"
+                               class="modal-trigger row collection-item reference-collection blue-text"
+                               href="">
+                                <div class="col s3 truncate left-align">{{ response.get_full_name }}</div>
                                 <div class="col s6 truncate center-align">{{ response.elaborate }}</div>
                                 <div class="col s3 truncate right-align">{{ response.time_added }}</div>
-                        </a>
-
-                        {% include "./components/modals/reference_preview_modal.html" %}
-                       
-
-                        {% empty %}
-                        {% comment %} {{ user.last_login|date:"Y-m-d H:i" }}  {{ current_datetime }} {% endcomment %}
-                        {% if user.date_joined|date:"Y-m-d H:i"  == current_datetime %}
-                        <a data-target="{{ request.id }}"  class="modal-trigger example-reference row collection-item reference-collection blue-text" href="">
-                            <div class="col s3 truncate left-align"> Elon Musk</div>
-                            <div class="col s6 truncate center-align">He kind of knew what he was doing, and he liked twitter wich was nice.</div>
-                            <div class="col s3 truncate right-align">Dec. 12, 1991</div>
-                         </a>
-                        <div class="col s12 truncate center-align collection-item grey-text"> 
-                             <p>your references show up here, just like an email, click to read more</p>
-                         </div>
-
-                         {% else %}
-                         <div class="col s12 truncate center-align collection-item grey-text"> 
-                            <p>You don't have any references yet. They will show up here.</p>
-                        </div>
-                        {% endif %}
-                       {% endfor %}
-                    </div>
-                        
-                    </div>
-                    
-                </div>
-
-                <div id="pending-box" class="scale-transition scale-out col s12 card-panel rounded left-align">
-                    <h3 class="hs">Pending Requests <i class="material-icons small right">access_time</i></h3>
-                    <hr/>
-
-                    <ul class="collection">
-                        {% for request in requests %}
-                            {% if request.status == "PEND" %}
-                        <li class="collection-item"><div><span class="blue-text">Id: </span> {{ request.to_email }} <a data-target="{{ request.id }}" href="" class="modal-trigger secondary-content"><i class="material-icons blue-text">delete</i></a></div></li>
-
-                            {% comment %} <a data-target="{{ request.id }}" class="modal-trigger  collection-item " href="">
-                                <div class="row valign-wrapper">
-                                    <div class="col s9 content truncate">
-                                        <p class="truncate blue-text">
-                                            Request to: {{ request.company_name }} |<br />
-                                            Email recipient: {{ request.to_email }}<br />
-                                            Date sent: {{ request.time_sent }} <br />
-                                            status: {{ request.get_status_display }}
-                                        </p>
-                                    </div>
-                                    <div class="col s3">
-                                        <i class="right material-icons blue-text">delete</i>
-                                    </div>  
-                                </div>
                             </a>
- {% endcomment %}
-                            {% include "./components/modals/delete_request_modal.html" %}
-
+                            {% include "./components/modals/reference_preview_modal.html" %}
+                        {% empty %}
+                            {% comment %} {{ user.last_login|date:"Y-m-d H:i" }}  {{ current_datetime }} {% endcomment %}
+                            {% if user.date_joined|date:"Y-m-d H:i"  == current_datetime %}
+                                <a data-target="{{ request.id }}"
+                                   class="modal-trigger example-reference row collection-item reference-collection blue-text"
+                                   href="">
+                                    <div class="col s3 truncate left-align">Elon Musk</div>
+                                    <div class="col s6 truncate center-align">He kind of knew what he was doing, and he liked twitter wich was nice.</div>
+                                    <div class="col s3 truncate right-align">Dec. 12, 1991</div>
+                                </a>
+                                <div class="col s12 truncate center-align collection-item grey-text">
+                                    <p>your references show up here, just like an email, click to read more</p>
+                                </div>
+                            {% else %}
+                                <div class="col s12 truncate center-align collection-item grey-text">
+                                    <p>You don't have any references yet. They will show up here.</p>
+                                </div>
                             {% endif %}
-                            {% empty %}
-                            <div class="col s12 truncate center-align collection-item grey-text"> 
-                                <p>No requests in progess. <a class="grey-text" href="{% url 'send_request' %}"><u>Ask for a reference</u></a></p>
-                            </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </div>
             </div>
-        </section>
 
+            <div id="pending-box"
+                 class="col s12 card-panel rounded left-align">
+                <h3 class="hs">
+                    Pending Requests <i class="material-icons small right">access_time</i>
+                </h3>
+                <ul class="collection">
+                    {% for request in requests %}
+                        {% if request.status == "PEND" %}
+                            <li class="collection-item">
+                                <div>
+                                    <span class="blue-text">Id:</span> {{ request.to_email }} 
+                                    <a href="" data-target="{{ request.id }}" class="modal-trigger secondary-content">
+                                        <i class="material-icons blue-text">delete</i></a>
         
+                                </div>
+                            </li>
+                            <div class="free-float">
+                                {% include "./components/modals/delete_request_modal.html" %}
+                            </div>
+                        {% endif %}
+                    {% empty %}
+                        <div class="col s12 truncate center-align collection-item grey-text">
+                            <p>
+                                No requests in progess. <a class="grey-text" href="{% url 'send_request' %}"><u>Ask for a reference</u></a>
+                            </p>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
 
+        </div>
+    </section>
 {% endblock content %}
