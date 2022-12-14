@@ -135,23 +135,6 @@ header{
     z-index: 2;
 }
 
-/* PROFILE -reference response */
-
-.responder-list-name {
-    max-width: 80%;
-}
-
-.collection a.collection-item:hover{
-    color: darkblue;
-    background-color: #dde1ff !important;
-    overflow: hidden !important;
-}
-
-.reference-collection{
-   margin-left: 0rem !important;
-    margin-right: 0rem !important;
-}
-
 /* MODALS */
 
 .modal-header{
@@ -185,6 +168,23 @@ header{
     height: 200px;
     overflow: hidden;
     
+}
+
+/* PROFILE -reference response */
+
+.responder-list-name {
+    max-width: 80%;
+}
+
+.collection a.collection-item:hover{
+    color: darkblue;
+    background-color: #dde1ff !important;
+    overflow: hidden !important;
+}
+
+.reference-collection{
+   margin-left: 0rem !important;
+    margin-right: 0rem !important;
 }
 
 

@@ -13,9 +13,20 @@ class SignUpForm(UserCreationForm):
     """
     form to create a new user
     """
+
+    def __init__(self, *args, **kwargs):
+        """
+        remove standard helptext in UserCreationForm
+        """
+        super(SignUpForm, self).__init__(*args, **kwargs)
+
+        for fieldname in ['email', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
+
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email"]
+
 
 
 class RequestForm(ModelForm):

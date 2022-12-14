@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     //sidenav
     const sidenav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenav, {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const select = document.querySelectorAll('select');
     M.FormSelect.init(select);
-    
+
     //tooltip for help when hovering element. example at blockquote in send_request_form.html
     const tooltip = document.querySelectorAll('.tooltipped');
     M.Tooltip.init(tooltip, {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // floating toolbar
     var referenceFab = document.querySelectorAll('.fixed-action-btn');
     M.FloatingActionButton.init(referenceFab, {
-      toolbarEnabled: true
+        toolbarEnabled: true
     });
 
     const pendingBox = document.getElementById('pending-box')
@@ -36,29 +36,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let toggle = false
 
-    alert(mql.matches)
-    if (mql.matches && !pbGone){
-        pendingBox.style.display = "none"
+    if (mql.matches && !pbGone) {
+        pendingBox.style.display = "none";
     }
 
     pendingTrigger.onclick = (e) => {
-        
-        const pbGone = pendingBox.style.display === "none"
-        if (pbGone && !toggle){
+        const pbGone = pendingBox.style.display === "none";
+        if (pbGone && !toggle) {
             toggle = true;
-            pendingBox.style.display = "block"
-        }else{
+            pendingBox.style.display = "block";
+        } else {
             toggle = false;
-            pendingBox.style.display = "none"
+            pendingBox.style.display = "none";
         }
     }
 
-    mql.onchange = (e) =>{
-        e.matches ? pendingBox.style.display="none"
-                  : pendingBox.style.display="block";
+    mql.onchange = (e) => {
+        if (e.matches) {
+            pendingBox.style.display = "none";
+
+        } else {
+            pendingBox.style.display = "block";
+        }
     }
-
-
 });
 
 
@@ -75,13 +75,13 @@ refToolbar.classList.add("scale-out");
 
 
 refTbTrigger.addEventListener("click", (e) => {
-    if (refToolbar.classList.contains("scale-out")){
+    if (refToolbar.classList.contains("scale-out")) {
         refToolbar.classList.remove("scale-out")
         refToolbar.classList.add("scale-in")
-    }else {
+    } else {
         refToolbar.classList.remove("scale-in")
         refToolbar.classList.add("scale-out")
     }
-        
+
 });
 

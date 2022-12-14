@@ -7,20 +7,20 @@
 {% endblock form_image %}
 
 {% block form_title %}
-    Log in and get a reference or two...
+    Let's get those references.
 {% endblock form_title %}
 
 {% block form %}
 <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|materializecss }}
 
     <div class="row valign-wrapper row-margin-add">
         <div class="col s6">
             <button type="submit" class="btn">Sign in</button>
         </div>
         <div class="col s6 right-align">
-            <p>Don't have an account yet? <a class="blue-text" href="{% url 'signup' %}">Sign up here</a></p>
+            <p>Not member? <br /> <a class="blue-text" href="{% url 'signup' %}">Sign up here</a></p>
         </div>
         
 </form>
