@@ -1,7 +1,7 @@
  <div{% block modal_id %}id="{{ request.id }}" {% endblock modal_id %} class="modal"> 
     <div class="modal-header">
         <div class="modal-image-container">
-            <img height="300px" width="auto" src="{% block modal_img %} 
+            <img height="200px" width="auto" src="{% block modal_img %} 
         {% endblock modal_img %}" alt="" />
         </div>
         <div class="modal-title">
@@ -18,7 +18,7 @@
     <div class="modal-content">
         
         <div class="modal-question container">
-            <div class="row">
+            <div class="row center-align">
                 {% block modal_qustion %}
                 {% endblock modal_qustion %}
             </div>

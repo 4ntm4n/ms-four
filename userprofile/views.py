@@ -131,14 +131,19 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
 
         recipient = form.instance.to_email
         company_slug = form.instance.company_slug
+
+        email_subject = f"{user.profile} wants you as a reference"
         email_body = render_to_string("userprofile/emails/request_reference_email.html", {
+            "date_from": form.instance.date_from,
+            "date_to": form.instance.date_to,
+            "company_name": form.instance.company_name,
             "name":user.profile,
             "domain":current_site.domain,
             "refid": link.encrypt_link(company_slug, response_id),
             })
 
         email = EmailMessage(
-            'email subject',
+            email_subject,
             email_body,
             'hello@pytagora.com',
             [recipient],

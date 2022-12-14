@@ -153,6 +153,7 @@ header{
 }
 
 /* MODALS */
+
 .modal-header{
     text-align: center !important;
 }
@@ -162,7 +163,7 @@ header{
 }
 
 .modal-image-container{
-    height: 200px;
+    height: 90px;
     overflow: hidden;
     
 }

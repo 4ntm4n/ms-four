@@ -23,26 +23,34 @@
         <title>Pytagora Beta</title>
     </head>
     <body>
-        {% if user.is_authenticated %}
-        <p>hey {{ user.first_name }}!</p>
-        <a href="{% url 'logout' %}">logout</a>
-        {% else %}
-        <a href="{% url 'login' %}"> login</a>
-        {% endif %}
-        
-        <hr />
         <header>
             <nav>
                 <div class="nav-wrapper z-depth-1">
                     <a href="{% url 'home' %}" class="brand-logo">Pytagora</a>
                     <a href="#" data-target="pytagora-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'test_profile' %}">Logged in as {{ user.first_name }}</a></li>
+                        <li>
+                            <a href="{% url 'logout' %}">logout</a>
+                        </li> 
+                        <li>
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                        {% else %}   
+                        <li>
+                            <a href="{% url 'login' %}"> login</a>
+                        </li>   
                         <li>
                             <a href="{% url 'home' %}">Home</a>
                         </li>
                         <li>
                             <a href="{% url 'signup' %}">Signup</a>
                         </li>
+                        
+                        {% endif %}
+        
+       
                     </ul>
                 </div>
             </nav>

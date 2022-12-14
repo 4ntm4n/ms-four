@@ -1,7 +1,13 @@
 {% autoescape off %}
-Hi {{ name }} needs your help,
+Hi,
 
-Please click on the link below to answer some questions:
+{{ name }} who worked at {{ company_name }} between {{ date_from }} and {{ date_to }} wants you to be a reference.
 
+It takes about 10 to 15 minutes to respond and you dont need an account to answer our questions regarding {{ name }}'s time at {{ company_name }}.
+
+Please click the link below to get started.
 http://{{ domain }}{% url 'respond' uidb64=refid %} 
 {% endautoescape %}
+
+Thank you,
+The pytagora team

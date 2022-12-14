@@ -17,13 +17,26 @@
                     </div>
                 </nav>
             </div>
-            <div class="req-reference-row row">
+            <div class="req-reference-row row right-align">
                 <div class="col s12 profilesque-image grey darken-4">
                     <a class="btn" id="req-reference" href="{% url 'send_request' %}">Ask For Reference</a>
                 </div>
             </div>
-            <div class="counter-row row row-margin-delete">
-                <div class="col s6 counter-box">
+            <div class="counter-row row row-margin-delete valign-wrapper">
+                <div class="col s6 m4 counter-box  hide-on-small-only">
+                    <div class="card-content">
+                        <span class="hsx card-title grey-text"> Show pending requests </span>
+                        <div class="switch">
+                            <label>
+                                Off
+                                <input id="pending-trigger" type="checkbox" />
+                                <span class="lever"></span>
+                                On
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6 m4 counter-box">
                     <div class="card right-align rounded">
                         <div class="card-content">
                             <span class="hs card-title"> Requests </span>
@@ -32,7 +45,7 @@
                     </div>
                 </div>
 
-                <div class=" col s6 counter-box">
+                <div class=" col s6 m4 counter-box">
                     <div class="card right-align rounded">
                         <div class="card-content">
                             <span class="hs card-title"> References </span>
@@ -44,62 +57,11 @@
         </section>
         <section class="grey rounded">
             <div class="row">
-                <div class="col s12 card-panel rounded left-align">
-                    <h3 class="hs">Requests awaiting response <i class="material-icons small right">access_time</i></h3>
-                    <hr/>
-
-                    <div class="collection">
-                        {% for request in requests %}
-                            {% if request.status == "PEND" %}
-                            <a data-target="{{ request.id }}" class="modal-trigger  collection-item " href="">
-                                <div class="row valign-wrapper">
-                                    <div class="col s9 content truncate">
-                                        <p class="truncate blue-text">
-                                            Request to: {{ request.company_name }}<br />
-                                            Email recipient: {{ request.to_email }}<br />
-                                            Date sent: {{ request.time_sent }} <br />
-                                            status: {{ request.get_status_display }}
-                                        </p>
-                                    </div>
-                                    <div class="col s3">
-                                        <i class="right material-icons blue-text">delete</i>
-                                    </div>  
-                                </div>
-                            </a>
-
-                            
-                            {% include "./components/modals/delete_request_modal.html" %}
-
-                            {% endif %}
-                            {% empty %}
-                            {% if user.last_login == user.date_joined %}
-                            <a class=" collection-item " href="">
-                                <div class="row valign-wrapper">
-                                    <div class="col s9 content truncate">
-                                        <p class="truncate blue-text">
-                                            Request to: Some Company Inc. <br />
-                                            Email recipient: my.reference@somecompany.com <br />
-                                            Date sent: Dec.6, 1991 <br />
-                                            When you ask for a reference, your pending request will show up like this. <br />
-                                            you can delete a pending request by clicking on it.
-                                        </p>
-                                    </div>
-                                    <div class="col s3">
-                                        <i class="right material-icons blue-text">delete</i>
-                                    </div>  
-                                </div>
-                            </a>
-                            {% endif %}
-                            <div class="col s12 truncate center-align collection-item grey-text"> 
-                                <p>No requests in progess. <a class="grey-text" href="{% url 'send_request' %}"><u>Ask for a reference</u></a></p>
-                            </div>
-                        {% endfor %}
-                    </div>
-            </div>
+                
             </div>
             
             <div class="row">
-                <div class="col s12 card-panel rounded left-align">
+                <div id="reference-box" class="col s12 card-panel rounded left-align">
                     <h3 class="hs">My References <i class="material-icons small right">list</i></h3>
                     <hr/>
                     
@@ -142,6 +104,42 @@
                         
                     </div>
                     
+                </div>
+
+                <div id="pending-box" class="scale-transition scale-out col s12 card-panel rounded left-align">
+                    <h3 class="hs">Pending Requests <i class="material-icons small right">access_time</i></h3>
+                    <hr/>
+
+                    <ul class="collection">
+                        {% for request in requests %}
+                            {% if request.status == "PEND" %}
+                        <li class="collection-item"><div><span class="blue-text">Id: </span> {{ request.to_email }} <a data-target="{{ request.id }}" href="" class="modal-trigger secondary-content"><i class="material-icons blue-text">delete</i></a></div></li>
+
+                            {% comment %} <a data-target="{{ request.id }}" class="modal-trigger  collection-item " href="">
+                                <div class="row valign-wrapper">
+                                    <div class="col s9 content truncate">
+                                        <p class="truncate blue-text">
+                                            Request to: {{ request.company_name }} |<br />
+                                            Email recipient: {{ request.to_email }}<br />
+                                            Date sent: {{ request.time_sent }} <br />
+                                            status: {{ request.get_status_display }}
+                                        </p>
+                                    </div>
+                                    <div class="col s3">
+                                        <i class="right material-icons blue-text">delete</i>
+                                    </div>  
+                                </div>
+                            </a>
+ {% endcomment %}
+                            {% include "./components/modals/delete_request_modal.html" %}
+
+                            {% endif %}
+                            {% empty %}
+                            <div class="col s12 truncate center-align collection-item grey-text"> 
+                                <p>No requests in progess. <a class="grey-text" href="{% url 'send_request' %}"><u>Ask for a reference</u></a></p>
+                            </div>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </section>

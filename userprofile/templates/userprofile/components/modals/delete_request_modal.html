@@ -14,7 +14,21 @@
 {% endblock modal_title %}
 
 {% block modal_info %}
-    <p> You will no longer be able to get a reference response from {{ request.to_email }} if you proceed</p>                            
+    <p> Only delete the request if you no longer wish to receive a reference from {{ request.to_email }}</p>
+    <table>
+        <tr>
+            <th>Company</th>
+            <th>Fr date</th>
+            <th>To date</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>{{ request.company_name }}</td>
+            <td>{{ request.date_from|date:"Y-m-d" }}</td>
+            <td>{{ request.date_to|date:"Y-m-d" }}</td>
+            <td>{{ request.get_status_display }}</td>
+        </tr>
+    </table>                          
 {% endblock modal_info %}
 
 {% block modal_qustion %}
@@ -22,15 +36,6 @@
 {% endblock modal_qustion %}
 
 {% block modal_extra %}
-    <div class="row light-grey">
-        <p class="bold">Request Info</p>
-        <ul>
-            <li>You worked at: <br/> <span class="blue-text">{{ request.company_name }}</span></li>
-            <li>Your Reference's email: <br/>  <span class="blue-text">{{ request.to_email }}</span></li>
-            <li>You worked here between: <br/> <span class="blue-text">{{ request.date_from }}</span> and <span class="blue-text">{{ request.date_to }}</span></li>
-            <li>Current Status: <br/> <span class="blue-text">{{ request.get_status_display }} since {{ request.time_sent }}</span></li>
-        </ul>
-    </div>
 {% endblock modal_extra %}
 
 {% block modal_form %}

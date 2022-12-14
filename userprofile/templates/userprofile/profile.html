@@ -11,11 +11,11 @@
                         <span class="white-text">My references <i class="material-icons right">redeem</i></span>
                         <hr/>
                     </div>
-                    <div class=" collection">
+                    <ul class=" collection">
                         {% for request in requests %}  
                         {% if request.status == "COMP" %}
-
-                        <a data-target="{{ request.refresponse.id }}" class="modal-trigger  collection-item" href="">{{ request.status }} | {{ request.refresponse.email }} | {{ request.refresponse.get_full_name }} | ID:  {{ request.refresponse.id }} </a>
+                        <li class="collection-item"><div>{{ request.refresponse.email }}<a href="{{ request.refresponse.id }}" class="modal-trigger secondary-content"><i class="material-icons">delete</i></a></div></li>
+                        {% comment %} <a data-target="{{ request.refresponse.id }}" class="modal-trigger  collection-item" href="">{{ request.status }} | {{ request.refresponse.email }} | {{ request.refresponse.get_full_name }} | ID:  {{ request.refresponse.id }} </a> {% endcomment %}
 
                         <div id="{{ request.refresponse.id }}" class="modal">
                             <div class="modal-content">
@@ -31,7 +31,7 @@
                         {% endif %}
                         {% endfor %}
                         
-                    </div>
+                    </ul>
                     
                 </div>
             </div>

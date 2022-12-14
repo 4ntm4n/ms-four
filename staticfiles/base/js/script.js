@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //sidenav
     const sidenav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenav, {
-        edge: "left",
-        draggable: false,
+        edge: "left"
     });
 
     //collapsible element for requests on profile
@@ -29,8 +28,44 @@ document.addEventListener('DOMContentLoaded', () => {
     M.FloatingActionButton.init(referenceFab, {
       toolbarEnabled: true
     });
-  });
-  
+
+    const pendingBox = document.getElementById('pending-box')
+    const pendingTrigger = document.getElementById('pending-trigger')
+    const mql = window.matchMedia('(min-width: 600px)');
+    const pbGone = pendingBox.classList.contains('scale-out')
+
+    let toggle = false
+
+    alert(mql.matches)
+    if (mql.matches && !pbGone){
+        pendingBox.classList.add("scale-out")
+    }
+
+    pendingTrigger.onclick = (e) => {
+        const pbGone = pendingBox.classList.contains('scale-out')
+        if (pbGone && !toggle){
+            toggle = true;
+            pendingBox.classList.add('scale-in')
+        }else{
+            toggle = false;
+            pendingBox.classList.remove('scale-in')
+        }
+    }
+
+    mql.onchange = (e) =>{
+        e.matches ? pendingBox.classList.add('scale-out')
+                  : pendingBox.classList.remove('scale-out');
+    }
+
+
+});
+
+
+
+
+
+
+
 
 
 const refTbTrigger = document.getElementById("reference-toolbar-trigger");
