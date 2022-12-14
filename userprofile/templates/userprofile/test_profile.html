@@ -1,30 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <div class="container center lighten-3">
+    <div class="container center grey lighten-5">
         <section class="profile-section">
-            <div class="heading-row row row-margin-delete">
-                <div class="heading-box right-align col s12">
-                    <h2 class="hm ">Hey {{ user.first_name }}!</h2>
-                    <p>welcome to the inbox for your references</p>
+            <div class="row color ">
+                <div class="heading-row row row-margin-delete">
+                    <div class="heading-box right-align col s12 m11">
+                        <h2 class="hm ">Hey {{ user.first_name }}!</h2>
+                        <p>your references are stored here</p>
+                    </div>
+                </div>
+                <div class="crumbs-row row">
+                    <nav class="crumbs-box col s10 m11 pull-m1 right transparent z-depth-0">
+                        <div class="nav-wrapper right ">
+                            <a href="#!" class="breadcrumb black-text">Profile</a>
+                            <a href="{% url 'send_request' %}" class="breadcrumb grey-text">Send Request</a>
+                        </div>
+                    </nav>
                 </div>
             </div>
-            <div class="crumbs-row row">
-                <nav class="crumbs-box col s10 m6 right transparent z-depth-0">
-                    <div class="nav-wrapper right ">
-                        <a href="#!" class="breadcrumb black-text">Profile</a>
-                        <a href="{% url 'send_request' %}" class="breadcrumb grey-text">Send Request</a>
-                    </div>
-                </nav>
-            </div>
-            <div class="req-reference-row row right-align">
-                <div class="col s12 profilesque-image grey darken-4">
-                    <a class="btn" id="req-reference" href="{% url 'send_request' %}">Ask For Reference</a>
+            <div class="req-reference-row row ">
+                <div class="col s10 offset-s1 left-align profilesque-image ">
+                    <a class="z-depth-2 btn-large waves-effect waves-light btn orange lighten-2 black-text" id="req-reference" href="{% url 'send_request' %}">Get A Reference</a>
                 </div>
             </div>
             <div class="counter-row row row-margin-delete valign-wrapper">
-                <div class="col s6 m4 counter-box  hide-on-small-only">
-                    <div class="card-content">
+                <div class="col s6 m4 offset-m1 pull-m1 counter-box  hide-on-small-only">
+                    <div class="card-content center-align ">
                         <span class="hsx card-title grey-text">Show pending requests</span>
                         <div class="switch">
                             <label>
@@ -36,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s6 m4 counter-box">
+                <div class="col s6 m4 l3 pull-l1 counter-box">
                     <div class="card right-align rounded">
                         <div class="card-content">
                             <span class="hs card-title">Requests</span>
@@ -44,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" col s6 m4 counter-box">
+                <div class=" col s6 m4 l3 pull-l1 counter-box">
                     <div class="card right-align rounded">
                         <div class="card-content">
                             <span class="hs card-title">References</span>
@@ -54,10 +56,10 @@
                 </div>
             </div>
         </section>
-        <section class="grey rounded">
+        <section>
             <div class="row"></div>
             <div class="row">
-                <div id="reference-box" class="col s12 card-panel rounded left-align">
+                <div id="reference-box" class="col s12 card-panel rounded left-align z-depth-4">
                     <h3 class="hs">
                         My References <i class="material-icons small right">list</i>
                     </h3>

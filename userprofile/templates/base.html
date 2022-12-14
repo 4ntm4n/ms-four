@@ -24,12 +24,12 @@
     </head>
     <body>
         <header>
-            <nav class="deep-purple">
+            <nav class="z-depth-0 white">
                 <div class="container">
-                    <div class="nav-wrapper z-depth">
-                        <a href="{% url 'home' %}" class="brand-logo">Pytagora</a>
+                    <div class="nav-wrapper">
+                        <a href="{% url 'home' %}" class="teal-text brand-logo">Pytagora</a>
                         <a href="#" data-target="pytagora-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                        <ul class="right hide-on-med-and-down">
+                        <ul class="right hide-on-med-and-down ">
                             {% if user.is_authenticated %}
                             <li><a href="{% url 'test_profile' %}">Logged in as {{ user.first_name }}</a></li>
                             <li>
@@ -77,7 +77,7 @@
         {% endblock content %}
        </main>
 
-        <footer class="page-footer deep-purple darken-2" >
+        <footer class="page-footer  teal darken-2" >
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-copyright deep-purple darken-4">
+            <div class="footer-copyright amber accent-4">
                 <div class="container">
                     © 2014 Copyright Text
                     <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
