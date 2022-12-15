@@ -80,8 +80,12 @@ nav a{
     margin-bottom: 1em !important;
 }
 
+.margin-add {
+    margin-top: 5em !important;
+}
+
 .row-margin-add {
-    margin-top: 2em !important;
+    margin-top: 3em !important;
 }
 
 .full-width {
@@ -216,6 +220,17 @@ nav a{
     height: 200px;
     overflow: hidden;
 
+}
+
+/* HOMEPAGE */
+
+#keyword{
+    display: inline-block;
+    border-bottom: 7px solid rgb(235, 194, 59);
+}
+
+.hero{
+    height: 90vh;
 }
 
 /* PROFILE */
