@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<section class="hero container valign-wrapper">
-    <div class="row center-align ">
-        <div class="col s12 l6 hide-on-med-and-down row-margin-add">
-            <img height="400" width="auto" src="{% static './img/pytagora-mobile.png' %}" alt="pytagora mobile mockup" />
+<section class="hero valign-wrapper">
+    <div class="row center-align valign-wrapper">
+        <div class="col s12  l6 hide-on-med-and-down">
+            <img height="auto" width="100%" src="{% static './img/pull-request.svg' %}" alt="pytagora mobile mockup" />
         </div>
-        <div class="col s12 l6">
-            <h2>Collect and store <span id="keyword">references</span> from your previous employers</h2>
+        <div class="col pull-s2 s8 l5 pull-l1 ">
+            <h2 class="xl7">Collect and store your <span id="keyword">references</span> from your previous employers.</h2>
             <div class="row margin-add">
-                <div class="col s12">
+                <div class="col center-align s12 margin-add">
                     <a class="btn" href="{% url 'signup' %}">Get started</a>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 </section>
 
