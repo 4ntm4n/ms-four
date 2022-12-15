@@ -232,6 +232,22 @@ nav a{
 .hero{
     height: 90vh;
 }
+.feature{
+    height: 90vh;
+}
+
+.feature-box{
+    border: 5px solid teal;
+    z-index:4;
+}
+
+.ft-img{
+
+}
+.ft-text{
+    height: 200px;
+   
+}
 
 /* PROFILE */
 
