@@ -19,45 +19,6 @@
                     </nav>
                 </div>
             </div>
-            <div class="req-reference-row row ">
-                <div class="col s10 offset-s1 left-align profilesque-image ">
-                    <a class="z-depth-2 btn-large waves-effect waves-light btn orange lighten-2 black-text" id="req-reference" href="{% url 'send_request' %}">Get A Reference</a>
-                </div>
-            </div>
-            <div class="counter-row row row-margin-delete valign-wrapper">
-                <div class="col s6 m4 offset-m1 pull-m1 counter-box  hide-on-small-only">
-                    <div class="card-content center-align ">
-                        <span class="hsx card-title grey-text">Show pending requests</span>
-                        <div class="switch">
-                            <label>
-                                Off
-                                <input id="pending-trigger" type="checkbox" />
-                                <span class="lever"></span>
-                                On
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s6 m4 l3 pull-l1 counter-box">
-                    <div class="card right-align rounded">
-                        <div class="card-content">
-                            <span class="hs card-title">Requests</span>
-                            <span class="xl3">{{ count_requests }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class=" col s6 m4 l3 pull-l1 counter-box">
-                    <div class="card right-align rounded">
-                        <div class="card-content">
-                            <span class="hs card-title">References</span>
-                            <span class="xl3">{{ count_responses }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="row"></div>
             <div class="row">
                 <div id="reference-box" class="col s12 card-panel left-align z-depth-4">
                     <h3 class="hs">
@@ -101,6 +62,46 @@
                     </div>
                 </div>
             </div>
+            <div class="req-reference-row row ">
+                <div class="col s10 offset-s1 left-align profilesque-image ">
+                    <a class="z-depth-2 btn-large waves-effect waves-light btn orange lighten-2 black-text" id="req-reference" href="{% url 'send_request' %}">Get A Reference</a>
+                </div>
+            </div>
+            <div class="counter-row row row-margin-delete valign-wrapper">
+                <div class="col s6 m4 offset-m1 pull-m1 counter-box  hide-on-small-only">
+                    <div class="card-content center-align ">
+                        <span class="hsx card-title grey-text">Show pending requests</span>
+                        <div class="switch">
+                            <label>
+                                Off
+                                <input id="pending-trigger" type="checkbox" />
+                                <span class="lever"></span>
+                                On
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6 m4 l3 pull-l1 counter-box">
+                    <div class="card right-align rounded">
+                        <div class="card-content">
+                            <span class="hs card-title">Requests</span>
+                            <span class="xl3">{{ count_requests }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col s6 m4 l3 pull-l1 counter-box">
+                    <div class="card right-align rounded">
+                        <div class="card-content">
+                            <span class="hs card-title">References</span>
+                            <span class="xl3">{{ count_responses }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row"></div>
+            
 
             <div id="pending-box"
                  class="col s12 card-panel rounded left-align">
