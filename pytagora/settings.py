@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     #3rd party apps
-    "cloudinary",
     'materializecssform',
 
     #my apps
@@ -118,7 +117,7 @@ if DEBUG and TEST_SERVER:
             "NAME": BASE_DIR / "db.sqlite3",
         },
     }
-else: 
+else:
     DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 
 

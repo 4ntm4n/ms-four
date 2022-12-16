@@ -3,8 +3,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
-# 3rd party dependencies
-from partial_date import PartialDateField
 
 from core.models import User  # imported user override
 
