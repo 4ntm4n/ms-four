@@ -1,58 +1,56 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <section class="hero valign-wrapper z-depth-2">
-        <div class="row center-align valign-wrapper">
-            <div class="col s12  l6 hide-on-med-and-down">
-                <img height="auto"
-                     width="100%"
-                     src="{% static './img/pull-request.svg' %}"
-                     alt="requsting reference illustration"/>
-            </div>
-            <div class="col pull-s2 s8 l5 pull-l1 ">
-                <h2 class="xl7">
-                    Collect and store your <span id="keyword">references</span> from your previous employers.
-                </h2>
-                <div class="row margin-add">
-                    <div class="col center-align s12 ">
-                        <a class="btn-large waves-effect waves-light " href="{% url 'signup' %}"><i class="material-icons right">send</i> Get started </a>
-                    </div>
+<section class="hero valign-wrapper z-depth-2">
+    <div class="row center-align valign-wrapper">
+        <div class="col s12 l6 hide-on-med-and-down">
+            <img class="responsive-img imp" height="auto" width="100%" src="{% static './img/pull-request.svg' %}"
+                alt="requsting reference illustration" />
+        </div>
+        <div class="col s12 l6">
+            <h2 class="center-align">
+                Collect and store <span id="keyword">references</span> from your previous employers.
+            </h2>
+            <div class="row margin-add">
+                <div class="col center-align s12 ">
+                    <a class="btn-large waves-effect waves-light " href="{% url 'signup' %}"><i
+                            class="material-icons right">send</i> Get started </a>
                 </div>
             </div>
         </div>
-    </section>
-    <section class=" white lighten-4 valign-wrapper row-margin-add">
+    </div>
+</section>
+<section class=" white lighten-4 row-margin-add">
+    <div class="valign-wrapper">
         <div class="container">
-
-            
-            <div class="row c">
-                <div class="col s12 m8  ft-text left-align ">
-                    <h3 class="hl amber-text">So you are interviewing for multiple jobs...</h3>
-                    <p>...and you need call to all your previous employers to ask if they can be your reference in your upcoming job interviews.</p>
+            <div class="row featurette margin-add ">
+                <div class="col s12 m8 push-m4">
+                    <h3 class="hl amber-text text-darken-2">So you are interviewing for multiple jobs...</h3>
+                    <p>...and you need call to all your previous employers to ask if they can be your reference in your
+                        upcoming job interviews.</p>
                 </div>
-                <div class="col s12 m4 ft-img center-align ">
-                    <img class="left"
-                         height="auto"
-                         width="100%"
-                         src="{% static './img/work.svg' %}"
-                         alt=""/>
+                <div class="col s12 m4 pull-m8">
+                    <img class="responsive-img" src="{% static './img/work.svg' %}" alt="" />
                 </div>
             </div>
-            <div class="row ">
-                <div class="col s12 m8 push-m4 ft-text right-align ">
-                    <h3 class="hl amber-text">Use Pytagora instead</h3>
-                    <p>And get your references on paper with a click of a button.</p>
+            <div class="row featurette ">
+                <div class="col s12 m8 l8 pull-l2">
+                    <h3 class="hl amber-text text-darken-2 right-align">Use Pytagora instead</h3>
+                    <p class="right-align">And get your references on paper with a click of a button.</p>
                 </div>
-                <div class="col s12 m4 pull-m8 center-align ">
-                    <img class="left"
-                         height="auto"
-                         width="100%"
-                         src="{% static './img/save-time.svg' %}"
-                         alt=""/>
+                <div class="col s12 m4 pull-l1">
+                    <img class="responsive-img" src="{% static './img/save-time.svg' %}" alt="" />
                 </div>
             </div>
-
         </div>
-    </section>
+    </div>
+</section>
+
+
+<script>
+  $(document).ready(function(){
+    $('.parallax').parallax();
+  });
+</script>
 {% endblock content %}
 {% include "./components/home_slider.html" %}

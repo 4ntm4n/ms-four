@@ -25,8 +25,8 @@ header {
     z-index: 2;
 }
 
-nav a{
-   color: #00695c !important;
+nav a {
+    color: #00695c !important;
 }
 
 .slider .indicators .indicator-item.active {
@@ -224,34 +224,35 @@ nav a{
 
 /* HOMEPAGE */
 
-#keyword{
+#keyword {
     display: inline-block;
     border-bottom: 7px solid rgb(235, 194, 59);
 }
 
-.hero{
-    height: 90vh;
-}
-.feature{
+.hero {
     height: 90vh;
 }
 
-.feature-box{
+.hero img {
+    max-height: 90vh;
+}
+
+.feature-box {
     border: 5px solid teal;
-    z-index:4;
+    z-index: 4;
 }
 
-.ft-img{
+/* .ft-img{
     min-height: 450px;
     margin-top: 80px;
-}
-.ft-text{
+} */
+/* .ft-text{
     height: 200px;
-}
+} */
 
 /* PROFILE */
 
-#reference-box{
+#reference-box {
     min-height: 400px;
 }
 
@@ -271,7 +272,8 @@ nav a{
     border-bottom: 5px solid #00695c !important;
 
 }
-    #req-reference {
+
+#req-reference {
     position: relative !important;
     top: .5vh;
     z-index: 2;
@@ -294,6 +296,10 @@ nav a{
 .reference-collection {
     margin-left: 0rem !important;
     margin-right: 0rem !important;
+}
+
+.featurette-container{
+    min-height: 70vh;
 }
 
 
@@ -332,13 +338,15 @@ nav a{
 }
 
 
-
 @media only screen and (min-width: 601px) {
-    .ft-img{
-        margin-top: 0px;
+    .featurette {
+        height: 50%;
+        display: flex;
+        align-items: center;
     }
 
-   
+
+}
 
 @media only screen and (max-width: 601px) {
     .slider-img-container .s12 {
@@ -348,7 +356,7 @@ nav a{
         object-fit: contain !important;
     }
 
-    
+
 }
 
 
@@ -358,8 +366,9 @@ nav a{
         height: 600px;
     }
 
-}
 
-#pending-box {
-    transition: 2s all !important;
+
+    #pending-box {
+        transition: 2s all !important;
+    }
 }
