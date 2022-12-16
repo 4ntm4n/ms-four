@@ -242,11 +242,11 @@ nav a{
 }
 
 .ft-img{
-
+    min-height: 450px;
+    margin-top: 80px;
 }
 .ft-text{
     height: 200px;
-   
 }
 
 /* PROFILE */
@@ -332,6 +332,14 @@ nav a{
 }
 
 
+
+@media only screen and (min-width: 601px) {
+    .ft-img{
+        margin-top: 0px;
+    }
+
+   
+
 @media only screen and (max-width: 601px) {
     .slider-img-container .s12 {
         width: 100% !important;
@@ -340,6 +348,7 @@ nav a{
         object-fit: contain !important;
     }
 
+    
 }
 
 
