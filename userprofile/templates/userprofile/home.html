@@ -45,12 +45,44 @@
         </div>
     </div>
 </section>
-
-
-<script>
-  $(document).ready(function(){
-    $('.parallax').parallax();
-  });
-</script>
+<section class=" amber darken-3 ">
+    <div class="container featurette-container valign-wrapper white-text">
+        <div class="">
+            <div class="row">
+               
+                <div class="valign-wrapper">
+                    <div class="col s12 m4 center-align">
+                        <i class="material-icons large">edit_note</i>
+                        <h4 class="center-align">Send a request</h4>
+                    </div>
+                    <div class="col s12 m4 center-align">
+                        <i class="material-icons large">pending_actions</i>
+                        <h4 class="center-align">Wait for a while</h4>
+                      
+                    </div>
+                    <div class="col s12 m4 center-align">
+                        <i class="material-icons large">history_edu</i>
+                        <h4 class="center-align">Pytagora Reference.</h4>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <p class="center-align">
+                        Tell us what company you worked for, between what dates and the email address to your previous manager collegue or other person who worked closely with.
+                    </p>
+                </div>
+                <div class="col s12 m4 ">
+                    <p class="center-align">
+                        Pytagora is sending your reference a set of questions designed to highlight your work related achivements and performance.
+                    </p>
+                </div>
+                <div class="col s12 m4">
+                    <p class="center-align">
+                        When your contact has completed the response, your reference is done and can be stored on your pytagora profile for as long as you like. <a class="white-text" href="{% url 'signup' %}"><u>Get started</u></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock content %}
 {% include "./components/home_slider.html" %}
