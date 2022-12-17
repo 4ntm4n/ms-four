@@ -45,43 +45,44 @@
         </div>
     </div>
 </section>
-<section class=" amber darken-3 ">
-    <div class="container featurette-container valign-wrapper white-text">
-        <div class="">
+<section class=" teal darken-3 ">
+    <div class="container  grey-text text-lighten-4">
             <div class="row">
-               
-                <div class="valign-wrapper">
-                    <div class="col s12 m4 center-align">
-                        <i class="material-icons large">edit_note</i>
-                        <h4 class="center-align">Send a request</h4>
-                    </div>
-                    <div class="col s12 m4 center-align">
-                        <i class="material-icons large">pending_actions</i>
-                        <h4 class="center-align">Wait for a while</h4>
-                      
-                    </div>
-                    <div class="col s12 m4 center-align">
-                        <i class="material-icons large">history_edu</i>
-                        <h4 class="center-align">Pytagora Reference.</h4>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <p class="center-align">
-                        Tell us what company you worked for, between what dates and the email address to your previous manager collegue or other person who worked closely with.
-                    </p>
-                </div>
-                <div class="col s12 m4 ">
-                    <p class="center-align">
-                        Pytagora is sending your reference a set of questions designed to highlight your work related achivements and performance.
-                    </p>
-                </div>
-                <div class="col s12 m4">
-                    <p class="center-align">
-                        When your contact has completed the response, your reference is done and can be stored on your pytagora profile for as long as you like. <a class="white-text" href="{% url 'signup' %}"><u>Get started</u></a>
-                    </p>
+                <div class="col s12">
+                    <h3 class="grey-text text-lighten-3 xl6 center-align row-margin-add">It's <span class="amber-text">super</span> easy.</h3>
                 </div>
             </div>
-        </div>
+            <div class="valign-wrapper featurette-container">
+                <div class="row">
+                    <div class="col s12 m4">
+                        <div class="row center-align">
+                            <i class="material-icons large amber-text">edit_note</i>
+                            <h4 class="center-align ">Send a request</h4>
+                        </div>
+                        <p class="center-align">
+                            Tell us what company you worked for, between what dates and the email address to your previous manager collegue or other person who worked closely with.
+                        </p>
+                    </div>
+                    <div class="col s12 m4 ">
+                        <div class="row center-align">
+                            <i class="material-icons large amber-text">pending_actions</i>
+                            <h4 class="center-align ">Wait for a while</h4>
+                        </div>
+                        <p class="center-align">
+                            Pytagora is sending your reference a set of questions designed to highlight your work related achivements and performance.
+                        </p>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="row center-align">
+                            <i class="material-icons large amber-text">history_edu</i>
+                            <h4 class="center-align ">Reference.</h4>
+                        </div>
+                        <p class="center-align">
+                            When your contact has completed the response, your reference is done and can be stored on your pytagora account for as long as you like. <a class="white-text" href="{% url 'signup' %}"><u>Get started</u></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
     </div>
 </section>
 {% endblock content %}
