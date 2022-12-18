@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
@@ -28,6 +28,21 @@ class SignUpForm(UserCreationForm):
         fields = ["first_name", "last_name", "email"]
 
 
+class PasswordChangeForm(PasswordChangeForm):
+    """
+    form class to update user password.
+    """
+
+    def __init__(self, *args, **kwargs):
+        """
+        remove standard helptext in PasswordChangeForm
+        """
+        super().__init__(*args, **kwargs)
+        for fieldname in ['old_password', 'new_password1', 'new_password2']:
+            self.fields[fieldname].help_text = None
+
+    class Meta:
+        fields = ["old_password", "new_password1", "new_password2"]
 
 
 

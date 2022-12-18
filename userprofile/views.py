@@ -11,7 +11,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
                                   ListView, TemplateView, UpdateView)
 
 from core.tokens import link
-from userprofile.forms import ReferenceResponseForm, RequestForm, SignUpForm
+from userprofile.forms import ReferenceResponseForm, RequestForm, SignUpForm, PasswordChangeForm
 
 from .models import *
 
@@ -238,8 +238,12 @@ class DeleteReferenceView(DeleteView):
 
 
 class UpdatePasswordView(PasswordChangeView):
+   
+    form_class = PasswordChangeForm
     template_name = "userprofile/change_password.html"
     success_url = reverse_lazy("test_profile")
-    def form_valid(self, form):
+
+    def form_valid(self, form):   
         messages.success(self.request, "your password has been updated")
         return super(UpdatePasswordView, self).form_valid(form)
+
