@@ -25,11 +25,11 @@
     <body>
         <header>
             <ul id="user-dropdown" class="dropdown-content">
-                <li><a href="#!">Update Password</a></li>
-                <li><a href="#!">Delete Account</a></li>
+                <li><a href="{% url 'change_password' %}">Change Password</a></li>
+                <li><a class="red-text text-lighten-1" href="#!">Delete Account</a></li>
                 <li class="divider"></li>
                 <li class="divider"></li>
-                <li><a href="{% url 'test_profile' %}">My Profile</a></li>
+                <li><a href="{% url 'test_profile' %}">Go to profile</a></li>
               </ul>
             <nav class="z-depth-0 white">
                 <div class="container">
@@ -65,8 +65,8 @@
                     <div class="collapsible-header truncate bold teal-text text-darken-2"> <i class="material-icons">settings</i> {{ user.email }}</div>
                     <div class="collapsible-body">
                         <ul class="center-align">
-                            <li><a href="#!">Update Password</a></li>
-                            <li><a href="#!">Delete Account</a></li>
+                            <li><a href="{% url 'change_password' %}">Change Password</a></li>
+                            <li><a class="red-text text-lighten-1" href="#!">Delete Account</a></li>
                         </ul>
                     </div>
                 </li> 

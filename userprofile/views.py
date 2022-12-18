@@ -1,6 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import Http404, request, response
@@ -235,3 +235,11 @@ class DeleteReferenceView(DeleteView):
         print(reference)
         messages.success(self.request, f"Reference from {reference.get_full_name()} at {reference.company_name} was deleted forever")
         return super(DeleteReferenceView, self).form_valid(form)
+
+
+class UpdatePasswordView(PasswordChangeView):
+    template_name = "userprofile/change_password.html"
+    success_url = reverse_lazy("test_profile")
+    def form_valid(self, form):
+        messages.success(self.request, "your password has been updated")
+        return super(UpdatePasswordView, self).form_valid(form)
