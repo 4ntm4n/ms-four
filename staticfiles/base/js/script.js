@@ -6,6 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
         edge: "left"
     });
 
+    //authenticated settings user dropdown
+    const usrDrop = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(usrDrop, {
+        constrainWidth: false,
+        coverTrigger: false,
+    });
+
+
     //collapsible element for requests on profile
     const collapsible = document.querySelectorAll('.collapsible');
     M.Collapsible.init(collapsible)

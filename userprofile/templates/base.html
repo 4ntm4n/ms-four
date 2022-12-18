@@ -24,6 +24,13 @@
     </head>
     <body>
         <header>
+            <ul id="user-dropdown" class="dropdown-content">
+                <li><a href="#!">Update Password</a></li>
+                <li><a href="#!">Delete Account</a></li>
+                <li class="divider"></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'test_profile' %}">My Profile</a></li>
+              </ul>
             <nav class="z-depth-0 white">
                 <div class="container">
                     <div class="nav-wrapper">
@@ -31,30 +38,55 @@
                         <a href="#" data-target="pytagora-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                         <ul class="right hide-on-med-and-down ">
                             {% if user.is_authenticated %}
-                            <li><a href="{% url 'test_profile' %}">Logged in as {{ user.first_name }}</a></li>
                             <li>
-                                <a href="{% url 'logout' %}">logout</a>
+                                <a class="dropdown-trigger" href="" data-target="user-dropdown"><i class="material-icons">settings</i></a>
                             </li>
-                            {% else %}   
                             <li>
-                                <a href="{% url 'login' %}"> login</a>
+                                <a href="{% url 'logout' %}"> Log Out</a>
+                            </li>  
+                            {% else %}
+                            <li>
+                                <a href="{% url 'login' %}"> Log In</a>
                             </li>   
                             <li>
-                                <a href="{% url 'signup' %}">Signup</a>
+                                <a href="{% url 'signup' %}">Sign Up</a>
                             </li>
-                            
                             {% endif %}
                         </ul>
                     </div>
                 </div>
             </nav>
             <ul class="sidenav" id="pytagora-sidenav">
-                <li>
-                    <a href="{% url 'home' %}">Home</a>
+                    <object class="teal darken-2" type="image/svg+xml" data="{% static 'img/computer-guy.svg' %}">Your browser does not support SVG</object>
+                
+                {% if user.is_authenticated %}
+                <ul class="collapsible">
+                   <li>
+                    <div class="collapsible-header truncate bold teal-text text-darken-2"> <i class="material-icons">settings</i> {{ user.email }}</div>
+                    <div class="collapsible-body">
+                        <ul class="center-align">
+                            <li><a href="#!">Update Password</a></li>
+                            <li><a href="#!">Delete Account</a></li>
+                        </ul>
+                    </div>
+                </li> 
+                </ul>
+                <li class="divider"></li>
+                <li class="center-align">
+            
+                    <a href="{% url 'logout' %}"> Log Out</a>
+                </li>  
+                
+                {% else %}
+                <li class="center-align bold grey-text" > new to pytagora?
+                    <a href="{% url 'signup' %}">Create an account</a>
                 </li>
-                <li>
-                    <a href="{% url 'signup' %}">Signup</a>
+                <li class="divider"></li>
+                <li class="center-align grey-text">
+                    <a href="{% url 'login' %}"> Log In</a>
                 </li>
+               
+                {% endif %}
             </ul>
 
             <div class="messages">
