@@ -3,7 +3,7 @@
 {% load materializecss %}
 
 {% block form_image %}
-<img height="200" width="auto" src="{% static 'img/computer-guy.svg' %}" alt="" />
+<img height="200" width="auto" src="{% static 'img/calming-view.svg' %}" alt="" />
 {% endblock form_image %}
 
 {% block form_title %}
@@ -13,14 +13,14 @@
 {% block form %}
 <form action="" method="post">
     {% csrf_token %}
-    <fieldset class="rounded deep-purple-text">
+    <fieldset class="rounded teal-text text-darken-2">
         <legend class="left-align">Questions about {{ form.instance.profile }}</legend>
         {{ form.main_tasks|materializecss }}
         {{ form.elaborate|materializecss }}
         {{ form.extra|materializecss }}
     </fieldset>
 
-    <fieldset class="rounded grey-text">
+    <fieldset class="rounded teal-text text-darken-2">
         <legend class="left-align">Information about you</legend>
         <div class="col s12"></div>
         {{ form.first_name|materializecss:"s6" }}
@@ -33,7 +33,7 @@
 
     <div class="row valign-wrapper row-margin-add">
         <div class=" col s12 right-align">
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="btn">Send Reference</button>
         </div>
     </div>
 </form> 
