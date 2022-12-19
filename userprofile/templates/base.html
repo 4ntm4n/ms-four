@@ -89,10 +89,19 @@
                 {% endif %}
             </ul>
 
-            <div class="messages">
+            <div class="messages green lighten-1 grey-text text-lighten-4">
                 {% if messages %}
                 {% for message in messages %}
-                    <div class="alert {% if message.tag %} alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                    <div class="center-align alert   {% if message.tag %} alert-{{ message.tags }}{% endif %}">
+                            <div class="container ">
+                                <div class="valign-wrapper" style="height:40px;">
+                                    <p style="margin: 0; width:100%;">{{ message }}</p>
+                                    <i style="margin-left: 40px;" class=" secondary-content material-icons white-text">close</i>
+                                    
+                                </div>
+                            
+                            </div>
+                    </div>
                 {% endfor %}
                 {% endif %}
             </div>
