@@ -3,3 +3,4 @@ __pycache__
 __pycache__/
 pytagora_env
 pytagora_env/
+*.sqlite3
