@@ -1,10 +1,11 @@
+from datetime import datetime
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import Http404, request, response
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -18,11 +19,19 @@ from userprofile.forms import ReferenceResponseForm, RequestForm, SignUpForm, Pa
 from .models import *
 
 
+# user related views
+
 class HomeView(TemplateView):
+    """
+    Landing page view
+    """
     template_name = "userprofile/home.html"
 
 
 class SignUpView(FormView):
+    """
+    User sign up View
+    """
     template_name = "userprofile/signup.html"
     form_class = SignUpForm
     success_url = reverse_lazy("profile")
@@ -36,7 +45,6 @@ class SignUpView(FormView):
             login(self.request, user)
         return super(SignUpView, self).form_valid(form)
 
-
     def get(self, *args, **kwargs):
         """
         Redirects user to its profile if user is already logged in.
@@ -48,20 +56,38 @@ class SignUpView(FormView):
 
 
 class UserLoginView(LoginView):
-    template_name ="userprofile/login.html"
+    """
+    User Log in view
+    """
+    template_name = "userprofile/login.html"
     fields = "__all__"
     redirect_authenticated_user = True
 
     def get_success_url(self):
         return reverse_lazy("profile")
 
-from datetime import datetime
+
+class UpdatePasswordView(PasswordChangeView):
+    """
+    View to update a users password redirect user to profile on success
+    """
+    form_class = PasswordChangeForm
+    template_name = "userprofile/change_password.html"
+    success_url = reverse_lazy("profile")
+
+    def form_valid(self, form):
+        messages.success(self.request, "your password has been updated")
+        return super(UpdatePasswordView, self).form_valid(form)
 
 
 class ProfileView(LoginRequiredMixin, ListView):
+    """
+    This view takes a users ref_request and ref_response data
+    and gives a user access to it on a profile page.
+    """
     model = Profile
     context_object_name = "profile"
-    template_name="userprofile/profile.html"
+    template_name = "userprofile/profile.html"
 
     def get_context_data(self, **kwargs):
         """ 
@@ -81,15 +107,17 @@ class ProfileView(LoginRequiredMixin, ListView):
         context["count_responses"] = context["comp_responses"].count()
         context["current_datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M")
         return context
-     
+# end user related views
 
-class ReferenceDetailView(LoginRequiredMixin, DetailView):
-    model = RefResponse
-    context_object_name = "response"
-    template_name ="userprofile/response_detail.html"
-
+# object related views
 
 class CreateRequestView(LoginRequiredMixin, CreateView):
+    """ 
+    This view lets the user create a ref_request object.
+    and sets the ref_request object to have a status of "pending"
+    It also creates a ref_response object with some data from the 
+    co-relating ref_request on it.
+    """
     model = RefRequest
     template_name = "userprofile/send_request.html"
     form_class = RequestForm
@@ -101,11 +129,16 @@ class CreateRequestView(LoginRequiredMixin, CreateView):
         return form_kwargs
 
     def form_valid(self, form):
-
+        """
+        If the create ref_request form is valid.
+        Set the ref_request status to "pending"
+        create a link based on the company name and ref_request id
+        send the link in an email to the email provided in the form
+        """
         form.instance.profile = self.request.user.profile
         form.instance.status = "PEND"
         user = self.request.user
-        # get the ref_request id before it is sent. 
+        # get the ref_request id before it is sent.
         ref_request = form.save(commit=False)
         form.save()
         response_id = ref_request
@@ -120,10 +153,10 @@ class CreateRequestView(LoginRequiredMixin, CreateView):
             "date_from": form.instance.date_from,
             "date_to": form.instance.date_to,
             "company_name": form.instance.company_name,
-            "name":user.profile,
-            "domain":current_site.domain,
+            "name": user.profile,
+            "domain": current_site.domain,
             "refid": link.encrypt_link(company_slug, response_id),
-            })
+        })
 
         email = EmailMessage(
             email_subject,
@@ -131,25 +164,44 @@ class CreateRequestView(LoginRequiredMixin, CreateView):
             'hello@pytagora.com',
             [recipient],
             reply_to=['another@example.com'],
-)       
-        email.fail_silently=False
+        )
+        email.fail_silently = False
         email.send()
-
-        print("this form was sent to profile: ", user.profile)
         return super(CreateRequestView, self).form_valid(form)
 
 
+class DeleteRequestView(DeleteView):
+    """
+    This view is for deleting a pending ref_request object and 
+    co-relating ref_response object.
+    """
+    model = RefRequest
+    success_url = reverse_lazy("profile")
+
+    def form_valid(self, form, **kwargs):
+
+        ref_request = RefRequest.objects.get(pk=self.kwargs["pk"])
+        messages.success(
+            self.request, f"Reference request to {ref_request.to_email} at {ref_request.company_name} was successfully deleted.")
+        return super(DeleteRequestView, self).form_valid(form)
+
+
 class ResponseView(UpdateView):
+    """
+    This view is for the anonomous user. the reference that will update the 
+    empty ref_response and complete it.
+    This view also sets the co-relating ref_request to status "complete"
+    """
     template_name = "userprofile/respond.html"
     success_url = reverse_lazy("home")
     form_class = ReferenceResponseForm
 
-    def get_object(self, queryset=None): 
+    def get_object(self, queryset=None):
         """
         1. decrypt reference ID
         2. Finds the specific reference object the user will respond to.
         3. render UpdateView for user response based on it's related request.
-        
+
         """
         try:
             refid = link.decrypt_link(self.kwargs["uidb64"])
@@ -161,68 +213,69 @@ class ResponseView(UpdateView):
         return reference_object
 
     def get(self, request, *args, **kwargs):
-
-        #maybe add self.get_object() here?
+        """
+            This method warns the updating user if the status of the ref_response is complete
+            or if the ref_request object was deleted. (the user deleted the co-relating ref_request).
+        """
         try:
             refid = link.decrypt_link(kwargs["uidb64"])
             # Below I find the RefResponse ID through the request, issues when multiple users send requests
             related_request = RefRequest.objects.get(pk=refid)
-            response_id = related_request.refresponse.id 
+            response_id = related_request.refresponse.id
             reference = RefResponse.objects.get(pk=response_id)
         except:
-            messages.warning(request, "The person you were about to respond to has removed the reference request, thanks anyway!")
-            return redirect ("home")
-
+            messages.warning(
+                request, "The person you were about to respond to has removed the reference request, thanks anyway!")
+            return redirect("home")
 
         if reference.completed:
-            messages.warning(request, "This reference request is already completed, thank you!")
-            return redirect ("home")
-        
+            messages.warning(
+                request, "This reference request is already completed, thank you!")
+            return redirect("home")
+
         return super(ResponseView, self).get(request, *args, **kwargs)
-    
+
     def form_valid(self, form):
+        """
+        If the form is valid, set the co-relating 
+        ref_request object status to "complete"
+        Message the responder that the response has been saved. 
+        """
         if form.instance.ref_request.status == "COMP":
-            messages.warning(self.request, "This reference request is already completed, thank you!")
-            return redirect ("home")
+            messages.warning(
+                self.request, "This reference request is already completed, thank you!")
+            return redirect("home")
         else:
             form.instance.ref_request.status = "COMP"
             form.instance.completed = True
             print(form.instance.completed)
-            form.instance.ref_request.save()     
-            messages.success(self.request, "You did it! Thanks for being awesome.")
+            form.instance.ref_request.save()
+            messages.success(
+                self.request, "You did it! Thanks being a reference.")
             return super(ResponseView, self).form_valid(form)
-    
 
-class DeleteRequestView(DeleteView):
-    model = RefRequest
-    success_url = reverse_lazy("profile")
-    
-    def form_valid(self, form, **kwargs):
-        
-        ref_request = RefRequest.objects.get(pk=self.kwargs["pk"])
-        messages.success(self.request, f"Reference request to {ref_request.to_email} at {ref_request.company_name} was successfully deleted.")
-        return super(DeleteRequestView, self).form_valid(form)
+
+class ReferenceDetailView(LoginRequiredMixin, DetailView):
+    """
+    This view is for viewing a specific reference in detail. 
+    """
+    model = RefResponse
+    context_object_name = "response"
+    template_name = "userprofile/response_detail.html"
 
 
 class DeleteReferenceView(DeleteView):
+    """
+    This view is for deleting a ref_response and co-relating 
+    ref_request object after it has been deleted.
+    """
     model = RefResponse
     success_url = reverse_lazy("profile")
-    
+
     def form_valid(self, form, **kwargs):
-        
+
         reference = RefResponse.objects.get(pk=self.kwargs["pk"])
         print(reference)
-        messages.success(self.request, f"Reference from {reference.get_full_name()} at {reference.company_name} was deleted forever")
+        messages.success(
+            self.request, f"Reference from {reference.get_full_name()} at {reference.company_name} was deleted forever")
         return super(DeleteReferenceView, self).form_valid(form)
-
-
-class UpdatePasswordView(PasswordChangeView):
-   
-    form_class = PasswordChangeForm
-    template_name = "userprofile/change_password.html"
-    success_url = reverse_lazy("profile")
-
-    def form_valid(self, form):   
-        messages.success(self.request, "your password has been updated")
-        return super(UpdatePasswordView, self).form_valid(form)
-
