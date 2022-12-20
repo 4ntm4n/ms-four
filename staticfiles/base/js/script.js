@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         coverTrigger: false,
     });
 
-
     //collapsible element for requests on profile
     const collapsible = document.querySelectorAll('.collapsible');
     M.Collapsible.init(collapsible)
@@ -68,6 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
             pendingBox.style.display = "block";
         }
     }
+
+    
+
+    /* const toastElement = document.querySelector('.toast');
+    M.Toast.getInstance(toastElement);
+    toastInstance.dismiss();
+
+    var message_ele = document.getElementById("message-container");
+
+    setTimeout(function(){ 
+       message_ele.style.display = "none"; 
+    }, 3000); */
 });
 
 

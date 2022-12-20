@@ -26,5 +26,3 @@ urlpatterns = [
     path("signup/", SignUpView.as_view(), name="signup"),
     path("profile/change-password/", UpdatePasswordView.as_view(), name="change_password"),
 ]   
-
-

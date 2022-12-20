@@ -14,7 +14,7 @@
               rel="stylesheet"
               href="{% static 'materialize/css/materialize.min.css' %}"
               media="screen,projection"/>
-        <script defer type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
+              <script async type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
         {% comment %} personal base css / js {% endcomment %}
         <link rel="stylesheet" href="{% static 'base/css/style.css' %}"/>
         <script defer type="text/javascript" src="{% static 'base/js/script.js' %}"></script>
@@ -89,20 +89,22 @@
                 {% endif %}
             </ul>
 
-            <div id="message-banner" class="messages teal lighten-2 grey-text text-lighten-4">
-                {% if messages %}
+            
+                {% comment %} {% if messages %}
                 {% for message in messages %}
-                    <div class="center-align alert   {% if message.tag %} alert-{{ message.tags }}{% endif %}">
+                <div id="message-container" class="messages teal lighten-2 grey-text text-lighten-4 center-align">
+                    {{message}}
+                </div> {% endcomment %}
+                  {% comment %}   <div   class="center-align alert   {% if message.tag %} alert-{{ message.tags }}{% endif %}">
                             <div class="container ">
                                 <div class="valign-wrapper" style="height:40px;">
                                     <p style="margin: 0; width:100%;">{{ message }}</p>
-                                    <i id="message-close-trigger" style="margin-left: 40px;" class=" secondary-content material-icons white-text">close</i>
+                                    <i id="snackbar-trigger" style="margin-left: 40px;" class=" secondary-content material-icons white-text">close</i>
                                 </div>
                             </div>
-                    </div>
-                {% endfor %}
-                {% endif %}
-            </div>
+                    </div> {% endcomment %}
+               
+            
         </header>
 
        <main>
@@ -143,6 +145,21 @@
                 </div>
             </div>
         </footer>
-
+        
+        
+        
+        {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success'%}
+                <script defer>M.toast({html: "{{message}}", classes: 'teal', displayLength:4000});</script>
+            {% elif message.tags == 'info'%}
+                <script defer >M.toast({html: "{{message}}", classes: 'blue', displayLength:4000});</script>
+            {% elif message.tags == 'warning'%}
+                <script defer>M.toast({html: "{{message}}", classes: 'orange', displayLength:10000});</script>
+            {% elif message.tags == 'error'%}
+                <script defer>M.toast({html: "{{message}}", classes: 'red', displayLength:10000});</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     </body>
 </html>
