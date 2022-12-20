@@ -101,7 +101,6 @@ class ProfileView(LoginRequiredMixin, ListView):
         context["profile"] = context["profile"].filter(user=self.request.user)
         context["requests"] = context["profile"][0].refrequest_set.all()
         context["count_requests"] = context["requests"].count()
-        print(context["requests"].count())
         context["comp_responses"] = context["profile"][0].refresponse_set.all(
         ).filter(ref_request__status="COMP")
         context["count_responses"] = context["comp_responses"].count()
@@ -248,7 +247,6 @@ class ResponseView(UpdateView):
         else:
             form.instance.ref_request.status = "COMP"
             form.instance.completed = True
-            print(form.instance.completed)
             form.instance.ref_request.save()
             messages.success(
                 self.request, "You did it! Thanks being a reference.")
@@ -275,7 +273,6 @@ class DeleteReferenceView(DeleteView):
     def form_valid(self, form, **kwargs):
 
         reference = RefResponse.objects.get(pk=self.kwargs["pk"])
-        print(reference)
         messages.success(
             self.request, f"Reference from {reference.get_full_name()} at {reference.company_name} was deleted forever")
         return super(DeleteReferenceView, self).form_valid(form)
