@@ -20,21 +20,6 @@ class HomeView(TemplateView):
     template_name = "userprofile/home.html"
 
 
-class ProfileView(ListView):
-    model = RefRequest
-
-    def get(self, request, *args, **kwargs):
-        profile = Profile.objects.get(id=kwargs["pk"])
-        requests = profile.refrequest_set.all()
-        return render(
-            self.request, 
-            "userprofile/profile.html", 
-            {
-                "profile": profile,
-                "requests": requests,
-            })
-
-
 """ testing different, probably better approach """
 
 class SignUpView(FormView):
@@ -73,7 +58,7 @@ class UserLoginView(LoginView):
 from datetime import datetime
 
 
-class TestProfileView(LoginRequiredMixin, ListView):
+class ProfileView(LoginRequiredMixin, ListView):
     model = Profile
     context_object_name = "profile"
     template_name="userprofile/test_profile.html"

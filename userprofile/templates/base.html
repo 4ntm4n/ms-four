@@ -89,17 +89,15 @@
                 {% endif %}
             </ul>
 
-            <div class="messages green lighten-1 grey-text text-lighten-4">
+            <div id="message-banner" class="messages teal lighten-2 grey-text text-lighten-4">
                 {% if messages %}
                 {% for message in messages %}
                     <div class="center-align alert   {% if message.tag %} alert-{{ message.tags }}{% endif %}">
                             <div class="container ">
                                 <div class="valign-wrapper" style="height:40px;">
                                     <p style="margin: 0; width:100%;">{{ message }}</p>
-                                    <i style="margin-left: 40px;" class=" secondary-content material-icons white-text">close</i>
-                                    
+                                    <i id="message-close-trigger" style="margin-left: 40px;" class=" secondary-content material-icons white-text">close</i>
                                 </div>
-                            
                             </div>
                     </div>
                 {% endfor %}

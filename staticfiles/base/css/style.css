@@ -187,6 +187,7 @@ nav a {
     font-size: 2.6vw !important;
 }
 
+
 /* MODALS */
 
 .modal-header {
@@ -241,14 +242,6 @@ nav a {
     border: 5px solid teal;
     z-index: 4;
 }
-
-/* .ft-img{
-    min-height: 450px;
-    margin-top: 80px;
-} */
-/* .ft-text{
-    height: 200px;
-} */
 
 /* PROFILE */
 

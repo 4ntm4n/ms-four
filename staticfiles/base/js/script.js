@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toolbarEnabled: true
     });
 
+    // trigger for pending box in profile
     const pendingBox = document.getElementById('pending-box')
     const pendingTrigger = document.getElementById('pending-trigger')
     const mql = window.matchMedia('(min-width: 600px)');
