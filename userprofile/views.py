@@ -7,6 +7,8 @@ from django.http import Http404, request, response
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
                                   ListView, TemplateView, UpdateView)
 
@@ -20,12 +22,10 @@ class HomeView(TemplateView):
     template_name = "userprofile/home.html"
 
 
-""" testing different, probably better approach """
-
 class SignUpView(FormView):
     template_name = "userprofile/signup.html"
     form_class = SignUpForm
-    success_url = reverse_lazy("test_profile")
+    success_url = reverse_lazy("profile")
 
     def form_valid(self, form):
         """
@@ -42,7 +42,7 @@ class SignUpView(FormView):
         Redirects user to its profile if user is already logged in.
         """
         if self.request.user.is_authenticated:
-            return redirect("test_profile")
+            return redirect("profile")
 
         return super(SignUpView, self).get(*args, **kwargs)
 
@@ -53,7 +53,7 @@ class UserLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy("test_profile")
+        return reverse_lazy("profile")
 
 from datetime import datetime
 
@@ -61,7 +61,7 @@ from datetime import datetime
 class ProfileView(LoginRequiredMixin, ListView):
     model = Profile
     context_object_name = "profile"
-    template_name="userprofile/test_profile.html"
+    template_name="userprofile/profile.html"
 
     def get_context_data(self, **kwargs):
         """ 
@@ -89,13 +89,11 @@ class ReferenceDetailView(LoginRequiredMixin, DetailView):
     template_name ="userprofile/response_detail.html"
 
 
-
 class CreateRequestView(LoginRequiredMixin, CreateView):
     model = RefRequest
     template_name = "userprofile/send_request.html"
     form_class = RequestForm
-    success_url = reverse_lazy("test_profile")
-
+    success_url = reverse_lazy("profile")
 
     def get_form_kwargs(self, *args, **kwargs):
         form_kwargs = super().get_form_kwargs(*args, **kwargs)
@@ -139,10 +137,6 @@ class CreateRequestView(LoginRequiredMixin, CreateView):
 
         print("this form was sent to profile: ", user.profile)
         return super(CreateRequestView, self).form_valid(form)
-
-
-from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
 
 
 class ResponseView(UpdateView):
@@ -201,7 +195,7 @@ class ResponseView(UpdateView):
 
 class DeleteRequestView(DeleteView):
     model = RefRequest
-    success_url = reverse_lazy("test_profile")
+    success_url = reverse_lazy("profile")
     
     def form_valid(self, form, **kwargs):
         
@@ -212,7 +206,7 @@ class DeleteRequestView(DeleteView):
 
 class DeleteReferenceView(DeleteView):
     model = RefResponse
-    success_url = reverse_lazy("test_profile")
+    success_url = reverse_lazy("profile")
     
     def form_valid(self, form, **kwargs):
         
@@ -226,7 +220,7 @@ class UpdatePasswordView(PasswordChangeView):
    
     form_class = PasswordChangeForm
     template_name = "userprofile/change_password.html"
-    success_url = reverse_lazy("test_profile")
+    success_url = reverse_lazy("profile")
 
     def form_valid(self, form):   
         messages.success(self.request, "your password has been updated")
