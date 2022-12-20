@@ -90,7 +90,7 @@ class ReferenceDetailView(LoginRequiredMixin, DetailView):
 
 
 
-class TestCreateRequestView(LoginRequiredMixin, CreateView):
+class CreateRequestView(LoginRequiredMixin, CreateView):
     model = RefRequest
     template_name = "userprofile/send_request.html"
     form_class = RequestForm
@@ -138,14 +138,14 @@ class TestCreateRequestView(LoginRequiredMixin, CreateView):
         email.send()
 
         print("this form was sent to profile: ", user.profile)
-        return super(TestCreateRequestView, self).form_valid(form)
+        return super(CreateRequestView, self).form_valid(form)
 
 
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 
 
-class TestResponseView(UpdateView):
+class ResponseView(UpdateView):
     template_name = "userprofile/respond.html"
     success_url = reverse_lazy("home")
     form_class = ReferenceResponseForm
@@ -184,7 +184,7 @@ class TestResponseView(UpdateView):
             messages.warning(request, "This reference request is already completed, thank you!")
             return redirect ("home")
         
-        return super(TestResponseView, self).get(request, *args, **kwargs)
+        return super(ResponseView, self).get(request, *args, **kwargs)
     
     def form_valid(self, form):
         if form.instance.ref_request.status == "COMP":
@@ -196,7 +196,7 @@ class TestResponseView(UpdateView):
             print(form.instance.completed)
             form.instance.ref_request.save()     
             messages.success(self.request, "You did it! Thanks for being awesome.")
-            return super(TestResponseView, self).form_valid(form)
+            return super(ResponseView, self).form_valid(form)
     
 
 class DeleteRequestView(DeleteView):
