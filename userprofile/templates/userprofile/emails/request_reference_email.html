@@ -3,10 +3,10 @@ Hi,
 
 {{ name }} who worked at {{ company_name }} between {{ date_from }} and {{ date_to }} wants you to be a reference.
 
-It takes about 10 to 15 minutes to respond and you dont need an account to answer our questions regarding {{ name }}'s time at {{ company_name }}.
+It takes about 10 to 15 minutes to respond and you don't need an account to answer our questions regarding {{ name }}'s time at {{ company_name }}.
 
 Please click the link below to get started.
-http://{{ domain }}{% url 'respond' uidb64=refid %} 
+http://{{ domain }}{% url 'respond' token=refid %} 
 {% endautoescape %}
 
 Thank you,

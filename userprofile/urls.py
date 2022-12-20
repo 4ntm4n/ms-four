@@ -11,7 +11,7 @@ urlpatterns = [
     path("send-request/", CreateRequestView.as_view(), name="send_request"),
     
     # lets anonymous user update the response object related to the user request CRUD -update
-    path("respond/<uidb64>/", ResponseView.as_view(), name="respond"),
+    path("respond/<token>/", ResponseView.as_view(), name="respond"),
 
     # ability to delete a pending request
     path("<int:pk>/delete-request/", DeleteRequestView.as_view(), name="delete_request"),
