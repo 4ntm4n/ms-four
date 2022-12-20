@@ -203,7 +203,7 @@ class ResponseView(UpdateView):
 
         """
         try:
-            refid = link.decrypt_link(self.kwargs["uidb64"])
+            refid = link.decrypt_link(self.kwargs["token"])
             related_request = RefRequest.objects.get(pk=refid).refresponse.id
             reference_object = RefResponse.objects.get(pk=related_request)
         except ObjectDoesNotExist:
@@ -217,7 +217,7 @@ class ResponseView(UpdateView):
             or if the ref_request object was deleted. (the user deleted the co-relating ref_request).
         """
         try:
-            refid = link.decrypt_link(kwargs["uidb64"])
+            refid = link.decrypt_link(kwargs["token"])
             # Below I find the RefResponse ID through the request, issues when multiple users send requests
             related_request = RefRequest.objects.get(pk=refid)
             response_id = related_request.refresponse.id
