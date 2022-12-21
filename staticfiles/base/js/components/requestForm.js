@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fromToHelper.innerHTML = `between what dates did you work at ${company}?`
     });
 
+
     //find to date imput field
     const toDate = document.getElementById("id_date_to");
 
@@ -64,4 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         match ? extensionNotice.style.visibility = "visible" 
               : extensionNotice.style.visibility = "hidden"
     });
+
+    
 });
