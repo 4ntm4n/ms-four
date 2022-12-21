@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+Are you sure you want to delete you account and all your referenses? {{ user.pk }}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <button class="btn" type="submit">Delete Account</button>
+</form>
+
+{% endblock content %}

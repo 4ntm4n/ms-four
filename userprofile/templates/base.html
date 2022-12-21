@@ -23,13 +23,15 @@
     </head>
     <body>
         <header>
+            {% if user.is_authenticated %}
             <ul id="user-dropdown" class="dropdown-content">
                 <li><a href="{% url 'change_password' %}">Change Password</a></li>
-                <li><a class="red-text text-lighten-1" href="#!">Delete Account</a></li>
+                <li><a class="red-text text-lighten-1" href="{% url 'delete_account' user.pk %}">Delete Account</a></li>
                 <li class="divider"></li>
                 <li class="divider"></li>
                 <li><a href="{% url 'profile' %}">Go to profile</a></li>
               </ul>
+            {% endif %}
             <nav class="z-depth-0 white">
                 <div class="container">
                     <div class="nav-wrapper">

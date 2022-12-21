@@ -80,6 +80,23 @@ class UpdatePasswordView(PasswordChangeView):
         return super(UpdatePasswordView, self).form_valid(form)
 
 
+class DeleteAccountView(LoginRequiredMixin, DeleteView):
+    """
+    This view is for deleting a pending ref_request object and 
+    co-relating ref_response object.
+    """
+    model = User
+    template_name = "userprofile/delete_account.html"
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Your Account has been deleted. See Ya!")
+        return super(DeleteAccountView, self).form_valid(form)
+
+# end user related views
+
+# object related views
+
 class ProfileView(LoginRequiredMixin, ListView):
     """
     This view takes a users ref_request and ref_response data
@@ -106,9 +123,6 @@ class ProfileView(LoginRequiredMixin, ListView):
         context["count_responses"] = context["comp_responses"].count()
         context["current_datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M")
         return context
-# end user related views
-
-# object related views
 
 class CreateRequestView(LoginRequiredMixin, CreateView):
     """ 
