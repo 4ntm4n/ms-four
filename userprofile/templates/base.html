@@ -14,7 +14,6 @@
               rel="stylesheet"
               href="{% static 'materialize/css/materialize.min.css' %}"
               media="screen,projection"/>
-              <script async type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
         {% comment %} personal base css / js {% endcomment %}
         <link rel="stylesheet" href="{% static 'base/css/style.css' %}"/>
         <script defer type="text/javascript" src="{% static 'base/js/script.js' %}"></script>
@@ -124,6 +123,7 @@
                 </div>
             </div>
         </footer>
+        <script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
         
         {% if messages %}
         {% for message in messages %}
