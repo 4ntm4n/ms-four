@@ -88,22 +88,6 @@
                
                 {% endif %}
             </ul>
-
-            
-                {% comment %} {% if messages %}
-                {% for message in messages %}
-                <div id="message-container" class="messages teal lighten-2 grey-text text-lighten-4 center-align">
-                    {{message}}
-                </div> {% endcomment %}
-                  {% comment %}   <div   class="center-align alert   {% if message.tag %} alert-{{ message.tags }}{% endif %}">
-                            <div class="container ">
-                                <div class="valign-wrapper" style="height:40px;">
-                                    <p style="margin: 0; width:100%;">{{ message }}</p>
-                                    <i id="snackbar-trigger" style="margin-left: 40px;" class=" secondary-content material-icons white-text">close</i>
-                                </div>
-                            </div>
-                    </div> {% endcomment %}
-               
             
         </header>
 
@@ -116,37 +100,30 @@
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
-                        <h5 class="white-text">Footer Content</h5>
-                        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                        <h5 class="white-text">Questions regarding this prototype?</h5>
+                        <p class="grey-text text-lighten-4">Email anton.askling@gmail.com</p>
                     </div>
                     <div class="col l4 offset-l2 s12">
                         <h5 class="white-text">Links</h5>
                         <ul>
                             <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 1</a>
+                                <a aria-label="link to twitter, opens in new tab" target="_blank" class="grey-text text-lighten-3" href="https://twitter.com/">Twitter</a>
                             </li>
                             <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 2</a>
+                                <a aria-label="link to linkedin, opens in new tab" target="_blank" class="grey-text text-lighten-3" href="https://linkedin.com/">LinkedIn</a>
                             </li>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 3</a>
-                            </li>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 4</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="footer-copyright grey darken-4">
                 <div class="container">
-                    © 2014 Copyright Text
-                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                    © Anton Askling 2022
+                    <a class="grey-text text-lighten-4 right"  aria-label="link to github repository, opens in new tab" target="_blank" href="https://github.com/4ntm4n/ms-four">Pytagora on GitHub</a>
                 </div>
             </div>
         </footer>
-        
-        
         
         {% if messages %}
         {% for message in messages %}

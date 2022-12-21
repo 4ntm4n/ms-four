@@ -68,17 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
-
-    /* const toastElement = document.querySelector('.toast');
-    M.Toast.getInstance(toastElement);
-    toastInstance.dismiss();
-
-    var message_ele = document.getElementById("message-container");
-
-    setTimeout(function(){ 
-       message_ele.style.display = "none"; 
-    }, 3000); */
 });
 
 
