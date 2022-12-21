@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -42,6 +43,5 @@
             
         </div>
     </div>
-
-    
+    <script defer type="text/javascript" src="{% static 'base/js/components/respondForm.js' %}"></script>  
 {% endblock content %}
