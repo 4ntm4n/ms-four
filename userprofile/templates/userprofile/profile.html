@@ -41,23 +41,9 @@
                             </a>
                             {% include "./components/modals/reference_preview_modal.html" %}
                         {% empty %}
-                            {% comment %} {{ user.last_login|date:"Y-m-d H:i" }}  {{ current_datetime }} {% endcomment %}
-                            {% if user.date_joined|date:"Y-m-d H:i"  == current_datetime %}
-                                <a data-target="{{ request.id }}"
-                                   class="modal-trigger example-reference row collection-item reference-collection blue-text"
-                                   href="">
-                                    <div class="col s3 truncate left-align">Elon Musk</div>
-                                    <div class="col s6 truncate center-align">He kind of knew what he was doing, and he liked twitter wich was nice.</div>
-                                    <div class="col s3 truncate right-align">Dec. 12, 1991</div>
-                                </a>
-                                <div class="col s12 truncate center-align collection-item grey-text">
-                                    <p>your references show up here, just like an email, click to read more</p>
-                                </div>
-                            {% else %}
                                 <div class="col s12 truncate center-align collection-item grey-text">
                                     <p>You don't have any references yet. They will show up here.</p>
                                 </div>
-                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
