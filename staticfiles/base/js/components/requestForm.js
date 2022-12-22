@@ -46,8 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         maxDate: new Date(),
         maxYear: new Date().getFullYear(),
     });
-   
-
+    
     //show friendly reminder if user puts in a standard private email in email-field
     const emailField = document.getElementById("id_to_email");
     emailField.addEventListener("change", (e) => {
@@ -66,5 +65,21 @@ document.addEventListener('DOMContentLoaded', function() {
               : extensionNotice.style.visibility = "hidden"
     });
 
+
+    /**
+     * the code below prevents the Django default datepicker
+     * to show up if this JS file is running, meaning the 
+     * materialize datepicker modal is working instead.
+     * This is done by setting the DateField input to text
+     * instead of date in this file. 
+     * If this file don't load;
+     * django's own datepicker widget will work instead since 
+     * it triggers on the type="date" attribute...
+     */
     
+    dateFrom = document.getElementById("id_date_from");
+    dateTo = document.getElementById("id_date_to");
+    dateFrom.setAttribute("type", "text");
+    dateTo.setAttribute("type", "text");
+
 });
