@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
      * the code below prevents the Django default datepicker
      * to show up if this JS file is running, meaning the 
      * materialize datepicker modal is working instead.
-     * This is done by setting the DateField input to text
-     * instead of date in this file. 
-     * If this file don't load;
+     * This is done by setting the DateField input type to "text"
+     * instead of "date" in this file. 
+     * If this file do not load;
      * django's own datepicker widget will work instead since 
      * it triggers on the type="date" attribute...
      */
