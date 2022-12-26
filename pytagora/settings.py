@@ -75,6 +75,9 @@ INSTALLED_APPS = [
     
 ]
 
+# import custom middleware to allow xframe embedding (ui.dev/amiresponsive)
+from core.middleware import XFrameOptionsMiddleware
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -84,6 +87,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    # custom middleware to allow xframe embedding. 
+    'myapp.middleware.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = "pytagora.urls"
