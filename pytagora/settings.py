@@ -89,7 +89,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
     # custom middleware to allow xframe embedding. 
-    'myapp.middleware.XFrameOptionsMiddleware',
+    'core.middleware.XFrameOptionsMiddleware',
 
 ]
 
