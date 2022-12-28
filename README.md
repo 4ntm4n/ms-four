@@ -65,9 +65,9 @@ The core app contains a few more unusual files. Here they are explained.
 
 >  *2. 'managers.py' contains the user creation managers that is used to create a user or superuser from the terminal (e.g. python3 manage.py createsuperuser)
 
-> *3. The custom middleware script in 'middleware.py' made sure I could use my app with in an iframes with https://ui.dev/amiresponsive, only to take the image for this readme.
+> *3. The custom middleware script in 'middleware.py' made sure I could use my app with in an iframes with https://ui.dev/amiresponsive, only to create the image at the top of this readme.
 
-> *4. custom Token is a file that contains a self made method of creating and encrypting a link that is used to update a reference response (RefResponse model)
+> *4. custom Token is a file that contains a self made method of creating and encrypting a link that is used to update a reference response (RefResponse model) read more at TOKEN LINK CREATION under "how pytagora works" below.
 
 #### **why AbstractBaseUser model and the core app?**
 Users of this application will be using their real name when requesting a references, so a username is not nesseasary. I therefore wanted to use the email-adress as the "username field" and the easiest way of doing that was to create an entire new user model by extending djangos "AbstractBaseUser" class. Since I am new to django and since the user model needs to be correct on the first migration, I didn't really want to mess to much with the user model and decided to put it in a separate app and don't touch it when I got it to work the way I wanted it to.
@@ -90,6 +90,8 @@ To make it easier to query responses from a profile, a **many-to-one** relation 
 ### How Pytagora works
 >**1. CRUD - CREATE**
 >
+> ![create a request and empty response](readme/create_request.png)
+>
 >   **A user creates a Reference request by filling out a form asking for the following**
 > - the name of the company the user worked for
 > - the date when user started working at the company
@@ -102,6 +104,8 @@ To make it easier to query responses from a profile, a **many-to-one** relation 
 > - a reference response is created, it is almost empty at this stage, but it contains the company name, that the user filed in in the RefRequest. This is done using django signals on save. It also contains the referee_first_name and "referee_last_name" which is the users name.
 
 > **2. TOKEN LINK CREATION**
+>
+> ![email sent to reference](readme/pyt_email.png)
 >
 > To make Pytagora more easy to use for references, I don't want to force them to sign up in order to respond.
 > So we have a situation where user asking for a reference is a signed in pytagora user with an active user session, but the reference completing the response is an anonymous user. 
@@ -121,6 +125,8 @@ To make it easier to query responses from a profile, a **many-to-one** relation 
 
 >**3. CRUD - UPDATE**
 >
+> ![update reference response](readme/pyt_respond.png)
+>
 > The Reference Response is created in step one through a django signal from the reference request.
 > Here in step 3 the anonomous user (the requested reference) can complete the reference response through an update view on the reference response. (Pleas read step 2 if you think this sounds unsafe)
 >
@@ -133,12 +139,17 @@ To make it easier to query responses from a profile, a **many-to-one** relation 
 
 >**3. CRUD - READ**
 >
-> when a RefResponse is completed, it changes the correlating RefRequest's status, from "PEND" (pending) to "COMP" (complete). Only pending requests are visually shown in a users profile, so this hides the request and shows reference on the users profile. 
+> ![reference complete](readme/ref_complete.png)
+>
+> when a RefResponse is completed, it changes the correlating RefRequest's status, from PEND (pending) to COMP (complete). Only pending requests are visually represented in a users profile, so this action hides the request and shows reference on the user's profile. 
 > 
 > When a reference is completed and shows up on the users profile, the user can access a detail view on the reference, and fully read the reference response. 
+> ![reference detailview](readme/reference_detail_view.png)
 >
 
 >**3. CRUD - DELETE**
+>
+> ![delete reference](readme/ref_delete.png)
 >
 > On the detail view, The user has the option to delete the reference response and correlating reference request by clicking the delete button. 
 
@@ -149,23 +160,35 @@ To make it easier to query responses from a profile, a **many-to-one** relation 
 > 
 > - A reference request can only be deleted during the time it is pending. This is because when a user deletes a reference request it also deletes the reference response through CASCADE. A user should not be able to delete a **completed** reference response by deleting its reference request.
 > 
-> - The reference response is updated by the requested reference, it is not updated by the user him- or herself. The point of this app is to get a reference from another person, if you could alter the result, there would be no point of having this app in the first place, they user could just write her own references.
+> - The reference response is updated by the requested reference, it is not updated by the user herself. The point of this app is to get a reference from another person, if you could alter the result, there would be no point of having this app in the first place, they user could just write her own references.
 >
-> - A user can not change his email adress or name, (which is the username) doing so could let the user more easily fake references requests from other people and save references from multiple people in one account.
+> - A user can not change his email adress (which is the username) or name. Doing so could let the user more easily fake references requests from other people and save references from multiple people in one account.
 
 > **CRUD - EXTRA CRUD FUNCTIONALITY**
 > >
-> since there were discussuins in the slack on how to interpret the requirements for this part of the course, I decided to also add crud functionalty to the AbstractBaseUser. 
+> There was a discussions in the CodeInstitute Slack community on how to interpret the requirements for CRUD functionality in this project. Someone thought that if a user can not update a model him or herself the project would fail because of how the requirements was formulated. 
 >
-> - a user can be created throgh the signup form
+> I argue that CRUD-functionality is refeering to a row in a database, and if that row can be created, read updated and deleted the application has basic CRUD, regardless if multilple users are needed to fulfill an update, as in the case of this app.
+>
+> But after our discussion I decided to also add crud functionalty to the AbstractBaseUser so that one single user can create, read update and delete its user model... 
+>
+> - a user can be created through the signup form
+> ![Pytagora Database Models](readme/user_create.png)
+> 
 > - a user can update the password through an updateform.
+>
+> >![user choices](readme/usr_change_delete.png)
+> ![Update Password](readme/usr_pw.png)
 > - a user can delete herself and all related references.
+> >![delete account confirm](readme/leaving.png)
+> >![delete account confirmirmation](readme/delete_confirmation.png)
+> 
 
 
 
+## Installation
 
-
-## Prerequisites
+### Getting started - Prerequisites
 
 Before running this project, make sure you you have an environment with python3.10.6 or later installed. 
 
@@ -200,7 +223,7 @@ os.environ["EMAIL_HOST_PASSWORD"] = "None"
 ```
 
 
-## Getting Started locally in 5 steps
+### Getting Started locally in 5 steps
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
