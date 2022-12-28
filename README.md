@@ -18,8 +18,154 @@ previous employers and let them save references to be used in multiple future jo
 | Candidates may not have access to past colleagues or managers to use as references | Pytagora allows the candidate to use any professional contact as a reference, regardless of their current employment status |
 
 
-### Prerequisites
+## Technical approach
 
+### app overview
+Pytagora consists of 2 apps. 
+the "core" app and the "userprofile" app. 
+
+In the core app, the standard user model is overridden. 
+in the userprofile app the data related to a user's profile, sending a 'reference request' and receiving a 'reference response' lives.
+
+``` python
+ms-four/
+├── manage.py
+├── staticfiles
+├── pytagora/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── core/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── models.py # AbstractBaseUserModel *1.
+│   ├── managers.py # custom user managers *2.
+│   ├── middleware.py # custom middleware *3.
+│   ├── tokens.py # custom token *4.
+│   ├── tests.py
+│   └── views.py
+└── userprofile/
+    ├── __init__.py
+    ├── admin.py
+    ├── apps.py
+    ├── migrations/
+    │   ├── __init__.py
+    ├── models.py # Profile, RefRquest and RefRespnse 
+    ├── tests.py
+    └── views.py
+```
+
+The core app contains a few more unusual files. Here they are explained.
+> *1. The AbstractBaseUser Model is created in the core apps 'models.py' file
+
+>  *2. 'managers.py' contains the user creation managers that is used to create a user or superuser from the terminal (e.g. python3 manage.py createsuperuser)
+
+> *3. The custom middleware script in 'middleware.py' made sure I could use my app with in an iframes with https://ui.dev/amiresponsive, only to take the image for this readme.
+
+> *4. custom Token is a file that contains a self made method of creating and encrypting a link that is used to update a reference response (RefResponse model)
+
+#### **why AbstractBaseUser model and the core app?**
+Users of this application will be using their real name when requesting a references, so a username is not nesseasary. I therefore wanted to use the email-adress as the "username field" and the easiest way of doing that was to create an entire new user model by extending djangos "AbstractBaseUser" class. Since I am new to django and since the user model needs to be correct on the first migration, I didn't really want to mess to much with the user model and decided to put it in a separate app and don't touch it when I got it to work the way I wanted it to.
+   
+### Database Structure
+
+In the userprofile app in the main database models for this project is defined. 
+As you can see below, the profile contains a users first- and last name, and this model is meant to be extended with more information than just the name, as the more features are added to Pytagora.
+
+A user can only have one profile and therefore has a **one-to-one** relation to the AbstractBaseUser.
+
+on a the userprofile the user can send multiple reference requests, so there is a **one-to-many** relation from the profile to the reference request.
+
+A reference request can only recieve a single response, since it is sent to a single person, so there is a **one-to-one** relation between the RefRequest and RefResponse.
+
+To make it easier to query responses from a profile, a **many-to-one** relation between the RefResponse and Profile has also been added.
+![Pytagora Database Models](readme/db_relations.png)
+
+
+### How Pytagora works
+>**1. CRUD - CREATE**
+>
+>   **A user creates a Reference request by filling out a form asking for the following**
+> - the name of the company the user worked for
+> - the date when user started working at the company
+> - the end date when the user stopped working at the company
+> - and an email-adress to the reference the request should be sent to
+>
+> When a reference request is created a couple of things happens in the background, both from the "create view" and with the use of "django signals"
+> 
+> - the status if the request is changed from UNIN (uninitiated) to PEND (pending)
+> - a reference response is created, it is almost empty at this stage, but it contains the company name, that the user filed in in the RefRequest. This is done using django signals on save. It also contains the referee_first_name and "referee_last_name" which is the users name.
+
+> **2. TOKEN LINK CREATION**
+>
+> To make Pytagora more easy to use for references, I don't want to force them to sign up in order to respond.
+> So we have a situation where user asking for a reference is a signed in pytagora user with an active user session, but the reference completing the response is an anonymous user. 
+>
+> In order to make this app safe, to avoid endpoint attacks and still have non session users answer specific reference request, I decided to create a token link similar to a password reset link, or account activation link that is common on many websites.
+> 
+> The link is created by merging a slugified version of the company name and a an encrypted version of the id of the reference request. To further extend the safety, a secret 3 character diluder is mixed in between the letters of the encrypted reference request id and then it is encrypted again. 
+>
+> The end result is a link that looks something like this:
+> > https://domain.name/company-name-HZSfDXFsdfF/ 
+>
+> The token link correlates to a dynamic url which correlates to an UpdateView. In the view, the link is then decrypted and the reference request id extracted. Once the request ID is extracted, the correlating reference response can be queried and rendered to the anonymous user.
+>
+> **Note that this** is a solution that I have come up with myself, there might be more safe ways to go about this, I am a beginner. 
+> 
+> But I have some confidence in this solution since a hacker needs to be able to both guess the company name, the right request id and know how the encryption is working in order to reach the correct view. The link is also invalid after the request is set to "complete" since that will redirect the anonomous user away from the dynamic url.
+
+>**3. CRUD - UPDATE**
+>
+> The Reference Response is created in step one through a django signal from the reference request.
+> Here in step 3 the anonomous user (the requested reference) can complete the reference response through an update view on the reference response. (Pleas read step 2 if you think this sounds unsafe)
+>
+> In order to make the life easier for the reference, I wanted some fields to be prepopulated for them, but I also wanted the reference to be able to change the information if they think it is wrong. 
+>
+> For example: the company name is prepopulated in the reference response that is created when a reference request is created. By using an update view, This information is then shown to the reference, but can be changed before submitting if the reference responder does not want to stand by the information provided by the reference requester. 
+>
+> When the reference submits the updated reference response, a boolean field on the RefResponse model named "completed" is set to "True". This redirects any user that tries to access the dynamic URL that was created with the token-link.
+>
+
+>**3. CRUD - READ**
+>
+> when a RefResponse is completed, it changes the correlating RefRequest's status, from "PEND" (pending) to "COMP" (complete). Only pending requests are visually shown in a users profile, so this hides the request and shows reference on the users profile. 
+> 
+> When a reference is completed and shows up on the users profile, the user can access a detail view on the reference, and fully read the reference response. 
+>
+
+>**3. CRUD - DELETE**
+>
+> On the detail view, The user has the option to delete the reference response and correlating reference request by clicking the delete button. 
+
+> **CRUD - DELIBIRATE LIMITATIONS**
+> 
+> - there is no update view on the reference_request. only on the reference response, and that is filled in by another user. The reason a reference request can not be updated is because if the user updates the company name for example, the link and other information that is sent to the reference in the email would be missleadning and false.
+> It is therefore better for a user to delete the reference request completetly and send a new reference requiest with the correct details.
+> 
+> - A reference request can only be deleted during the time it is pending. This is because when a user deletes a reference request it also deletes the reference response through CASCADE. A user should not be able to delete a **completed** reference response by deleting its reference request.
+> 
+> - The reference response is updated by the requested reference, it is not updated by the user him- or herself. The point of this app is to get a reference from another person, if you could alter the result, there would be no point of having this app in the first place, they user could just write her own references.
+>
+> - A user can not change his email adress or name, (which is the username) doing so could let the user more easily fake references requests from other people and save references from multiple people in one account.
+
+> **CRUD - EXTRA CRUD FUNCTIONALITY**
+> >
+> since there were discussuins in the slack on how to interpret the requirements for this part of the course, I decided to also add crud functionalty to the AbstractBaseUser. 
+>
+> - a user can be created throgh the signup form
+> - a user can update the password through an updateform.
+> - a user can delete herself and all related references.
+
+
+
+
+
+## Prerequisites
 
 Before running this project, make sure you you have an environment with python3.10.6 or later installed. 
 
@@ -54,7 +200,7 @@ os.environ["EMAIL_HOST_PASSWORD"] = "None"
 ```
 
 
-## Getting Started in 5 steps
+## Getting Started locally in 5 steps
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -93,3 +239,31 @@ These instructions will get you a copy of the project up and running on your loc
 > > Note that the server will be hosted on **_localhost_**  and that the specific adress: **_127.0.0.1_** is not an allowed host by default in this project. 
 > >
 > >It can, however, be added to the **ALLOWED_HOSTS** list in **settings.py** if you want to.
+
+### Deployment
+Follow these steps to deploy this project to heroku.
+
+> 1. create a heroku project
+> 2. create a postgresql database
+> 3. create a gmail account with an "_app password_"
+>
+> 4. in heroku config vars add the following information: 
+> > ```DATABASE_URL | <link to your database>```
+> 
+> > ```DEBUG | False```
+>  
+> > ```EMAIL_HOST_PASSWORD | <your gmail 'app password'>```
+>   
+> > ```EMAIL_HOST_USER | <your gmail adress>```
+>
+> > ```SECRET_KEY | <your django secret key>```
+>
+> 5. push repository directly to heroku or enable deployment through github and deploy branch.
+
+
+## Testing
+
+### Manual testing
+
+### Testing user Stories
+
