@@ -337,12 +337,13 @@ No one can update informaion to a completed reference. a response is a response.
     
 
 ## Some words from the developer: 
-    I wish I could have spent two weeks more on this project, it has been a very tight timeschedule for me doing this course part time and learning so many new topics. I have in mostly achieved what I imagined I could create, and I see potiential in the idea of this app. Especially if you add another layer for recruiters where they can search for candidates who match thier profile based on their references and not what they write themselves in a CV. Good for people who are not good braggers.
+
+I wish I could have spent two weeks more on this project, it has been a very tight timeschedule for me doing this course part time and learning so many new topics. I have in mostly achieved what I imagined I could create, and I see potiential in the idea of this app. Especially if you add another layer for recruiters where they can search for candidates who match thier profile based on their references and not what they write themselves in a CV. Good for people who are not good braggers.
 
 Having that said, there are a lot of shortcomings in the testing of this app and in the UX design due to lack of time to be able to complete everything.
     
-   #### aknowledgements 
-   During the course of the creation of this application, I have had to learn a lot of new topics and features in Django that was not part of course material at codeinstitute. One particular useful resourse has been the webiste [ccbv.co.uk](https://ccbv.co.uk/)
+#### aknowledgements 
+During the course of the creation of this application, I have had to learn a lot of new topics and features in Django that was not part of course material at codeinstitute. One particular useful resourse has been the webiste [ccbv.co.uk](https://ccbv.co.uk/)
     
     Appart from that, here are a few resourses I have found helpful:
     https://www.youtube.com/@DennisIvy | Dennis Ivys youtube channel
