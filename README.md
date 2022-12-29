@@ -322,4 +322,33 @@ a user can delete a pending request and correalating pending response from profi
 a user can not guess the dynamic url of the reference response, only the person who has the link can access the UpdateView | [x]
 a reference responder can not re-submit an anwer by backing into a completed RefResponse and resubmit it | [x]
 
+**testing user stories**
+Test | Successful
+------|:----------:
+A user can initiate a reference request by herself which gives her ownership over her own references in a recruitment process | [x]
+A user can store references in a personal profile, so that a reference might be re-used for multiple recruitment processes  | [x]
+If a user types in the wrong information in a request it can be deleted, making it impossible to answer to that specific request | [x]
+A user can delete a reference that they do not want to store | [x]
+A Reference do not have to me a member to respond, making it less of a hustle to participate | [x]
+A Reference can alter information that is pre populated, if they do not want to stand by information provided by requesting user (company name) | [x]
+A Reference can easily find information on how to become a member and use Pytagora themselves if they find app useful | [x]
+No one can update informaion to a completed reference. a response is a response. | [x]
+    
+    
 
+##Some words from the developer : 
+    I wish I could have spent two weeks more on this project, it has been a very tight timeschedule for me doing this course part time and learning so many new topics. I have in mostly achieved what I imagined I could create, and I see potiential in the idea of this app. Especially if you add another layer for recruiters where they can search for candidates who match thier profile based on their references and not what they write themselves in a CV. Good for people who are not good braggers.
+
+Having that said, there are a lot of shortcomings in the testing of this app and in the UX design due to lack of time to be able to complete everything.
+    
+   #### aknowledgements 
+   During the course of the creation of this application, I have had to learn a lot of new topics and features in Django that was not part of course material at codeinstitute. One particular useful resourse has been the webiste [ccbv.co.uk](https://ccbv.co.uk/)
+    
+    Appart from that, here are a few resourses I have found helpful:
+    https://www.youtube.com/@DennisIvy | Dennis Ivys youtube channel
+    https://studygyaan.com/django/how-to-send-email-in-django | sending email in django and creating tokens
+    
+    images used in my project are all from https://freesvgillustration.com/
+  
+    
+Created by Anton Askling student @ codeinstitute.
