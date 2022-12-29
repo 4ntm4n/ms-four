@@ -285,8 +285,41 @@ Follow these steps to deploy this project to heroku.
 
 
 ## Testing
+Since I was learning how django worked, how class based views inheritence worked, and learning how to adapt the django framework to my idea as I have been buildning it out, it was almost impossible for me to know how to write automatic tests for things I did not know how they worked. 
+
+I have therefor not skipped automatic testing in this project in order to finnish the acutal application. I have done a lot of manual testing throughout the building process however, shown below.
 
 ### Manual testing
+This is the list of manual testing that was written during the time of development.
+All manual tests has been carried out on a local version of of the app and not in production. 
 
-### Testing user Stories
+**General tests**
+Test | Successful
+------|:----------:
+Verify that all links on the app are working properly and redirecting to the correct pages. | [x]
+Test the app's forms to ensure that they are functioning correctly and submitting the data as expected. | [x]
+Test the app's authentication and authorization functionality. | [x]
+Test the app's database functionality to ensure that data is being stored and retrieved correctly. | [x]
+Test the app's error handling to ensure that it gracefully handles exceptions and displays appropriate error messages. | [x]
+Test that the app is working even when multiple people makes request at the same time. * | [x]
+Test the app's compatibility with different browsers and devices to ensure that it works correctly across a wide range of platforms. | [x]
+Test the app's email functionality to ensure that emails are being sent and received correctly. | [x]
+CRUD-functionality works as intended. | [x]
+
+*not tested with the gmail account set up in the prod. version of the app. Only tested locally.
+
+
+**specific tests**
+Test | Successful
+------|:----------:
+datepickers in request form depends on eachother, and it is impossible to pick an earlier start-date than end-date. | [x]
+crossfield serverside validation of date-from and date-to field is working | [x]
+"other_relation" inputfield in RefResponse form (the UpdateView) is only visible if "other" is chosen in the selection dropdown | [x]
+It is not possible to access a link to a RefResoónse that "competed" set to "True" | [x]
+Users can not send a reference request to the same email that they signed up with | [x]
+User gets a friendly notice recommending them to send request to company email and not private email (eg. gmail, hotmail, yahoo) | [x]
+a user can delete a pending request and correalating pending response from profile | [x]
+a user can not guess the dynamic url of the reference response, only the person who has the link can access the UpdateView | [x]
+a reference responder can not re-submit an anwer by backing into a completed RefResponse and resubmit it | [x]
+
 
